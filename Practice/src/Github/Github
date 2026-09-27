@@ -4,14 +4,13 @@ However, GitHub requires a Personal Access Token (PAT) or an SSH Key instead of 
 
 Here is how to setup a new GitHub repository and link the repository with the computer.
 
-Step 1:
-Step 2:
-Step 3:
-Step 4:
-Step 5:
+Steps for New Github Repository
+	Step 1: Generate your GitHub Access Token
+	Step 2: Initialize a Local Git Repository in Eclipse
+	Step 3: Commit Your Files
+	Step 4: Authenticate and Push to GitHub
 
-
-Phase 1: Generate your GitHub Access Token
+Step 1: Generate your GitHub Access Token
 	Before using Eclipse, you must create a token to log in securely
 	Log into your account on GitHub
 	Go to Settings > Developer Settings > Personal Access Tokens > Tokens (classic)
@@ -22,14 +21,14 @@ Phase 1: Generate your GitHub Access Token
 	Copy the token immediately
 	GitHub will not show it to you again
 
-Workflow A: Push an Existing Eclipse Project to GitHub
+Step 2: Push an Existing Eclipse Project to GitHub
 	Create a Blank Repository on GitHub
 	Go to GitHub and create a New Repository
 	Give it a name, leave it blank (do not add a README, .gitignore, or license)
 	Click Create repository
 	Copy the HTTPS URL of the repository (e.g., https://github.com)
 
-2. Initialize a Local Git Repository in Eclipse
+Step 3: Initialize a Local Git Repository in Eclipse
 	Inside Eclipse, right-click your project name in the Project Explorer
 	Select Team > Share Project....Choose Git and click Next
 	In "Repository" line, select or create and select where the respository folder will be saved
@@ -37,25 +36,56 @@ Workflow A: Push an Existing Eclipse Project to GitHub
 	click Create Repository
 	click Finish
 	
-3. Commit Your Files
+Step 4: Commit Your Files
 	Right-click your project
 	Select Team > Commit....This opens the Git Staging view.
 	Select the files you want to track from Unstaged Changes
 	click the + sign (or drag them) to move them into Staged Changes.
 	Type a Commit Message (e.g., "Initial commit")
-	click Commit and Push
+	Click Commit and Push
 	
 	An error will pop up - this is okay
 
-4. Authenticate and Push to GitHub
+Step 5: Authenticate and Push to GitHub
 	In Git Staging window, select "Push HEAD"
 	In the Destination window, paste the GitHub HTTPS URL you copied earlier into the URI field.
 	Under Authentication
 		User: Your GitHub username
 		Password: Your Personal Access Token (not your GitHub password)
-	Click Next
+	Click Preview
 	Choose your branch (usually main)
-	Click Next again
+	Click Preview again
 	Click Finish
 
 Your code is now live on GitHub.
+
+
+Clone existing repository
+Step 1: In Eclipse, select "File" -> "Import" -> Folder "Git" -> "Projects from Git"
+Select "Next"
+Select "Clone URI"
+Select "Next"
+
+In "Location", enter the existing repository's URL in the URI line
+Select "Next"
+
+Enter Authentication
+	User: Your GitHub username
+	Password: Your Personal Access Token (not your GitHub password)
+	Select Secure Save
+Select "Next"
+
+Under Branch Selection Window
+Select "Next"
+
+Under Local Destination, select location for repository and project files
+Select "Next"
+
+Under Select a Wizard to use for importing projects
+Select "Import using the New Projects wizard"
+Select "Finish"
+
+Exit window
+
+In Git Repositories panel, right click the project name (not the repository name)
+Select "Projects" -> Import Projects"
