@@ -1,5 +1,5 @@
 //Practice with For Loops
-package For_practice;
+package for_practice;
 
 public class For_practice {
 	public static void main(String[] args) {
