@@ -1,0 +1,1234 @@
+Methods Practice
+Also known in other lagnuages as "Functions" or "Modules"
+Called "Methods" in Java
+
+Defining Methods
+
+Here is an example of a typical method declaration:
+
+	public double calculateAnswer(double wingSpan, int numberOfEngines,
+	                              double length, double grossTons) {
+	    //do the calculation here
+	}
+
+
+
+The only required elements of a method declaration are the method's return type, name, a pair of parentheses, (),
+	and a body between braces, {}.
+
+
+Method declarations have six components, in order:
+
+	1) Modifiers—such as "public", "private", and others you will learn about later.
+	2) The return type—the data type of the value returned by the method, or "void" if the method does not return a value.
+	3) The method name—the rules for field names apply to method names as well, but the convention is a little different.
+	4) The parameter list in parenthesis—a comma-delimited list of input parameters, preceded by their data types, enclosed by parentheses, ().
+		If there are no parameters, you must use empty parentheses.
+	5) An exception list—to be discussed later.
+	6) The method body, enclosed between braces—the method's code, including the declaration of local variables, goes here.
+
+
+Method Signature:
+	Two of the components of a method declaration comprise the method signature—the method's name and the parameter types.
+	
+	The signature of the method declared above is:
+		calculateAnswer(double, int, double, double)
+
+
+Naming a Method
+	By convention, method names should be a verb in lowercase or a multi-word name that begins with a verb in lowercase,
+		followed by adjectives, nouns, etc.
+	In multi-word names, the first letter of each of the second and following words should be capitalized.
+
+	Examples;
+		run
+		runFast
+		getBackground
+		getFinalData
+		compareTo
+		setX
+		isEmpty
+
+
+Overloading Methods
+	Methods within a class can have the same name if they have different parameter lists.
+	
+	Example
+	Instead of having drawString, drawInt, drawFloat, you can have "draw" as the method name with different parameters like below
+		
+		public class DataArtist {
+		    ...
+		    public void draw(String s) {
+		        ...
+		    }
+		    public void draw(int i) {
+		        ...
+		    }
+		    public void draw(double f) {
+		        ...
+		    }
+		    public void draw(int i, double f) {
+		        ...
+		    }
+		}
+
+	You cannot declare more than one method with the same name and the same number and type of arguments,
+		because the compiler cannot tell them apart.
+		
+	The compiler does not consider return type when differentiating methods, 
+		so you cannot declare two methods with the same signature even if they have a different return type.
+--------------------------------------------------------------------------------------------------------------------
+
+Example methods:
+
+public double computePayment(
+                  double loanAmt,
+                  double rate,
+                  double futureValue,
+                  int numPeriods) {
+    double interest = rate / 100.0;
+    double partial1 = Math.pow((1 + interest), 
+                    - numPeriods);
+    double denominator = (1 - partial1) / interest;
+    double answer = (-loanAmt / denominator)
+                    - ((futureValue * partial1) / denominator);
+    return answer;
+}
+
+-----------------------
+
+public Polygon polygonFrom(Point[] corners) {
+    // method body goes here
+}
+
+
+----------------------
+
+Arbitrary Number of Arguments
+Use construct called varargs to pass an arbitrary number of values to a method
+
+To use varargs, you follow the type of the last parameter by an ellipsis (three dots, ...), then a space, and the parameter name.
+The method can then be called with any number of that parameter, including none.
+
+public Polygon polygonFrom(Point... corners) {
+    int numberOfSides = corners.length;
+    double squareOfSide1, lengthOfSide1;
+    squareOfSide1 = (corners[1].x - corners[0].x)
+                     * (corners[1].x - corners[0].x) 
+                     + (corners[1].y - corners[0].y)
+                     * (corners[1].y - corners[0].y);
+    lengthOfSide1 = Math.sqrt(squareOfSide1);
+
+    // more method body code follows that creates and returns a 
+    // polygon connecting the Points
+}
+
+
+In this example, corners is treated like an array.
+
+
+----------------------------------------
+
+You will most commonly see varargs with the printing methods; for example, this printf method:
+
+	public PrintStream printf(String format, Object... args)
+		allows you to print an arbitrary number of objects.
+	
+	It can be called like this:
+
+	System.out.printf("%s: %d, %s%n", name, idnum, address);
+
+	System.out.printf("%s: %d, %s, %s, %s%n", name, idnum, address, phone, email);
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+Primitive data types such as int and double lose any changes made to them in the method.
+
+public class PassPrimitiveByValue {
+
+    public static void main(String[] args) {
+           
+        int x = 3;
+           
+        // invoke passMethod() with 
+        // x as argument
+        passMethod(x);
+           
+        // print x to see if its 
+        // value has changed
+        System.out.println("After invoking passMethod, x = " + x);
+           
+    }
+        
+    // change parameter in passMethod()
+    public static void passMethod(int p) {
+        p = 10;
+    }
+}
+When you run this program, the output is:
+
+After invoking passMethod, x = 3
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Reference data types, such as objects, maintain changes made in the method
+
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+modifier return_type method_Name(parameter_type parameter_name) {
+
+  // body
+
+}
+
+The previous statement provides a declaration for creating a general method in Java. A method must have the following components:
+
+	Modifier
+	Return type
+	Method name
+	Parameters (optional)
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+public static void main (String[] args)
+
+You will notice that the main method we have been using each week has each of the required components:
+
+	Modifier: public static
+	Return type: void
+	Method name: main
+	Parameters (optional): String[] args
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+public static int calculateSum(int number1, int number2) {
+	int sum = number1 + number2;
+	return rum;
+}
+
+lines:
+"Header" <access modifier> <non-access modifier> <return type> <name of method> <(parameter list)>
+	Access Modifier: "public"
+		"public" means any code from any class can use this method
+		acess modifier is NOT required.
+			If it is not listed, then this method is only accessible by classes within the same package 
+	Non-Access Modifier: "static"
+		can be "static", "final", "abstract", "syncronized"
+		not requried for all methods
+	Return Type: "int"
+		specifies teh data type that will return back to the code that called the method
+		Every method must specify the return type
+		"void" is the return type if nothing is returned
+		Can only return 1 value
+	Name of Method: "calculateSum"
+		every method requires a name
+		by convention, start name wiht a verb (such as calculate)
+			Then add adjectives or nouns following the verb
+		By convention, method names start with lowercase letter
+		If return type is boolean, convention dictates to start name with question (like "isSumNegative")
+	Parameter List: in paranthases "int number1, int number 2"
+		separated by commas
+	Signature: "calculateSum(int number1, intnumber2)"
+		Every method has a signature, which is the method name and parameter list
+		MUST be unique within the class
+		
+"Body"
+	0 or more statements that are to be executed when the method is called
+	if return type is not "void", the method must contain a return statement that matches the return type specified
+	
+
+------------------------------------------------------------------------------------------------------------------------------
+
+public class Methods_practice {
+	public static void main (String[] args) {
+		printWelcome();
+	} // end of main
+
+	public static void printWelcome() {
+		System.out.println("Welcome to the program");
+	}
+}
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+public class PizzaArea { 
+   public static double calcPizzaArea() {
+      double pizzaDiameter;
+      double pizzaRadius;
+      double pizzaArea;
+      double piVal = 3.14159265;
+
+      pizzaDiameter = 12.0;
+      pizzaRadius = pizzaDiameter / 2.0;
+      pizzaArea = piVal * pizzaRadius * pizzaRadius;
+      return pizzaArea;
+   }
+
+   public static void main(String[] args) {  
+      System.out.println("12 inch pizza is " +   
+       calcPizzaArea() + " inches squared"); 
+   }
+}
+
+Methods must be defined within a class.
+The line: public class PizzaArea {   begins a new class
+The class has two methods, calcPizzaArea() and main()
+Both use the access modifiers public static
+	public indicates the method may be called from any class in the program
+	static indicates the method only uses values that are passed to the method
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+A method may return one value using a return statement
+
+Other return types are allowed, such as char, double, etc.
+
+A method can only return one item, not two or more.
+
+A return type of void indicates that a method does not return any value.
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+public class SquareComputation {
+
+   public static int computeSquare(int numToSquare) {
+      return numToSquare * numToSquare;
+   }
+
+   public static void main (String [] args) {
+      int numSquared;
+
+      numSquared = computeSquare(7);
+      System.out.println("7 squared is " + numSquared);
+  }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Example of a bad or incorrect method declaration:
+	int myMthd(int userNum + 5) { ... }
+	
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Calling a method with no parameters still requires parenthasis.
+Example:
+	doSomething();
+		Even though no parameters are needed
+
+---------------------------------------------------------------------------------------------------------------------------------
+Example calling a method with multiple parameters
+
+public class PizzaVolume {
+
+   public static double calcPizzaVolume(double pizzaDiameter, double pizzaHeight) {
+      double pizzaRadius;
+      double pizzaArea;
+      double pizzaVolume;
+      double piVal = 3.14159265;
+
+      pizzaRadius = pizzaDiameter / 2.0;
+      pizzaArea = piVal * pizzaRadius * pizzaRadius;
+      pizzaVolume = pizzaArea * pizzaHeight;
+      return pizzaVolume;
+   }
+
+   public static void main (String [] args) {
+      System.out.println("12.0 x 0.3 inch pizza is "  + calcPizzaVolume(12.0, 0.3) + " inches cubed");
+      System.out.println("12.0 x 0.8 inch pizza is "  + calcPizzaVolume(12.0, 0.8) + " inches cubed");
+      System.out.println("16.0 x 0.8 inch pizza is "  + calcPizzaVolume(16.0, 0.8) + " inches cubed");
+   }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+You can send an expression as a parameter. Example:
+
+	int calcVal(int a, int b, int c) {}
+	int i;
+	int j;
+	int k;
+	
+	calcVal(i,j+k, 99); //this is a valid call to calcVal
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Basic example:
+
+public class ReturnMethodOutput {
+   public static int changeValues(int x, int y) {
+      return x + y;
+   }
+
+   public static void main (String [] args) {
+      System.out.println(changeValues(3, 2));
+   }
+}
+
+output:
+5
+
+
+----------------------------------------------------------------------------------------------------------------------------------
+Basic example:
+
+public class ReturnMethodOutput {
+   public static int changeValues(int x, int y) {
+      int result;
+
+      result = x + y;
+
+      return result;
+   }
+
+   public static void main (String [] args) {
+      System.out.println(changeValues(2, 4));
+   }
+}
+
+Output:
+6
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Example
+
+Define a method calculateVal() that has one integer parameter and returns the parameter minus 8.
+Ex: If the input is 6, then the output is:
+-2
+
+import java.util.Scanner;
+
+public class ValueCalculator {
+   
+   public static int calculateVal(int parameter) {
+      return parameter - 8;
+   }
+   
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int input;
+      int result;
+      
+      input = scnr.nextInt();
+      
+      result = calculateVal(input);
+      
+      System.out.println(result);
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------
+Example
+
+Define a method calculateResult() that has two double parameters and returns the result of subtracting the product of 2 and the second parameter from the first parameter.
+Ex: If the input is 7.9 4.9, then the output is:
+-1.90
+
+import java.util.Scanner;
+
+public class NumberCalculator {
+   
+   public static double calculateResult(double x, double y) {
+      return x - (y * 2);
+   }
+   
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      double numInput1;
+      double numInput2;
+      double result;
+      
+      numInput1 = scnr.nextDouble();
+      numInput2 = scnr.nextDouble();
+      
+      result = calculateResult(numInput1, numInput2);
+      
+      System.out.printf("%.2f\n", result);
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Example using void method for printing
+
+public static void printSummary(int id, int items, double price) {
+
+printSummary(id, items, price);
+	System.out.println("Order " + id + ":");
+	System.out.println("   Items: " + items);
+	System.out.printf("   Total: $%.2f\n", price);
+}
+
+public static void main(String [] args) {
+   ...
+   // Assume id = 42, items = 4, price = 13.99
+   printSummary(id, items, price);
+
+   // Continues execution
+   ...
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Example
+
+Define a method printCalculation() that has two double parameters, and outputs "Sum: " followed by the parameters' sum with a precision of two digits as follows. End with a newline. printCalculation() should not return any value.
+Ex: If the input is -19.00 -6.00, then the output is:
+Sum: -25.00
+Note:
+The calculation to find the sum of two values x and y is (x + y).
+System.out.printf("%.2f", myDouble) outputs myDouble with a precision of two digits.
+
+import java.util.Scanner;
+
+public class Calculation {
+
+   public static void printCalculation(double x, double y) {
+      System.out.print("Sum: ");
+      System.out.printf("%.2f%n", x+y);
+   }
+
+   public static void main(String[] args) {
+     Scanner scnr = new Scanner(System.in);
+     double numA;
+     double numB;
+
+     numA = scnr.nextDouble();
+     numB = scnr.nextDouble();
+
+     printCalculation(numA, numB);
+	}
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Example
+
+Read two strings and two integers from input and call printAge() twice: once with the first and third inputs as arguments,
+	and again with the second and fourth inputs as arguments.
+Ex: If the input is Sara Parvati 33 19, then the output is:
+Sara is 33 years old.
+Parvati is 19 years old.
+
+import java.util.Scanner;
+
+public class Age {
+
+	public static void printAge(String name, int age) {
+		System.out.println(name + " is " + age + " years old.");
+	}
+
+	public static void main(String[] args) {
+		Scanner scnr = new Scanner(System.in);
+
+      String name1 = scnr.next();
+      String name2 = scnr.next();
+      int age1 = scnr.nextInt();
+      int age2 = scnr.nextInt();
+      
+      printAge(name1, age1);
+      printAge(name2, age2);
+
+	}
+}
+
+---------------------------------------------------------------------------------------------------------------------
+Example
+
+Calling a method that converts a temperature from Celsius into
+Fahrenheit using the formula:
+
+Fahrenheit = 9/5*Celsius+32
+
+import java.util.Scanner;
+
+public class CelsiusToFahrenheit {
+
+
+   // FINISH: Define celsiusToFahrenheit method here
+   public static double celsiusToFahrenheit(double tempC) {
+      double x = (9.0/5) * tempC + 32;
+      return x;
+   }
+
+
+   public static void main (String [] args) {
+      Scanner scnr = new Scanner(System.in);
+      double tempF;
+      double tempC;
+
+      System.out.println("Enter temperature in Celsius: ");
+      tempC = scnr.nextDouble();
+
+      tempF = celsiusToFahrenheit(tempC);
+
+      System.out.print("Fahrenheit: ");
+      System.out.println(tempF);
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------
+Example
+Program that calculates cylinder volume and surface area by
+	calling a modular method for the cylinder's base.
+
+import java.util.Scanner;
+
+public class Demo {
+   public static double calcCircularBaseArea(double radius) {
+      return Math.PI * radius * radius;
+   }
+
+   public static double calcCylinderVolume(double baseRadius, double height) {
+      return calcCircularBaseArea(baseRadius) * height;
+   }
+
+   public static double calcCylinderSurfaceArea(double baseRadius, double height) {
+      return (2 * Math.PI * baseRadius * height) + (2 * calcCircularBaseArea(baseRadius));
+   }
+
+   public static void main(String[] args) {
+      double radius;  // User defined radius
+      double height;  // User defined height
+      Scanner scnr = new Scanner(System.in);
+
+      // Prompt user for radius
+      System.out.println("Enter base radius: ");
+      radius = scnr.nextDouble();
+      
+      // Prompt user for height
+      System.out.println("Enter height: ");
+      height = scnr.nextDouble();
+
+      // Output the cylinder volume result
+      System.out.print("Cylinder volume: ");
+      System.out.printf("%.1f\n", calcCylinderVolume(radius, height));
+
+      // Output the cylinder surface area result
+      System.out.print("Cylinder surface area: ");
+      System.out.printf("%.3f\n", calcCylinderSurfaceArea(radius, height));
+   }
+}
+
+
+Input and output example:
+	Enter base radius: 10
+	Enter height: 5
+	Cylinder volume: 1570.8
+	Cylinder surface area: 942.478
+
+---------------------------------------------------------------------------------------------------------------------------
+Example
+Mmethod convertToPints() that has one integer parameter as a volume in liters.
+The method returns a double as the volume converted to pints,
+	given that 1 liter = 2.11338 pints.
+
+Ex: If the input is 4, then the output is:
+
+Result: 8.454 pints
+
+
+
+import java.util.Scanner;
+
+public class VolumeConversion {
+   public static double convertToPints(int userLiters) {
+      final double LITERS_TO_PINTS = 2.11338;
+      return userLiters * LITERS_TO_PINTS;
+   }
+   
+   public static void main(String[] args) {
+      Scanner scan = new Scanner(System.in);
+      int liters;
+    
+      liters = scan.nextInt();
+      
+      // Print with value rounded to 3 decimal places  
+      System.out.printf("Result: %.3f pints\n", convertToPints(liters));
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------------
+Example about the geometry of Cones
+
+
+calculateBaseArea() has one double parameter as a cone's radius.
+The method returns the area of the cone's base as a double.
+The area of the base is calculated by: Area = Pi * radius squared
+
+calculateVolume() has two double parameters as a cone's radius and height.
+The method returns the cone's volume as a double, and uses the
+	calculateBaseArea() method to calculate the cone's base area.
+The volume is calculated by: base area * height * 1.0/3.0
+
+Math.PI for the value of Pi
+
+
+import java.util.Scanner;
+import java.lang.Math;
+
+public class ConeCalculations {
+
+   public static double calculateBaseArea(double coneRadius) {
+      return Math.PI * coneRadius * coneRadius;
+   }
+   
+   public static double calculateVolume(double coneRadius, double coneHeight) {
+      return calculateBaseArea(coneRadius) * coneHeight * (1.0/3.0);
+   }
+
+   public static void main(String[] args) {
+      Scanner scan = new Scanner(System.in);
+      double coneRadius;
+		double coneHeight;
+      
+      coneRadius = scan.nextDouble();
+		coneHeight = scan.nextDouble();
+      
+      System.out.println("Cone radius: " + coneRadius);
+		System.out.println("Cone height: " + coneHeight);
+      System.out.printf("Base area: %.1f\n", calculateBaseArea(coneRadius));
+      System.out.printf("Volume: ");
+      System.out.printf("%.1f\n", calculateVolume(coneRadius, coneHeight));
+   }
+}
+
+Input
+13.5 10.5
+
+Output
+Cone radius: 13.5
+Cone height: 10.5
+Base area: 572.6
+Volume: 2003.9
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Define a method inspectVals() with a Scanner parameter that reads integers from input until -99 is read. inspectVals() should return true if all integers read before -99 are negative. Otherwise, inspectVals() should return false.
+Ex: If the input is -100 -40 -25 -99, then the output is:
+All true
+Note: Negative numbers are less than 0.
+ 
+ 
+import java.util.Scanner;
+ 
+public class ValueInspector {
+ 
+   public static boolean inspectVals(Scanner scnr) {
+      boolean check = true;
+      int input = scnr.nextInt();
+      while (input != -99) {
+         if (input < 0) {
+            input = scnr.nextInt();
+         } else {
+            check = false;
+            input = scnr.nextInt();
+         }
+      }
+      return check;
+   }
+ 
+              public static void main(String[] args) {
+                             Scanner scnr = new Scanner(System.in);
+                             boolean allNegative;
+ 
+                             allNegative = inspectVals(scnr);
+ 
+                             if (allNegative) {
+                                           System.out.println("All true");
+                             }
+                             else {
+                                           System.out.println("Not all true");
+                             }
+              }
+}
+ 
+ 
+Input: 54 -97 39 55 49 -99
+Your output: Not all true
+
+-------------------------------------------------------------------------------------------------------------------------
+ 
+Unit Testing
+ 
+Assert is an operator that prints an error message and exits the program if the provided test expression evaluates to false,
+having the form:
+	Assert operator.
+	assert testExpression : detailedMessage;
+ 
+public class HrMinToMinTestHarness {
+   public static int hrMinToMin(int origHours, int origMinutes) {
+      int totMinutes;     // Resulting minutes
+ 
+      totMinutes = (origHours * 60) + origMinutes;
+ 
+      return origMinutes;
+   }
+ 
+   public static void main(String[] args) {
+      System.out.println("Testing started");
+ 
+      System.out.println("0:0, expecting 0, got " + hrMinToMin(0, 0));
+      System.out.println("0:1, expecting 1, got " + hrMinToMin(0, 1));
+      System.out.println("0:99, expecting 99, got " + hrMinToMin(0, 99));
+      System.out.println("1:0, expecting 60, got " + hrMinToMin(1, 0));
+      System.out.println("5:0, expecting 300, got " + hrMinToMin(5, 0));
+      System.out.println("2:30, expecting 150, got " + hrMinToMin(2, 30));
+      // Many more test vectors would be typical...
+ 
+      System.out.println("Testing completed");
+   }
+}
+ 
+ 
+Becomes:
+ 
+public class HrMinToMinTestHarness {
+   public static double hrMinToMin(int origHours, int origMinutes) {
+      int totMinutes;      // Resulting minutes
+ 
+      totMinutes = (origHours * 60) + origMinutes;
+ 
+      return origMinutes;
+   }
+ 
+   public static void main(String[] args) {
+      System.out.println("Testing started");
+ 
+      assert (hrMinToMin(0, 0) == 0) : "Assertion (hrMinToMin(0, 0) == 0) failed";
+      assert (hrMinToMin(0, 1) == 1) : "Assertion (hrMinToMin(0, 1) == 1) failed";
+      assert (hrMinToMin(0, 99) == 99) : "Assertion (hrMinToMin(0, 99) == 99) failed";
+      assert (hrMinToMin(1, 0) == 60) : "Assertion (hrMinToMin(1, 0) == 60) failed";
+      assert (hrMinToMin(5, 0) == 300) : "Assertion (hrMinToMin(5, 0) == 300) failed";
+      assert (hrMinToMin(2, 30) == 150) : "Assertion (hrMinToMin(2, 30) == 150) failed";
+      // Many more test vectors would be typical...
+ 
+      System.out.println("Testing completed");
+   }
+}
+ 
+Output:
+Testing started
+Exception in thread "main" java.lang.AssertionError: Assertion (hrMinToMin(1, 0) == 60) failed
+        at HrMinToMinTestHarness.main(HrMinToMinTestHarness.java:16)
+ 
+ 
+this could be written with an if statement, like this
+ 
+if ( hrMinToMin(0, 0) != 0 ) {
+   System.out.println("0:0, expecting 0, got: " + hrMinToMin(0, 0));
+}
+ 
+ 
+Note that assertions are not enabled by default.
+A programmer must execute Java programs with additional command-line options in order to enable assertions.
+Specifically, the command-line option -ea is necessary at run-time.
+Ex: java -ea HrMinToMinTestHarness
+
+A program without detected errors would simply output "Testing started" followed by "Testing completed".
+ 
+Amount and type of tests:
+Good test vectors also include border cases that represent fringe scenarios.
+For example, border cases for the above method might include inputs 0 and 0, inputs 0 and a huge number
+	like 9999999 (and vice-versa), two huge numbers, a negative number, two negative numbers, etc.
+The programmer tries to think of any extreme (or "weird") inputs that might cause the method to fail.
+For a simple method with a few integer inputs, a typical test harness might have dozens of test vectors.
+For brevity, the above examples had far fewer test vectors than typical.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Handling exceptions
+
+Write a catch block to catch an InputMismatchException exception, and output "Error: Input for color intensity cannot be processed". End with a newline.
+Ex: If the input is 252, then the output is:
+Color intensity: 252
+
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class ColorIntensity {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int colorIntensity;
+
+      try {
+         colorIntensity = scnr.nextInt();
+         System.out.println("Color intensity: " + colorIntensity);
+      }
+
+      catch (InputMismatchException e) {
+         System.out.println("Error: Input for color intensity cannot be processed");
+      }
+
+   }
+}
+
+--------------------------------------------------------------------------------------------------------------------------------
+The while loop reads values from input until two integers are read. Write a catch block in the while loop to catch an InputMismatchException exception, and:
+•	Output "Removed bad input for postal ZIP code". End with a newline.
+•	Discard the invalid input.
+
+Ex: If the input is:
+39261 83912 56894
+then the output is:
+Postal ZIP code is 39261
+Postal ZIP code is 83912
+Processed two valid input values
+
+
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class TwoPostalZipCodes {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int postalZipCode;
+      int validCount = 0;
+
+      while (validCount < 2) {
+         try {
+            postalZipCode = scnr.nextInt();
+            System.out.println("Postal ZIP code is " + postalZipCode);
+                                                          ++validCount;
+         }
+
+         catch (InputMismatchException e) {
+            System.out.println("Removed bad input for postal ZIP code");
+            scnr.next();
+         }
+
+      }
+                             
+                             System.out.println("Processed two valid input values");
+   }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Example
+Computes the density of an object by taking the ratio of mass and volume inputs. If either input is negative, the program throws an exception to handle the error.
+
+import java.util.Scanner;
+
+public class DensityCalculator {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      double massVal = 0;   // Object mass (kg)
+      double volumeVal = 0; // Object volume (m^3)
+      double densityCalc;   // Resulting density
+
+      try {
+         massVal = scnr.nextDouble();
+
+         // Error checking, non-negative mass
+         if (massVal < 0.0) {
+            throw new Exception("Invalid mass");
+         }
+
+         volumeVal = scnr.nextDouble();
+
+         // Error checking, non-negative volume
+         if (volumeVal < 0.0) {
+            throw new Exception("Invalid volume");
+         }
+
+         densityCalc = massVal / volumeVal;
+
+         System.out.print("Density: " + densityCalc);
+      }
+      catch (Exception excpt) {
+         // Prints the error message passed by the throw statement.
+         System.out.print(excpt.getMessage());
+      }
+   }
+}
+
+Input / Output
+
+3.0 2.0
+Density: 1.5
+...
+-1.0 2.0
+Invalid mass
+...
+3.0 -1.0
+Invalid volume
+
+
+An exception handler that catches Exception types can catch any exception because Exception is the base type.
+
+
+----------------------------------------------------------------------------------------------------------------------------
+Example:
+
+The program below computes a person's BMI from weight and height inputs. If any input is negative, the program throws an exception of type Exception. If any input is not an integer, Scanner's nextInt() method throws an exception of type InputMismatchException.
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class BMICalculator {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int weightVal = 0;    // User defined weight (lbs)
+      int heightVal = 0;    // User defined height (in)
+      double bmiCalc;        // Resulting BMI
+
+      try {
+         System.out.print("Enter weight (in pounds): ");
+         weightVal = scnr.nextInt();
+
+         // Error checking, non-negative weight
+         if (weightVal < 0) {
+            throw new Exception("Invalid weight.");
+         }
+
+         System.out.print("Enter height (in inches): ");
+         heightVal = scnr.nextInt();
+
+         // Error checking, non-negative height
+         if (heightVal < 0) {
+            throw new Exception("Invalid height.");
+         }
+
+         bmiCalc = ((double) weightVal /
+                    (double) (heightVal * heightVal)) * 703.0f;
+
+         System.out.println("BMI: " + bmiCalc);
+      }
+      catch (InputMismatchException excpt) {
+         System.out.println("Expected a number as input.");
+         System.out.println("Cannot compute BMI.");
+      }
+      catch (Exception excpt) {
+         // Prints the error message passed by the throw statement.
+         System.out.println(excpt.getMessage());
+         System.out.println("Cannot compute BMI.");
+      }
+   }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------
+Example
+
+Integer numSocks is read from input. Complete the try block to throw an exception with the message "Error: Socks cannot be paired".
+
+import java.util.Scanner;
+
+public class PairsOfSocks {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int numSocks;
+
+      try {
+         numSocks = scnr.nextInt();
+         if (numSocks % 2 != 0) {
+            throw new Exception("Error: Socks cannot be paired");
+         }
+         System.out.print("Valid input: ");
+         System.out.println(numSocks + " socks form " + (numSocks / 2) + " pairs");
+      }
+      catch (Exception excpt) {
+         System.out.println(excpt.getMessage());
+      }
+   }
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------
+Example:
+
+The while loop makes multiple attempts to read an integer between 1 and 12 from input into expirationMonth.
+
+Write a catch block to catch any InputMismatchException thrown. In the catch block:
+Output "Fatal error: The ExpirationMonth program quits".
+Assign tryAgain with false.
+Then, write another catch block to catch any Exception thrown. In the catch block, output the Exception's message.
+End each output with a newline.
+
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class ExpirationMonth {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int expirationMonth;
+      boolean tryAgain = true;
+
+      while (tryAgain) {
+         try {
+            expirationMonth = scnr.nextInt();
+
+            if ((expirationMonth < 1) || (expirationMonth > 12)) {
+               throw new Exception("Expiration month must be between 1 and 12");
+            }
+
+            tryAgain = false;
+            System.out.print("Valid input: ");
+            System.out.println("Expiration month is " + expirationMonth);
+         }
+
+         catch (InputMismatchException e) {
+            System.out.println("Fatal error: The ExpirationMonth program quits");
+            tryAgain = false;
+         }
+         
+         catch (Exception e) {
+            System.out.println(e.getMessage());
+         }
+
+      }
+   }
+}
+
+From: Alexander Foster <alexanderfoster14@gmail.com> 
+Sent: Monday, September 21, 2026 8:06 PM
+To: Alexander Foster <alexanderfoster14@gmail.com>
+Subject: code
+
+Define a method inspectVals() with a Scanner parameter that reads integers from input until -99 is read. inspectVals() should return true if all integers read before -99 are negative. Otherwise, inspectVals() should return false.
+Ex: If the input is -100 -40 -25 -99, then the output is:
+All true
+Note: Negative numbers are less than 0.
+ 
+ 
+import java.util.Scanner;
+ 
+public class ValueInspector {
+ 
+   public static boolean inspectVals(Scanner scnr) {
+      boolean check = true;
+      int input = scnr.nextInt();
+      while (input != -99) {
+         if (input < 0) {
+            input = scnr.nextInt();
+         } else {
+            check = false;
+            input = scnr.nextInt();
+         }
+      }
+      return check;
+   }
+ 
+              public static void main(String[] args) {
+                             Scanner scnr = new Scanner(System.in);
+                             boolean allNegative;
+ 
+                             allNegative = inspectVals(scnr);
+ 
+                             if (allNegative) {
+                                           System.out.println("All true");
+                             }
+                             else {
+                                           System.out.println("Not all true");
+                             }
+              }
+}
+ 
+ 
+Input: 54 -97 39 55 49 -99
+Your output: Not all true
+ 
+ 
+Unit Testing
+ 
+Assert is an operator that prints an error message and exits the program if the provided test expression evaluates to false, having the form:
+ 
+Assert operator.
+assert testExpression : detailedMessage;
+ 
+public class HrMinToMinTestHarness {
+   public static int hrMinToMin(int origHours, int origMinutes) {
+      int totMinutes;     // Resulting minutes
+ 
+      totMinutes = (origHours * 60) + origMinutes;
+ 
+      return origMinutes;
+   }
+ 
+   public static void main(String[] args) {
+      System.out.println("Testing started");
+ 
+      System.out.println("0:0, expecting 0, got " + hrMinToMin(0, 0));
+      System.out.println("0:1, expecting 1, got " + hrMinToMin(0, 1));
+      System.out.println("0:99, expecting 99, got " + hrMinToMin(0, 99));
+      System.out.println("1:0, expecting 60, got " + hrMinToMin(1, 0));
+      System.out.println("5:0, expecting 300, got " + hrMinToMin(5, 0));
+      System.out.println("2:30, expecting 150, got " + hrMinToMin(2, 30));
+      // Many more test vectors would be typical...
+ 
+      System.out.println("Testing completed");
+   }
+}
+ 
+ 
+Becomes:
+ 
+public class HrMinToMinTestHarness {
+   public static double hrMinToMin(int origHours, int origMinutes) {
+      int totMinutes;      // Resulting minutes
+ 
+      totMinutes = (origHours * 60) + origMinutes;
+ 
+      return origMinutes;
+   }
+ 
+   public static void main(String[] args) {
+      System.out.println("Testing started");
+ 
+      assert (hrMinToMin(0, 0) == 0) : "Assertion (hrMinToMin(0, 0) == 0) failed";
+      assert (hrMinToMin(0, 1) == 1) : "Assertion (hrMinToMin(0, 1) == 1) failed";
+      assert (hrMinToMin(0, 99) == 99) : "Assertion (hrMinToMin(0, 99) == 99) failed";
+      assert (hrMinToMin(1, 0) == 60) : "Assertion (hrMinToMin(1, 0) == 60) failed";
+      assert (hrMinToMin(5, 0) == 300) : "Assertion (hrMinToMin(5, 0) == 300) failed";
+      assert (hrMinToMin(2, 30) == 150) : "Assertion (hrMinToMin(2, 30) == 150) failed";
+      // Many more test vectors would be typical...
+ 
+      System.out.println("Testing completed");
+   }
+}
+ 
+Output:
+Testing started
+Exception in thread "main" java.lang.AssertionError: Assertion (hrMinToMin(1, 0) == 60) failed
+        at HrMinToMinTestHarness.main(HrMinToMinTestHarness.java:16)
+ 
+ 
+this could be written with an if statement, like this
+ 
+if ( hrMinToMin(0, 0) != 0 ) {
+   System.out.println("0:0, expecting 0, got: " + hrMinToMin(0, 0));
+}
+ 
+ 
+Note that assertions are not enabled by default. A programmer must execute Java programs with additional command-line options in order to enable assertions. Specifically, the command-line option -ea is necessary at run-time. Ex: java -ea HrMinToMinTestHarness
+ 
+ 
+A program without detected errors would simply output "Testing started" followed by "Testing completed".
+ 
+ 
+Amount and type of tests:
+Good test vectors also include border cases that represent fringe scenarios. For example, border cases for the above method might include inputs 0 and 0, inputs 0 and a huge number like 9999999 (and vice-versa), two huge numbers, a negative number, two negative numbers, etc. The programmer tries to think of any extreme (or "weird") inputs that might cause the method to fail. For a simple method with a few integer inputs, a typical test harness might have dozens of test vectors. For brevity, the above examples had far fewer test vectors than typical.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

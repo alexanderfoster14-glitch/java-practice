@@ -1,0 +1,201 @@
+Practice with for/while/do-while loops
+
+
+----------------------------------------------------------------------------------------------------------
+public class While_practice {
+	
+	public static void main(String[] args) {
+
+		//In Eclipse, try constructing a while loop in Java that can be used as a count up to 10.
+		int i = 1;
+		while (i < 10) {
+			System.out.println("i is currently " + i);
+			i++;
+		}
+		System.out.println("i is currently " + i);
+		
+		double x = 15.25;
+		System.out.printf("%.1f\n", x);
+	}
+	
+}
+
+
+------------------------------------------------------------------------------------------------------------
+	Integer userNum is read from input.
+	Write a while loop that iterates while userNum is non-negative.
+	In each iteration:
+		Update integer finalVal as follows:
+		If userNum is divisible by 3, subtract userNum from finalVal.
+		Otherwise, add userNum to finalVal.
+		Then, read the next integer from input into variable userNum.
+
+import java.util.Scanner;
+
+public class While_practice {
+	
+	public static void main(String[] args) {
+		Scanner scnr = new Scanner(System.in);
+		int userNum;
+		int finalVal;
+		
+		finalVal = 0;
+		userNum = scnr.nextInt();
+		
+		while (userNum >= 0) {
+			if (userNum % 3 == 0) {
+				finalVal = finalVal - userNum;
+			} else {
+				finalVal = finalVal + userNum;
+			}
+			userNum = scnr.nextInt();
+		}
+	}
+}
+
+
+----------------------------------------------------------------------------------------------------
+Example to find the greatest common divisor of 2 numbers
+
+Out put the GCD of numA and numB
+
+import java.util.Scanner;
+
+public class While_practice {
+	public static void main(String[] args) {
+		Scanner scnr = new Scanner(System.in);
+		int numA;
+		int numB;
+		
+		System.out.print("Enter the 1st positive integer: ");
+		numA = scnr.nextInt();
+		
+		System.out.print("Enter the 2nd positive integer: ");
+		numB = scnr.nextInt();
+		
+		
+		while (numA != numB) {
+			if (numA > numB) {
+				numA = numA - numB;
+			}
+			else {
+				numB = numB - numA;
+			}
+		}
+		System.out.println("GCD is: " + numA);
+	}
+}
+
+-----------------------------------------------------------------------------------------------------
+Check if an expected string input matches a specific string and count number of times.
+	Example:
+		stringToFind = "Time"
+		Input = "First Mine Time Time Time End"
+		Output = 3
+
+import java.util.Scanner;
+
+public class While_practice {
+	public static void main(String[] args) {
+		Scanner scnr = new Scanner(System.in);
+		
+		String stringToFind;
+		String nextString;
+		int wordCount = 0;
+		
+		System.out.print("Enter the word to count (enter \"End\" to quit): ");
+		stringToFind = scnr.next();
+		
+		System.out.print("Enter first word: ");
+		nextString = scnr.next();
+		
+		while (!nextString.equals("End")) {
+			if (nextString.equals(stringToFind)) {
+				wordCount++;
+			}
+			System.out.print("Enter next word: ");
+			nextString = scnr.next();
+		}
+		
+		System.out.println(stringToFind + " occurs " + wordCount + " times.");
+	}
+}
+
+---------------------------------------------------------------------------------------------------------
+Calculate adjusted salary and tax with deductions: Using loops.
+A program may execute the same computations repeatedly.
+
+The program below repeatedly asks the user to enter an annual salary,
+stopping when the user enters 0 or less. For each annual salary,
+the program determines the tax rate and computes the tax to pay.
+
+Run the program below with annual salaries of 40000, 90000, and then 0.
+Modify the program to use a while loop inside the given while loop.
+The new inner loop should repeatedly ask the user to enter a salary deduction,
+stopping when the user enters a 0 or less. The deductions are summed and then
+subtracted from the annual income, giving an adjusted gross income.
+The tax rate is then calculated from the adjusted gross income.
+Run the program with the following input: 40000, 7000, 2000, 0, and 0.
+Note that the 7000 and 2000 are deductions.
+
+
+import java.util.Scanner;
+
+public class IncomeTax {                         
+   public static void main (String [] args) { 
+      Scanner scnr = new Scanner(System.in);
+      final String PROMPT_SALARY = "\nEnter annual salary (0 to exit): ";
+      final String PROMPT_DEDUCTION = "Enter a deduction (0 to end deductions): ";
+      int annualSalary;
+      int oneDeduction;
+      int totalDeductions;
+      int adjustedSalary;
+      double taxRate;
+      int taxToPay;
+  
+      System.out.println(PROMPT_SALARY);
+      annualSalary = scnr.nextInt();
+
+      while (annualSalary > 0) {
+         totalDeductions = 0;    // Start with 0 for each annual salary
+         System.out.println(PROMPT_DEDUCTION);
+         oneDeduction = scnr.nextInt();
+         
+         while (oneDeduction > 0) {
+            totalDeductions += oneDeduction;
+            System.out.println(PROMPT_DEDUCTION);
+            oneDeduction = scnr.nextInt();
+         }
+         
+         // Determine the tax rate from the adjusted salary
+         adjustedSalary = annualSalary - totalDeductions;
+         if (adjustedSalary <= 0) {
+            adjustedSalary = 0;
+            taxRate = 0.0;
+         }
+         else if (adjustedSalary <= 20000) {
+            taxRate = 0.10;   // 0.10 is 10% written as a decimal
+         }
+         else if (adjustedSalary <= 50000) {
+            taxRate = 0.20;
+         }
+         else if (adjustedSalary <= 100000) {
+            taxRate = 0.30;
+         }
+         else {
+            taxRate = 0.40;
+         }
+
+         taxToPay = (int)(adjustedSalary * taxRate);  // Truncate tax to an integer amount
+         System.out.println("Annual salary: " + annualSalary); 
+         System.out.println("\nDeductions: " + totalDeductions); 
+         System.out.println("Adjusted salary after deductions: " + adjustedSalary);
+         System.out.println("Tax rate: " + taxRate);
+         System.out.println("Tax to pay: " + taxToPay);
+
+         // Get the next annual salary
+         System.out.println(PROMPT_SALARY);
+         annualSalary = scnr.nextInt();
+      } 
+   } 
+} 

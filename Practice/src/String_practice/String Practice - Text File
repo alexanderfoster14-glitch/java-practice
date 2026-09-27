@@ -1,0 +1,176 @@
+Examples for using String(s)
+
+stringVariable.charAt(i)
+get the character in i position of the string variable
+
+stringVariable.length();
+get the length of stringVariable
+
+--------------------------------------------------------------
+import java.util.Scanner;
+
+public class CountLetters {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String inputWord;
+      int numLetters;
+      int i;
+
+      System.out.print("Enter a word: ");
+      inputWord = scnr.next();
+
+      numLetters = 0;
+      for (i = 0; i < inputWord.length(); ++i) {
+         if (Character.isLetter(inputWord.charAt(i))) {
+            numLetters += 1;
+         }
+      }
+
+      System.out.println("Number of letters: " + numLetters);
+   }
+}
+
+
+--------------------------------------------------------------------
+import java.util.Scanner;
+
+public class SingleSpaces {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String userText;
+
+      System.out.print("Enter sentence: ");
+      userText = scnr.nextLine();
+
+      while (userText.indexOf("  ") != -1) {
+         // At least one double-space still exists
+         // Replace all double-spaces by one space
+         userText = userText.replace("  ", " ");
+      }
+
+      System.out.print("New sentence: " + userText);
+   }
+}
+
+----------------------------------------------------------------------
+Create a 2-letter domain name list
+Two-letter domain names:
+aa.com
+ab.com
+...
+zx.com
+zy.com
+zz.com
+
+import java.util.Scanner;
+
+public class DomainNamePrinter {
+
+   public static void main(String[] args) {
+      char letter1;
+      char letter2;
+
+      System.out.println("Two-letter domain names:");
+
+      letter1 = 'a';
+      while (letter1 <= 'z') {
+         letter2 = 'a';
+         while (letter2 <= 'z') {
+            System.out.println("" + letter1 + "" + letter2 + ".com");
+            ++letter2;
+         }
+         ++letter1;
+      }
+   }
+}
+
+
+-----------------------------------------------------------------------------------
+char letter1;
+char letter2;
+
+letter1 = 'a';
+while (letter1 <= 'f') {
+   letter2 = 'c';
+   while (letter2 <= 'f') {
+      // Inner loop body
+      ++letter2;
+   }
+   ++letter1;
+}
+
+
+--------------------------------------------------------------------------------------
+import java.util.Scanner;
+
+public class LoopCounter {
+   public static void main (String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int outerRange;
+      int innerRange;
+      int count;
+      int i;
+      int j;
+   
+      outerRange = scnr.nextInt();
+      innerRange = scnr.nextInt();
+   
+      count = 0;
+      i = 0;
+      while (i < outerRange) {
+			j = 0;
+			while (j <= innerRange) {
+            ++count;
+            ++j;
+         }
+         ++i;
+      }
+   
+      System.out.println("Inner loop ran " + count + " times");
+   }
+}
+
+
+--------------------------------------------------------------------------------------------------------------
+On Ian's farm, each plant table is labeled with a letter followed by an integer.
+Given integers numRows and numColumns, output the label for each plant table, followed by a space.
+End each row with a newline.
+
+Ex: If the input is 3 5, then the output is:
+A1 A2 A3 A4 A5 
+B1 B2 B3 B4 B5 
+C1 C2 C3 C4 C5 
+Note:
+Rows are in alphabetical order. Plant tables in the first row all start with the letter A.
+Columns are in ascending order. Plant tables in the first column all end with the integer 1.
+Add an empty string at the beginning of the output to properly concatenate characters and integers.
+
+import java.util.Scanner;
+
+public class String_examples {
+	public static void main (String[] args) {
+		Scanner scnr = new Scanner(System.in);
+		int numRows;
+		int numColumns;
+		int currentRow;
+		char currentRowLetter;int currentColumn;
+		int currentColumnInteger;
+		
+		numRows = scnr.nextInt();
+		numColumns = scnr.nextInt();
+		
+		currentRowLetter = 'A';
+		
+		for (currentRow = 0; currentRow < numRows; ++currentRow) {
+			for (currentColumn = 1; currentColumn <= numColumns; ++currentColumn) {
+				currentColumnInteger = currentColumn;
+				System.out.print("" + currentRowLetter + currentColumnInteger + " ");
+				}
+			System.out.print("\n");
+			currentRowLetter++;
+		}
+	}
+}
+
+----------------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,845 @@
+Examples for using Arrays
+
+Declaring Arrays:
+dataType[] arrayName; //generic syntax
+int[] Ages; ; //declares an array of type integer to store age values
+double[] GPA; //declares an array of type double to store GPA values
+String[] names; //declares an array of type string to store names
+
+-------------------------------------------------------------------------------------------
+
+dataType[] arrayName = new dataType[sizeofArray]; //generic syntax for declaring an array and reserving memory
+int[] Ages = new int[5]; // declares and reserves memory for an array of type integer to store age values.
+double[] GPA = new double[10]; // declares and reserves memory for an array of type double to store GPA values.
+String[] names = new String[5]; //declares and reserves memory for an array of type string to store names.
+
+-----------------------------------------------------------------------------------------------------------------
+
+Check if a string array element matches an array variable
+
+	String[] monthNames = {"January", "February", "March","April",
+				"May", "June", "July", "August",
+				"September", "October", "November", "December"
+		};
+	
+	userSelection = scnr.next();	
+	
+	for (i = 0; i < monthNames.length-1; ++i) {
+		if (userSelection.equals(monthNames[i])) {
+		}
+	}
+
+-----------------------------------------------------------------------------------------------------------------
+public class ArrayTest {
+	public static void main (String[] args) {
+		int[] Ages = new int[5]; //declare array of size 5
+		for(int  i = 0;i Ages.length;i++) {
+			Ages[i] = i+4*2;  //assign values to array
+			System.out.println("The current age for index: " + i +" is " + Ages[i] + " years old");     
+			//print out values for each array index
+		}
+	}
+} // end of main
+
+--------------------------------------------------------------------------------------------------------------------
+Multi-dimensional array example
+
+public class Main {
+	public static void main(String[] args) {
+		String[][] states = new String[3][2]; //creates a 2-dimensional array for strings, 3x2 in size
+		states[0][0] = "California";
+		states[0][1] = "Sacramento";
+		states[1][0] = "Oregon";
+		states[1][1] = "Sale";
+		states[2][0] = "Washington";
+		states[2][1] = "Olympia";
+		
+		for (int i = 0; i < states.length; i++) {
+			StringBuilder sb = new StringBuilder(); //Built in java method?
+			sb.append("The capitol of ") //.append in a predefined method
+				.append(states[i][0]) //gets the state name
+				.append(" is ")
+				.append(states[i][1]) //gets the capital
+				.append("."); //all as a single line of code, with one ";"
+			System.out.println(sb); //sb is a temporary string
+		}
+	}
+}
+
+----------------------------------------------------------------------------------------------------------------
+Given the integer array hourlyPrices with NUM_VALUES elements, write a for loop to initialize
+hourlyPrices with the integers read from input, in reverse order.
+
+Ex: If the input is
+	70 67 101 48 88 35 118 54
+
+Then the output is:
+	54 118 35 88 48 101 67 70 
+
+import java.util.Scanner;
+
+public class PriceScores {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      final int NUM_VALUES = 8;
+      int[] hourlyPrices = new int[NUM_VALUES];
+      int i;
+
+      for (i = NUM_VALUES - 1; i >= 0; --i) {
+         hourlyPrices[i] = scnr.nextInt();
+      }
+
+      for (i = 0; i < hourlyPrices.length; ++i) {
+         System.out.print(hourlyPrices[i] + " ");
+      }
+
+      System.out.println();
+   }
+}
+
+-----------------------------------------------------------------------------------------------------------
+Given the integer array dailyMiles with NUM_VALUES elements, write a for loop that assigns
+sumOdds with the sum of all the odd integers in dailyMiles.
+
+Ex: If the input is 71 58 48 51 62 88 46 116, then the output is:
+
+Odd sum: 122
+
+import java.util.Scanner;
+
+public class OddOperations {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      final int NUM_VALUES = 8;
+      int[] dailyMiles = new int[NUM_VALUES];
+      int i;
+      int sumOdds;
+
+      for (i = 0; i < dailyMiles.length; ++i) {
+         dailyMiles[i] = scnr.nextInt();
+      }
+
+      sumOdds = 0;
+      
+      for (i = 0; i < dailyMiles.length; ++i) {
+         if (dailyMiles[i]%2 != 0) {
+            sumOdds = sumOdds + dailyMiles[i];
+         }
+      }
+
+      System.out.println("Odd sum: " + sumOdds);
+   }
+}
+
+---------------------------------------------------------------------------------------------------------
+Program to reverse the elements in an array.
+
+import java.util.Scanner;
+
+public class ArrayReverseElem {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      final int NUM_ELEMENTS = 8;             // Number of elements
+      int[] userVals = new int[NUM_ELEMENTS]; // User numbers
+      int i;                                  // Loop index
+      int tempVal;                            // Temp variable for swapping
+
+      // Prompt user to input values
+      System.out.println("Enter " + NUM_ELEMENTS
+              + " integer values...");
+      for (i = 0; i < userVals.length; ++i) {
+         System.out.print("Value: ");
+         userVals[i] = scnr.nextInt();
+      }
+
+      // Reverse array's elements
+      for (i = 0; i < (userVals.length / 2); ++i) {
+         tempVal = userVals[i];                           // Temp for swap
+         userVals[i] = userVals[userVals.length - 1 - i]; // First part of swap
+         userVals[userVals.length - 1 - i] = tempVal;     // Swap complete
+      }
+
+      // Print numbers
+      System.out.print("\nNew values: ");
+      for (i = 0; i < userVals.length; ++i) {
+         System.out.print(userVals[i] + " ");
+      }
+   }
+}
+
+-----------------------------------------------------------------------------------------------------
+
+Multi-dimensional Arrays
+
+int[][] myArray = new int[R][C]
+represents a table of int variables with R rows and C columns,
+so R*C elements total
+
+-----------------------------------------------------------------------------------------------------
+
+// Initializing a 2D array
+int[][] numVals = { {22, 44, 66}, {97, 98, 99} };
+
+// Use multiple lines to make rows more visible
+int[][] numVals = {
+      {22, 44, 66}, // Row 0
+      {97, 98, 99}  // Row 1
+};
+
+------------------------------------------------------------------------------------------------------
+
+int[][][] myArray = new int[2][3][5], which declares a total of 2*3*5 or 30 elements
+
+------------------------------------------------------------------------------------------------------
+Array List
+
+The statement import java.util.ArrayList; enables use of an ArrayList.
+
+import java.util.*;
+public class ArrayListTest {
+	public static void main(String args[]) {
+		// create an array list
+		ArrayList Grades = new ArrayList();
+		System.out.println("Initial size of al: " + Grades.size());
+		// add elements to the array list
+		Grades.add(100);
+		Grades.add(80);
+		Grades.add(95);
+		System.out.println("Size of Grades after additions: " + Grades.size());
+		// display the contents of the array list
+		System.out.println("Contents of Grades ArrayList: " + Grades);    
+	}
+}
+
+---------------------------------------------------------------------------------------------------------
+
+ArrayList<Integer> vals = new ArrayList<Integer>();
+
+Creates reference variable vals that refers to a new ArrayList object consisting of Integer objects. 
+
+ArrayList does not support primitive types like int, but rather reference types like Integer.
+A common error among beginners is to declare an ArrayList of a primitive type like int,
+as in ArrayList<int> myVals, yielding a compilation error:
+"unexpected type, found : int, required: reference."
+
+-------------------------------------------------------------------------------------------------------
+Common ArrayList methods:
+
+add()
+	add(element) 
+	Create space for and add the element at the end of the list.	
+
+	// List originally empty
+	valsList.add(31); // List now: 31 
+	valsList.add(41); // List now: 31 41
+
+get()
+	get(index) 
+	Returns the element at the specified list location known as the index. Indices start at 0.	
+
+	// List originally: 31 41 59. Assume x is an int. 
+	x = valsList.get(0);  // Assigns 31 to x
+	x = valsList.get(1);  // Assigns 41
+	x = valsList.get(2);  // Assigns 59
+	x = valsList.get(3);  // Error: No such element
+
+set()
+	set(index, element) 
+	Replaces the element at the specified position in this list with the specified element.	
+	// List originally: 31 41 59 
+	valsList.set(1, 119);  // List now 31 119 59
+
+size()
+	size()
+	Returns the number of list elements.	
+	// List originally: 31 41 59. Assume x is an int. 
+	x = valsList.size();  // Assigns x with 3
+
+----------------------------------------------------------------------------------------------------------
+ArrayList's ith element can be directly accessed using .get(i)
+Example: Most popular OS program.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class MostPopularOS {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<String> operatingSystems = new ArrayList<String>(); 
+      int nthOS;      // User input, Nth most popular OS
+      
+      // Source: StatCounter.com, 2018
+      operatingSystems.add("Windows 10");
+      operatingSystems.add("Windows 7");
+      operatingSystems.add("Mac OS X");
+      operatingSystems.add("Windows 8");
+      operatingSystems.add("Windows XP");
+      operatingSystems.add("Linux");
+      operatingSystems.add("Chrome OS");
+      operatingSystems.add("Other");
+
+      System.out.println("Enter N (1-8): ");
+      nthOS = scnr.nextInt();
+
+      if ((nthOS >= 1) && (nthOS <= 8)) {
+         System.out.print("The " + getNumberSuffix(nthOS) + " most popular OS is ");
+         System.out.println(operatingSystems.get(nthOS - 1));
+      }
+   }
+
+   private static String getNumberSuffix(int number) {
+      String[] firstThree = { "st", "nd", "rd" };
+      if (number >= 1 && number <= 3) {
+         return number + firstThree[number - 1];
+      }
+      return number + "th";
+   }
+}
+
+------------------------------------------------------------------------------------------------------------
+Declare and initialize a reference variable for an ArrayList named usersList that
+stores items of type String.
+Read integer numUsers from input.
+Then, insert numUsers "Pat" at the end of usersList.
+
+Ex: If the input is 3, then the output is:
+
+	Pat Pat Pat 
+
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class MakeUsersList {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int numUsers;
+      int i;
+      /* Variable declarations go here */
+      
+      /* Your code goes here */
+      
+      // Traversing a list using indexes
+      for (i = 0; i < usersList.size(); ++i) {
+         System.out.print(usersList.get(i) + " ");
+      }
+      System.out.println();
+   }
+}
+
+
+SOLUTION:
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class MakeUsersList {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int numUsers;
+      int i;
+      ArrayList<String> usersList = new ArrayList<String>();
+      
+      numUsers = scnr.nextInt();
+      
+      for (i = 0; i < numUsers; ++i) {
+         usersList.add("Pat");
+      }
+      
+      // Traversing a list using indexes
+      for (i = 0; i < usersList.size(); ++i) {
+         System.out.print(usersList.get(i) + " ");
+      }
+      System.out.println();
+   }
+}
+
+-----------------------------------------------------------------------------------------------------------
+Integer numPatients is read from input.
+Then, numPatients strings are read from input and inserted at the end of patientsList.
+Output every element located at an odd index in patientsList.
+End each output with a space.
+
+Ex: If the input is:
+	3
+	Ken Bob Noa
+
+then the output is:
+	Bob 
+
+Note: Index i is odd if i % 2 != 0.
+
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class PatientsListSearch {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<String> patientsList = new ArrayList<String>();
+      int numPatients;
+      int i;
+      
+      numPatients = scnr.nextInt();
+      for (i = 0; i < numPatients; ++i) {
+         patientsList.add(scnr.next());
+      }
+
+      /* Your code goes here */
+
+      System.out.println();
+   }
+}
+
+
+SOLUTION:
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class PatientsListSearch {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<String> patientsList = new ArrayList<String>();
+      int numPatients;
+      int i;
+      
+      numPatients = scnr.nextInt();
+      for (i = 0; i < numPatients; ++i) {
+         patientsList.add(scnr.next());
+      }
+
+      for (i = 0; i < numPatients; ++i) {
+         if (i%2 != 0) {
+               System.out.print(patientsList.get(i) + " ");
+         }
+      }
+         
+      System.out.println();
+   }
+}
+
+-------------------------------------------------------------------------------------------------------
+
+Integer numLengths is read from input.
+Then, numLengths integers are read from input and inserted at the end of lengthList.
+If an element is even in lengthList, add 1 to the element.
+
+Ex: If the input is:
+	2
+	48 11
+
+then the output is:
+	49 11 
+
+Note: Integer i is even if i % 2 == 0.
+
+SOLUTION:
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class LengthListModification {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<Integer> lengthList = new ArrayList<Integer>();
+      int numLengths;
+      int i;
+      
+      numLengths = scnr.nextInt();
+      for (i = 0; i < numLengths; ++i) {
+         lengthList.add(scnr.nextInt());
+      }
+
+      for (i = 0; i < numLengths; ++i) {
+         if (lengthList.get(i)%2 == 0) {
+            lengthList.set(i, lengthList.get(i) + 1);
+         }
+      }
+
+      for (i = 0; i < lengthList.size(); ++i) {
+         System.out.print(lengthList.get(i) + " ");
+      }
+      System.out.println();
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Enhanced For Loops
+
+
+Example:
+
+String[] teamRoster = new String[3];
+
+// Setting player names
+teamRoster[0] = "Mike";
+teamRoster[1] = "Scottie";
+teamRoster[2] = "Toni";
+
+System.out.println("Current roster:");
+
+for (String playerName : teamRoster) {
+  System.out.println(playerName);
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+ArrayList ADT Common Methods
+
+ArrayList<T> arrayList = new ArrayList<T>();
+Example: ArrayList<Integer> teamNums = new ArrayList<Integer>();
+	Assume ArrayList teamNums has existing Integer elements of 5, 9, 23, 11, 14.
+
+get()
+	T get(int index)
+		Returns element at specified index.
+	
+	x = teamNums.get(3);
+		Assigns element 3's value 11 to x
+
+set()
+	T set(int index, T newElement)
+		Replaces element at specified index with newElement.
+		Returns element previously at specified index.
+		
+	teamNums.set(0, 25);
+		Assigns 25 to element 0
+	x = teamNums.set(3, 88);
+		Assigns 88 to element 3. 
+        Assigns previous element's value of 11 to x.
+
+size()
+	int size()
+		Returns the number of elements in the ArrayList.
+		
+	if (teamNums.size() > 0) { // Size is 5 so condition is true
+		...
+	}
+
+isEmpty()
+	boolean isEmpty()
+		Returns true if the ArrayList does not contain any elements.
+		Otherwise, returns false.
+		
+	if (teamNums.isEmpty()) { // Size is 5 so condition is false
+		...
+	}
+
+clear()
+	void clear()
+		Removes all elements from the ArrayList.
+		
+	teamNums.clear();	// ArrayList now has no elements
+	System.out.println(teamNums.size());	// Prints 0
+
+add()
+	boolean add(T newElement)
+		Adds newElement to the end of the ArrayList.
+		ArrayList's size is increased by one.
+	void add(int index, T newElement)
+		Adds newElement to the ArrayList at the specified index.
+		Elements at that specified index and higher are shifted over to make room.
+		ArrayList's size is increased by one.
+	
+	// Assume ArrayList is empty
+	teamNums.add(77);                    // ArrayList is: 77 
+	teamNums.add(88);                    // ArrayList is: 77, 88
+	System.out.println(teamNums.size()); // Prints 2
+	teamNums.add(0, 23);                 // ArrayList is: 23, 77, 88
+	teamNums.add(2, 34);                 // ArrayList is: 23, 77, 34, 88
+	System.out.println(teamNums.size()); // Prints 4
+
+remove()
+	boolean remove(T existingElement)
+		Removes the first occurrence of an element which refers to the same object as existingElement.
+		Elements from higher positions are shifted back to fill gap.
+		ArrayList size is decreased by one.
+		Return true if specified element was found and removed.
+	T remove(int index)
+		Removes element at specified index.
+		Elements from higher positions are shifted back to fill gap.
+		ArrayList size is decreased by one. 
+		Returns reference to element removed from ArrayList.
+
+	// Assume ArrayList is: 23, 77, 34, 88
+	teamNums.remove(1);                  // ArrayList is: 23, 34, 88 
+	System.out.println(teamNums.size()); // Prints 3
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+The program below assists a soccer coach in scouting players, allowing the coach to enter the jersey number of players, 
+enter the jersey number of players the coach wants to cut, and printing a list of those numbers when requested.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class PlayerManager {
+   // Adds playerNum to end of ArrayList
+   public static void addPlayer (ArrayList<Integer> players, int playerNum) {
+      players.add(playerNum);
+   }
+
+   // Deletes playerNum from ArrayList
+   public static void deletePlayer (ArrayList<Integer> players, int playerNum) {
+      int i;
+      boolean found;
+
+      // Search for playerNum in ArrayList
+      found = false;
+      i = 0;
+
+      while ( (!found) && (i < players.size()) ) {
+         if (players.get(i).equals(playerNum)) {
+            players.remove(i); // Remove
+            found = true; 
+         }
+
+         ++i;
+      }
+   }
+   
+   // Prints player numbers currently in ArrayList
+   public static void printPlayers(ArrayList<Integer> players) {
+      int i;
+
+      for (i = 0; i < players.size(); ++i) {
+         System.out.println(" " + players.get(i));
+      }
+   }
+
+   // Maintains ArrayList of player numbers 
+   public static void main(String [] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<Integer> players = new ArrayList<Integer>();
+      String userInput;
+      int playerNum;
+
+      userInput = "-";
+
+      System.out.println("Commands: 'a' add, 'd' delete,");
+      System.out.println("'p' print, 'q' quit: ");
+
+      while (!userInput.equals("q")) {
+         System.out.print("Command: ");
+         userInput = scnr.next();
+
+         if (userInput.equals("a")) {
+            System.out.print(" Player number: ");
+            playerNum = scnr.nextInt();
+
+            addPlayer(players, playerNum);
+         }
+         if (userInput.equals("d")) {
+            System.out.print(" Player number: ");
+            playerNum = scnr.nextInt();
+
+            deletePlayer(players, playerNum);
+         }
+         else if (userInput.equals("p")) {
+            printPlayers(players);
+         }
+      }
+
+   }
+}
+
+---------------------------------------------------------------------------------------------------------
+
+Modify the addPlayer function to insert each number in sorted order. The new program should output: 4 19 50 55
+CORRECTED CODE BELOW
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class PlayerManager {
+   // Adds playerNum to end of ArrayList
+   public static void addPlayer (ArrayList<Integer> players, int playerNum) {
+      int i;
+      boolean foundHigher;
+
+      // Look for first item greater than playerNum
+      foundHigher = false;
+      i = 0;
+
+      while ( (!foundHigher) && (i < players.size()) ) {
+         if (players.get(i) > playerNum) {
+            players.add(i, playerNum);
+            foundHigher = true;
+         }
+
+         ++i;
+      }
+
+      if (foundHigher == false) { // No higher number found, add at end
+         players.add(playerNum);
+      }
+   }
+   
+   // Prints player numbers currently in ArrayList
+   public static void printPlayers(ArrayList<Integer> players) {
+      int i;
+
+      for (i = 0; i < players.size(); ++i) {
+         System.out.println(" " + players.get(i));
+      }
+   }
+
+   // Maintains ArrayList of player numbers 
+   public static void main(String [] args) {
+      ArrayList<Integer> players = new ArrayList<Integer>();
+      
+      addPlayer(players, 55);
+      addPlayer(players, 4);
+      addPlayer(players, 50);
+      addPlayer(players, 19);
+      
+      printPlayers(players);
+   }
+}
+
+
+------------------------------------------------------------------------------------------------------
+
+Example below:
+
+import java.util.ArrayList;
+
+public class IntegerManager {
+   public static void printItems(ArrayList<Integer> numsList) {
+      int i;
+
+      System.out.print("items:");
+
+      for (i = 0; i < numsList.size(); ++i) {
+         System.out.print(" " + numsList.get(i));
+      }
+
+      System.out.println();
+   }
+
+   public static void main(String[] args) {
+      int i;
+      ArrayList<Integer> intList = new ArrayList<Integer>();
+
+      for (i = 0; i < 4; ++i) {
+         intList.add(i);
+      }
+      printItems(intList);
+
+      intList.remove(1);
+      printItems(intList);
+
+      intList.add(2, 6);
+      printItems(intList);
+   }
+}
+
+
+Output is:
+
+	items: 0 1 2 3
+	items: 0 2 3
+	items: 0 2 6 3
+	
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Example below
+
+import java.util.Scanner;
+
+public class IncomeTax {                         
+   public static void main (String [] args) {    
+      final int MAX_ELEMENTS = 10;
+      Scanner scnr = new Scanner(System.in);
+      int annualSalary;
+      double taxRate;
+      int taxToPay;
+      int totalSalaries;
+      int totalTaxes;
+      int numSalaries;
+      boolean keepLooking;
+      int i;
+
+      int []    salaryBase     = { 20000,     50000,     100000,     999999999 };
+      double [] taxBase        = {   .10,       .20,        .30,           .40 };
+      int []    annualSalaries = new int[MAX_ELEMENTS];
+      int []    taxesToPay     = new int[MAX_ELEMENTS];
+          
+      numSalaries = 0;
+
+      System.out.println("\nEnter annual salary (0 to exit): ");
+      annualSalary = scnr.nextInt();
+
+      while ((annualSalary > 0) && (numSalaries < MAX_ELEMENTS)) { 
+         i = 0;
+         taxRate = 0;
+         keepLooking = true;
+
+         // Search for appropriate table row for given annualSalary
+         while ((i < salaryBase.length) && keepLooking) {
+            if (annualSalary <= salaryBase[i]) {
+               taxRate = taxBase[i];
+               keepLooking = false;
+            }
+            else {
+               ++i;
+            }
+         } // End inner while loop (search for appropriate table row)
+
+         taxToPay = (int)(annualSalary * taxRate); // Truncate tax to an integer amount
+         annualSalaries[numSalaries] = annualSalary;
+         taxesToPay[numSalaries] = taxToPay;
+
+         System.out.println("Annual salary: " + annualSalaries[numSalaries] +
+                            "\tTax rate: " + taxRate +
+                            "\tTax to pay: " + taxesToPay[numSalaries]);
+         ++numSalaries;
+         
+         // Get the next annual salary
+         if (numSalaries < MAX_ELEMENTS) {
+            System.out.println("\nEnter annual salary  (0 to exit): ");
+            annualSalary = scnr.nextInt();
+         }
+      } // End outer while loop (valid annualSalary entered)
+
+      // Sum the annual salaries and taxes to pay and print the totals
+      totalSalaries = 0;
+      totalTaxes = 0;
+      
+      for (i = 0; i < numSalaries; ++i) {
+         totalSalaries += annualSalaries[i];
+         totalTaxes    += taxesToPay[i];
+      }
+      System.out.println("\nTotal salaries: " + totalSalaries +
+                         "\tTotal taxes: " + totalTaxes);
+   }
+}
+
+
+Inputs:
+40000 60000 0
+
+Output:
+Enter annual salary (0 to exit): 
+Annual salary: 40000	Tax rate: 0.2	Tax to pay: 8000
+
+Enter annual salary  (0 to exit): 
+Annual salary: 60000	Tax rate: 0.3	Tax to pay: 18000
+
+Enter annual salary  (0 to exit): 
+
+Total salaries: 100000	Total taxes: 26000
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+

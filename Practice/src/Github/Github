@@ -1,0 +1,61 @@
+To use GitHub with the Eclipse IDE, you will utilize EGit, Eclipse's built-in Git team provider.
+Because modern Eclipse installations come with EGit pre-installed, you don't need additional plugins.
+However, GitHub requires a Personal Access Token (PAT) or an SSH Key instead of your regular password for security.
+
+Here is how to setup a new GitHub repository and link the repository with the computer.
+
+Step 1:
+Step 2:
+Step 3:
+Step 4:
+Step 5:
+
+
+Phase 1: Generate your GitHub Access Token
+	Before using Eclipse, you must create a token to log in securely
+	Log into your account on GitHub
+	Go to Settings > Developer Settings > Personal Access Tokens > Tokens (classic)
+	Click Generate new token
+	Give it a name
+	Check the box for the repo scope (to manage repositories)
+	Click Generate token
+	Copy the token immediately
+	GitHub will not show it to you again
+
+Workflow A: Push an Existing Eclipse Project to GitHub
+	Create a Blank Repository on GitHub
+	Go to GitHub and create a New Repository
+	Give it a name, leave it blank (do not add a README, .gitignore, or license)
+	Click Create repository
+	Copy the HTTPS URL of the repository (e.g., https://github.com)
+
+2. Initialize a Local Git Repository in Eclipse
+	Inside Eclipse, right-click your project name in the Project Explorer
+	Select Team > Share Project....Choose Git and click Next
+	In "Repository" line, select or create and select where the respository folder will be saved
+	click on your project name
+	click Create Repository
+	click Finish
+	
+3. Commit Your Files
+	Right-click your project
+	Select Team > Commit....This opens the Git Staging view.
+	Select the files you want to track from Unstaged Changes
+	click the + sign (or drag them) to move them into Staged Changes.
+	Type a Commit Message (e.g., "Initial commit")
+	click Commit and Push
+	
+	An error will pop up - this is okay
+
+4. Authenticate and Push to GitHub
+	In Git Staging window, select "Push HEAD"
+	In the Destination window, paste the GitHub HTTPS URL you copied earlier into the URI field.
+	Under Authentication
+		User: Your GitHub username
+		Password: Your Personal Access Token (not your GitHub password)
+	Click Next
+	Choose your branch (usually main)
+	Click Next again
+	Click Finish
+
+Your code is now live on GitHub.
