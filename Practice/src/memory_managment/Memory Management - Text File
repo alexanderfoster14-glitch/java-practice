@@ -1,0 +1,68 @@
+Memory in Java is automatically allocated and released
+
+Garbage collector
+
+Created variables are stored in the fastest available memory
+	The object it references in stored in heap memory
+
+stack memory - faster
+heap memory - slower, but more dynamic
+
+A created object might be stored in stack or heap
+Complex objects are always stored in heap
+
+When all references to a variable expire, it is elegible for garbage collection
+	Garbage collector process decides when to do that
+
+Variables declared within methods, or code blocks, expire with that scope
+
+Key word "null" (all lowercase) to deference a variable
+
+Example:
+	String tempVar = "Won't be around for long!";
+	tempVar = null;
+
+The object might remain for some amount of time, but the variable (the way to reference the ojbect) will be destroyed
+	The object might remain, but you can't get to it
+
+Garbage collector runs in it's own thread
+
+Garbage collection CANNOT be foreced
+
+Methods can call for a garbage collection, but there's no guarantee it will work or what the process will look like
+Methods that can be run, but may or may not acutally run:
+	System.gc()
+	Runtime.gc()
+
+Exceptions = Runtime error. Something that causes the application to stop execution or crash
+
+Possible Java execption is
+	OutOfMemoryError
+This can cause application and java virtual machine to crash
+
+Tips to prevent memory issues
+	Minimize the number of ojects created
+	Ruse objects instead of creating new
+
+How to check on memory availability
+	Runtime.maxMemory()
+		How much memory was allocated to virtual machine
+	Runtime.totalMemory()
+		How much memory is in use
+
+Allowable memory can be set with command-line options
+To manage amount of heap memory with command-line
+	java -Xms256s HelloWorld
+		this sets the initial heap size
+	java -Xmx256m HelloWorld
+		this sets the maximum heap size
+	java -Xmn256n HelloWorld
+		this sets the heap size for new objects
+
+
+
+
+
+
+
+
