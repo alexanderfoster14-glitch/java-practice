@@ -1,4 +1,4 @@
-package Methods_practice;
+package methods_practice;
 
 public class Methods_practice {
 	public static void main (String[] args) {
