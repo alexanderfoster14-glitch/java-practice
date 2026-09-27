@@ -1,5 +1,5 @@
 //Practice with While Loops
-package While_practice;
+package while_practice;
 
 import java.util.Scanner;
 
