@@ -1,4 +1,222 @@
 Files Practice
 
+Walk the files in a given directory of files
+	Given a directy, this is a method that do something with every file found in that directory
+
+Options for walking a directory of files
+	File Class
+	Java NIO
+	Streams
+-----------------------------------------------------------------
+
+File Class Option for Java6 or newer:
+
+	public void walkDirectoryJava6(String path) throws IOExpection {
+		File dir = new File(path)l
+		File[] files = dir.listFiles();
+		
+		for (File file : files) {
+			if (file.isDirectory()) {
+				walkDirectoryJava6(file.getAbsolutePath());
+				} else {
+					processFile(file);
+				}
+			}
+		}
+	}
+
+This method accepts a string "String path" represents a directory path
+Java IO.file class to get a list of files in that directory
+	File[] files = dir.listFiles();
+	creates an a array with a list of files in the directory
+Do something with each file that is found
+	for (...) {....}
+The method is passed a string instead of converting string into a file
+Subdirectories are not process with dir.listFiles();
+	A recursive call is made to check for subdirectories with the if() statement\
+	if the file is a directory, teh recurssion is started
+processFile(file); is a method to do something, but still needs to be written
+	eventually, it will search the file
+
+-----------------------------------------------------------------
+
+Java NIO for Java7 or newer:
+
+	public void walkDirectoryJava7(String path) throws IOException {
+		Files.walkFileTree(Paths.get(path), new SimpleFileVisitor<Path>() {
+			@Override
+			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOExpection {
+				processFile(file.toFile()):
+				return FileVisitResult.CONTINUE;
+			}
+		});
+	}
+
+Java 7 has NIO files class
+java.io.file
+
+Files.walkFileTree is a check exception
+	requires either try-catch block inside the method, or throw IOException in the method signature
+First parameter of walkFileTree is a path object, not a string
+	Paths.get() converts the string <path> to a path
+Second parameter is a file visitor object -> what does this mean????
+visitFile method
+	called once for each file being walked
+visitFile include the processFile() method
+return says to go to next file
+walkFileTree method automatically process ALL files in the directory, including the subdirectories
+
+-------------------------------------------------------------------
+
+Streams and lamda functions in Java 8 or newer
+
+	public void walkDirectoryJava8(String path) throws IOException {
+		Files.walk(Paths.get(path)).forEach(f -> processFile(f.toFile()));
+	}
+
+Files.walk() method
+	returns a stream
+.forEach() method
+	operates on each item in the stream
+lamda
+
+-----------------------------------------------------------------------
+
+Opening a file for searching
+
+FileScanner
+Files class
+Streams
+
+-----------------------------------------------------------------------
+
+Open a file for searching
+
+Java 6 or newer:
+
+	public boolean searchFileJava6(File file) throws IOException {
+		boolean found = false;
+		Scanner scanner = new Scanner(file, "UTF-8");
+		while (scanner.hasNextLine()) {
+			found = searchText(scanner.nextLine());
+			if (foudn) {
+				break;
+			}
+		}
+		scanner.close();
+		return found;
+	}
+
+Scanner reads a file assuming UTF-8 encoding
+	The encoding is not a gaurantee
+	Might not even be a text file
+searchText() method
+	This will be the method that has the text that is being searched for
+
+--------------------------------------------------------------------
+
+Java 7 or newer
+
+	public boolean searchFileJava7(File file) throws IOException {
+		List<String> lines = Files.readAllLines(file.toPatch(), StandardCharsets.UTF_8);
+		for (String line: lines) {
+			if (searchText(line)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+readAllLines()
+	reads entire file into memory as a list of strings
+	Not a great idea if the file could be really large
+
+------------------------------------------------------------------
+
+Java 8 or newer
+
+Streams
+
+	public boolean searchFileJava8(File file) throws IOExcecption {
+		return Files.lines(file.toPath(), StandardCharsets.UTF_8).anyMatch(t -> searchText(t));
+	}
+
+Reads UTF_8 by default, and we could remove the StandardarCharsets parameter
+.anyMatch
+	called a "short circuiting" method
+	Will stop and return true once a match is found
+
+-----------------------------------------------------------------------------
+
+Searching for simple text
+
+	public boolean searchText(String text) {
+		if (this.getRegex() == null) {
+			return true;
+		}
+		return text.contains(this.getRegex());
+	}
+
+for lowercase insensative:
+
+	public boolean searchText(String text) {
+		if (this.getRegex() == null) {
+			return true;
+		}
+		return text.toLowerCase().contains(this.getRegex().toLowerCase());
+	}
+
+to make the code a single line:
+
+	public boolean searchText(String text) {
+		return (this.getRegex() == null) ? true : text.toLowerCase().contains(this.getRegex().toLowerCase());
+	}
+
+--------------------------------------------------------------------
+
+Searching for Regular expressions
+
+	public boolean searchText(String text) {
+		return (this.getRegex() == null) ? true : text.matches(this.getRegex());
+	}
+
+Another option is to compile a Pattern variable
+	import java.util.regex.Pattern;
+	
+	Pattern pattern; //declare the variable
+
+	public void setRegex(String regex) {
+		this.regex = regex;
+		this.pattern = Pattern.compile(regex);
+	}
+	
+	public boolean searchText(String text) {
+		return (this.getRegex() == null) ? true : this.pattern.matcher(text).matches();
+	}
+	
+.matches() requires the ENTIRE string to match perfectly
+.find() allows for finding a match someonewhere in the string
+
+example:
+
+	Pattern.compile("x").matcher("example").matches() = false
+	Pattern.compile("x").matcher("example").find() = true
+
+Regular Expression syntax
+	Use "^" and "$" to enclose the search string
+	there are a lot more examples of what can be done with this type of syntax 
+
+"example.matches("x");
+Pattern.compile("x").matcher("example").matches(); is false
+Pattern.compile("^x$").matcher("example").find(); is false
+
+Pattern.compile("x").matcher("example").find(); is true
+
+--------------------------------------------------------------------
+
+
+
+
+
 
 

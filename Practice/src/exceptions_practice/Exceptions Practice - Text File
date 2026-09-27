@@ -1,0 +1,134 @@
+Exceptions Practice
+
+Exceptions are unexpected incidents that hault execution
+Ex: dividing by 0
+
+-----------------------------------------------------------
+Try and catch blocks
+
+Try block
+	surrounds the normal code
+	exits if an exception is thrown within the try block
+
+Catch block
+	"extra" code after the try block
+	"catches" the thrown try block exception
+	if the thrown exception type matches the catch block's parameter type, the code in the catch block executes
+	
+	also called an execption handler
+
+---------------------------------------------------------------
+
+example with a try and catch block
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class LightTravelTime {
+  public static void main(String[] args) {
+     Scanner scnr = new Scanner(System.in);
+     double distMiles = 0.0;
+     double lightTravelTimeSec = 0.0;
+  
+     System.out.print("Enter distance in miles: ");
+
+     try {
+        distMiles = scnr.nextDouble();
+        lightTravelTimeSec = distMiles / 186282.0;
+     }
+     catch (InputMismatchException e) {
+        System.out.println("Must enter a number!");
+     }
+
+     System.out.println(lightTravelTimeSec);
+  }
+}
+
+Example:
+	Enter distance in miles: twenty
+	Must enter a number!
+
+--------------------------------------------------------------------
+Example:
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class PowerResistorExceptHandling {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int currentLevel;
+      int powerResistor;
+      int resistorOhms = 1;
+ 
+      try {
+         currentLevel = scnr.nextInt();
+
+         powerResistor = currentLevel * currentLevel * resistorOhms;
+         
+         System.out.println("Power = " + powerResistor + " W");
+      }
+      catch (InputMismatchException excpt) {
+         System.out.println("Input is invalid");
+      }
+   }
+}
+
+Input: 5
+Output: Power = 25 W
+
+---------------------------------------------------------------------------
+Example with multiple handlers
+
+BMI example with multiple exception handlers.
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class BMICalculator {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int weightVal = 0;    // User defined weight (lbs)
+      int heightVal = 0;    // User defined height (in)
+      double bmiCalc;        // Resulting BMI
+
+      try {
+         System.out.print("Enter weight (in pounds): ");
+         weightVal = scnr.nextInt();
+
+         // Error checking, non-negative weight
+         if (weightVal < 0) {
+            throw new Exception("Invalid weight.");
+         }
+
+         System.out.print("Enter height (in inches): ");
+         heightVal = scnr.nextInt();
+
+         // Error checking, non-negative height
+         if (heightVal < 0) {
+            throw new Exception("Invalid height.");
+         }
+
+         bmiCalc = ((double) weightVal /
+                    (double) (heightVal * heightVal)) * 703.0f;
+
+         System.out.println("BMI: " + bmiCalc);
+      }
+      catch (InputMismatchException excpt) {
+         System.out.println("Expected a number as input.");
+         System.out.println("Cannot compute BMI.");
+      }
+      catch (Exception excpt) {
+         // Prints the error message passed by the throw statement.
+         System.out.println(excpt.getMessage());
+         System.out.println("Cannot compute BMI.");
+      }
+   }
+}
+
+
+
+
+
+
+
+
+
