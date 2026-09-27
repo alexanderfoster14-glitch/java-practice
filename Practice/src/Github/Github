@@ -6,9 +6,10 @@ Here is how to setup a new GitHub repository and link the repository with the co
 
 Steps for New Github Repository
 	Step 1: Generate your GitHub Access Token
-	Step 2: Initialize a Local Git Repository in Eclipse
-	Step 3: Commit Your Files
-	Step 4: Authenticate and Push to GitHub
+	Step 2: Create a Blank Repository on GitHub
+	Step 3: Initialize a Local Git Repository in Eclipse
+	Step 4: Commit Your Files
+	Step 5: Authenticate and Push to GitHub
 
 Step 1: Generate your GitHub Access Token
 	Before using Eclipse, you must create a token to log in securely
@@ -21,8 +22,7 @@ Step 1: Generate your GitHub Access Token
 	Copy the token immediately
 	GitHub will not show it to you again
 
-Step 2: Push an Existing Eclipse Project to GitHub
-	Create a Blank Repository on GitHub
+Step 2: Create a Blank Repository on GitHub
 	Go to GitHub and create a New Repository
 	Give it a name, leave it blank (do not add a README, .gitignore, or license)
 	Click Create repository
