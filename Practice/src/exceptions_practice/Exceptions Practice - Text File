@@ -124,6 +124,634 @@ public class BMICalculator {
    }
 }
 
+----------------------------------------------------------------------
+
+Throws clause
+
+Throws clause is specified after the method's parameter list, before the curley brace
+
+example:
+
+	public static void mineCoins() throws Exception {
+		...
+	}
+
+--------------------------------------------------------------------------
+
+A Throws cluase can specify the exception type, with a comma (",")
+
+Example;
+	public static void method() throws Exception, FileNotFoundException {
+		...
+	}
+	
+Example:
+	public static int sumFile(String file) throws FileNotFoundException, InputMismatchException {
+		...
+	}
+	...
+	try {
+		...
+	}
+	catch (FileNotFoundException excpt) {
+		System.out.println(excpt.getMessage());
+	}
+	
+	//the InputMismatchException is optional
+
+----------------------------------------------------------------------
+
+Checked vs. Unchecked Exceptions
+
+Java has checked and unchecked exceptions
+
+checked exception
+	An exception the programmer is expected to handle within the program
+	If a method includes code that may throw a checked exception, the Java compiler ensures that the method catches the exception or declares that the exception is thrown.
+	Ex: A program that opens files should anticipate and handle a FileNotFoundException.
+	
+unchecking exception
+	An exception the programmer is not expected to catch or handle at runtime
+	Compiler does nothing to verify unchecked exceptions are handled
+	Ex: A program should try to eliminate code that uses null references instead of catching and
+
+-------------------------------------------------------------------------
+
+Catch or Specify requirement
+
+This is confusing....
+
+----------------------------------------------------------------------
+
+Common unchecked exceptions
+
+NullPointerException
+	indicated a null reference
+
+IndexOutOfBoundsException
+	indicates that an index (e.g., an index for an array) is outside the appropriate range
+
+ArithmeticException
+	indicates the occurrence of an exceptional arithmetic condition (e.g., integer division by zero)
+
+IOError
+	indicates the failure of an I/O operation
+
+ClassCastException
+	indicated an invalid attempt to cast an object to type of which the object is not an instance (e.g., casting a Double to a String)
+	
+IllegalArgumentException
+	indicated an illegal or inappropriate method argument
+
+--------------------------------------------------------------------------
+
+Example:
+
+import java.util.Scanner;
+import java.util.InputMismatchException;
+
+public class TotalWheels {
+   public static int getTotalWheels(Scanner scnr) throws InputMismatchException {
+      int numWheels;
+      
+      numWheels = scnr.nextInt();
+
+      return numWheels;
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int numWheels;
+            
+      try {
+         numWheels = getTotalWheels(scnr);
+
+         System.out.print("Valid input: ");
+         System.out.println(numWheels + " wheels can make " + (numWheels / 3) + " tricycles");
+      }
+      catch (InputMismatchException excpt) {
+         System.out.println("Error: Incorrect input type");
+      }
+   }
+}
+
+----------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class TotalCents {
+   public static int loadTotalCents(String fileName) throws Exception, FileNotFoundException {
+      FileInputStream inStrm = new FileInputStream(fileName);
+      Scanner fileScnr = new Scanner(inStrm);
+      int numCents;
+      
+      numCents = fileScnr.nextInt();
+		if (numCents % 25 != 0) {
+			throw new Exception("Error: Amount cannot be converted to quarters.");
+		}
+      return numCents;
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String fileName;
+      int numCents;
+      
+      fileName = scnr.next();
+      
+      try {
+         numCents = loadTotalCents(fileName);
+
+         System.out.print("Valid input: ");
+         System.out.println(numCents + " cents = " + (numCents / 25) + " quarters");
+      }
+      catch (FileNotFoundException excpt) {
+         System.out.println("Error: File not found");
+      }
+      catch (Exception excpt) {
+         System.out.println(excpt.getMessage());
+      }
+   }
+}
+
+data1.txt file:
+825
+
+data2.txt file:
+61
+
+Input
+	data1.txt
+Your output
+	Valid input: 825 cents = 33 quarters
+
+Input
+	data2.txt
+Your output
+	Error: Amount cannot be converted to quarters.
+
+Input
+	data3.txt
+Your output
+	Error: File not found
+
+------------------------------------------------------------------------------
+use term "extends" to extend Exception exception
+public class NaNException extends Exception {
+   public NaNException() {
+      super("NaN Exception");
+   }
+}
+
+call term "super();"
+
+-------------------------------------------------------------------
+
+Complete the constructor so that exceptions of type NaNException do not have an exception message.
+
+public class NaNException extends Exception {
+	public NaNException() {
+		super();
+	}
+}
+
+-------------------------------------------------------------------------
+Complete the constructor so that the exception's message can be passed to NaNException's constructor.
+public class NaNException extends Exception {
+	public NaNException(String exceptionMessage) {
+		super(exceptionMessage);
+	}
+}
+
+------------------------------------------------------------------------
+Complete the constructor to accept only the name of the variable that evaluates to NaN.
+public class NaNException extends Exception {
+	public NaNException(String varName) {
+		super(varName + " is NaN!");
+	}
+}
+
+---------------------------------------------------------------------------------
+
+InvalidNegativeInputException.java
+
+public class InvalidNegativeInputException extends Exception {
+   public InvalidNegativeInputException(String varName) {
+      super("Variable " + varName + " is negative");
+   }
+}
+
+NaNException.java
+
+public class NaNException extends Exception {
+   public NaNException(String varName) {
+      super("Variable " + varName + " is NaN");
+   }
+}
+
+DensityCalculator.java
+
+import java.util.Scanner;
+
+public class DensityCalculator {
+   public static double getPositiveValue(Scanner scnr, String valName)
+                        throws InvalidNegativeInputException {
+
+      System.out.print("Enter " + valName + ": ");
+
+      double inputVal = scnr.nextDouble();
+
+      if (inputVal < 0.0) {
+          throw new InvalidNegativeInputException(valName);
+      }
+
+      return inputVal;
+   }
+
+   public static double getDensity(Scanner scnr)
+                        throws InvalidNegativeInputException, NaNException {
+
+      double massVal = getPositiveValue(scnr, "massVal");
+      double volumeVal = getPositiveValue(scnr, "volumeVal");
+      double densityCalc = massVal / volumeVal;
+
+      if (Double.isNaN(densityCalc)) {
+         throw new NaNException("densityCalc");
+      }
+
+      return densityCalc;
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+
+      try {
+         System.out.println("Density: " + getDensity(scnr));
+      }
+      catch (InvalidNegativeInputException excpt) {
+         System.out.println(excpt.getMessage());
+
+         // Handle ...
+      }
+      catch (NaNException excpt) {
+         System.out.println(excpt.getMessage());
+
+         // Handle ...
+      }
+   }
+}
+
+------------------------------------------------------------------------
+
+methods for working with exceptions
+
+getInputName()
+	returns the invalid input's name
+
+getInputValue()
+	returns the invalid input's value
+
+getMessage()
+	returns teh exception's default message
+
+catch (InvalidNegativeInputException e) {
+   if ( (A) ) {
+      System.out.println("Sensor returned error value " + (B) );
+   }
+   else {
+      System.out.println( (C) );
+   }
+}
+
+A)
+e.getInputName().equals(sensorValue)
+	
+B)
+e.getInputValue()
+
+C)
+e.getMessage()
+
+----------------------------------------------------------------------
+Example:
+
+In the ManufactureYear class, when an input value is invalid,
+	throw a user-defined ManufactureYearException object as follows:
+
+	Start a throw clause with throw.
+	Create an object using new.
+	Call the ManufactureYearException() constructor with message
+		"Error: The manufacture year entered is invalid" as the
+		argument.
+
+
+ManufactureYear.java
+
+import java.util.Scanner;
+
+public class ManufactureYear {
+   public static int checkManufactureYear(Scanner scnr) throws ManufactureYearException {
+      int manufactureYear;
+
+      manufactureYear = scnr.nextInt();
+      if (manufactureYear < 1960) {
+
+         throw new ManufactureYearException("Error: The manufacture year entered is invalid");
+
+      }
+      return manufactureYear;
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int manufactureYear;
+            
+      try {
+         manufactureYear = checkManufactureYear(scnr);
+
+         System.out.print("Valid input: ");
+         System.out.println("Manufacture year is " + manufactureYear);
+      }
+      catch (ManufactureYearException excpt) {
+         System.out.println(excpt.getMessage());
+      }
+   }
+}
+
+
+ManufactureYearException.java
+
+public class ManufactureYearException extends Exception {
+   public ManufactureYearException(String message) {
+      super(message);
+   }
+}
+
+-------------------------------------------------------------------
+
+The user-defined DancersCountException class is used in the
+	PairsOfDancers class to handle invalid input values.
+	Complete the definition of the public DancersCountException
+	class as follows:
+
+	The access modifier is public.
+	The type is class.
+	The class name is DancersCountException.
+	The class extends the Exception class.
+
+
+PairsOfDancers.java
+
+import java.util.Scanner;
+
+public class PairsOfDancers {
+   public static int findPairsOfDancers(Scanner scnr) throws DancersCountException {
+      int numDancers;
+
+      numDancers = scnr.nextInt();
+      if (numDancers % 2 != 0) {
+         throw new DancersCountException("Error: Dancers cannot be paired");
+      }
+      return numDancers;
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int numDancers;
+
+      try {
+         numDancers = findPairsOfDancers(scnr);
+
+         System.out.print("Valid input: ");
+         System.out.println(numDancers + " dancers form " + (numDancers / 2) + " pairs");
+      }
+      catch (DancersCountException excpt) {
+         System.out.println(excpt.getMessage());
+      }
+   }
+}
+
+
+DancersCountException.java
+
+public class DancersCountException extends Exception {
+   public DancersCountException(String message) {
+      super(message);
+   }
+}
+
+---------------------------------------------------------------------------
+
+The user-defined MoneyValueException class is used in the
+	TotalCents class to handle invalid input values.
+	Complete the definition of the public MoneyValueException
+	class constructor that has a String parameter named
+	exceptionMessage. The constructor calls super() with
+	exceptionMessage as the argument.
+
+TotalCents.java
+
+import java.util.Scanner;
+
+public class TotalCents {
+   public static int checkTotalCents(Scanner scnr) throws MoneyValueException {
+      int numCents;
+
+      numCents = scnr.nextInt();
+      if (numCents % 5 != 0) {
+         throw new MoneyValueException("Error: Amount cannot be converted to nickels");
+      }
+      return numCents;
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int numCents;
+
+      try {
+         numCents = checkTotalCents(scnr);
+
+         System.out.print("Valid input: ");
+         System.out.println(numCents + " cents = " + (numCents / 5) + " nickels");
+      }
+      catch (MoneyValueException excpt) {
+         System.out.println(excpt.getMessage());
+      }
+   }
+}
+
+
+MoneyValueException.java
+
+public class MoneyValueException extends Exception {
+
+   public MoneyValueException(String exceptionMessage) {
+      super(exceptionMessage);
+   }
+}
+
+------------------------------------------------------------------------
+
+Exceptions with files
+
+FileInputStream constructor
+	throws FileNotFoundException if flie cannot be found or opened for reading
+	
+--------------------------------------------------------------------
+Example;
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class FileDataAverage {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      Scanner fileScanner;
+      String fileName;
+      FileInputStream fileInStream;
+      double dataAvg;
+
+      System.out.print("Enter a file name: ");
+      fileName = scnr.next();
+
+      try {
+         fileInStream = new FileInputStream(fileName);
+         fileScanner = new Scanner(fileInStream);
+         
+         // Read file with fileScanner ...
+
+         System.out.println("Average: " + dataAvg);
+      }
+      catch (FileNotFoundException e) {
+         System.out.println("Cannot find " + fileName);
+      }
+   }
+}
+
+-------------------------------------------------------------------------
+
+fileInStream = new FileInputStream("file1.txt");
+
+-----------------------------------------------------------------------------
+Example
+Closing multiple files.
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class FileDataAverage {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int expectedNumValues = 0;
+      int numValuesRead = 0;
+      int valueSum = 0;
+      double valueAvg = 0.0;
+
+      FileInputStream fileInStream;
+      Scanner fileScanner = null;
+      FileOutputStream fileOutStream;
+      PrintWriter fileWriter = null;
+
+      try {
+         // Open input file.
+         fileInStream = new FileInputStream("input.txt");
+         fileScanner = new Scanner(fileInStream);
+         System.out.println("Opened input.txt");
+
+         // Open output file.
+         fileOutStream = new FileOutputStream("output.txt");
+         fileWriter = new PrintWriter(fileOutStream);
+         System.out.println("Opened output.txt");
+
+         // The first entry in the input file is the expected number of values.
+         expectedNumValues = fileScanner.nextInt(); // May throw InputMismatchException
+
+         // Calculate the average input value.
+         for (numValuesRead = 0; numValuesRead < expectedNumValues; ++numValuesRead) {
+            valueSum += fileScanner.nextInt();  // May throw InputMismatchException
+         }
+
+         valueAvg = valueSum / numValuesRead;
+
+         // Print the average to the output file.
+         fileWriter.println("Average: " + valueAvg);
+      }
+      catch (FileNotFoundException exception) {
+         System.out.println("Error opening file");
+      }
+
+      // Close both files.
+      if (fileScanner != null) {
+         fileScanner.close();
+         System.out.println("Closed input.txt");
+      }
+
+      if (fileWriter != null) {
+         fileWriter.close();
+         System.out.println("Closed output.txt");
+      }
+   }
+}
+
+---------------------------------------------------------------------
+try-with-resource statement
+
+Can be used to close a file
+
+Example
+
+try (Scanner fileScnr = new Scanner (new FileInputStream("input.txt"))) {
+	numValues = fileScnr.nextInt();
+	for (int i = 0; i < numValues; ++i) {
+		valueSume += fileScnr.nextInt();
+	}
+	System.out.println("Sum: " + valueSum);
+}
+catch (FileNotFoundException exception) {
+	System.out.println("File not found");
+}
+
+------------------------------------------------------------------------
+finally block
+
+always executes when a try block exits
+
+PrintWriter fileWriter = null;
+int numValuesRead = 0;
+int valueSum = 0;
+
+Example
+
+try (Scanner fileScnr = new Scanner(new FileInputStream("input.txt"))) {
+   fileWriter = new PrintWriter(new FileOutputStream("output.txt"));   
+   numValues = fileScnr.nextInt();
+
+   for (numValuesRead = 0; numValuesRead < numValues; ++numValuesRead) {
+      valueSum += fileScnr.nextInt();
+   }
+}
+catch (FileNotFoundException exception) {
+   System.out.println("File not found");
+}
+finally {
+   if (fileWriter != null) {
+      fileWriter.println(valueSum);
+      fileWriter.close();
+   }
+}
+
+-----------------------------------------------------------------------
+
+
+
+
 
 
 
