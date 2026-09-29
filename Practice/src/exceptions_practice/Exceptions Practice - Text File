@@ -749,14 +749,349 @@ finally {
 
 -----------------------------------------------------------------------
 
+Example
+
+Complete FileDataSum program with finally block.
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
+
+public class FileDataSum {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      PrintWriter fileWriter = null;
+      int numValues;
+      int numValuesRead = 0;
+      int valueSum = 0;
+
+      try (Scanner fileScnr = new Scanner(new FileInputStream("input.txt"))) {
+         fileWriter = new PrintWriter(new FileOutputStream("output.txt"));
+         numValues = fileScnr.nextInt();
+
+         for (numValuesRead = 0; numValuesRead < numValues; ++numValuesRead) {
+            valueSum += fileScnr.nextInt();
+         }
+      }
+      catch (FileNotFoundException exception) {
+         System.out.println("File not found");
+      }
+      finally {
+         if (fileWriter != null) {
+            fileWriter.println(valueSum);
+            fileWriter.close();
+         }
+      }
+   }
+}
+
+----------------------------------------------------------------------------
+
+Example
+
+REadInputFile.java
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class ReadInputFile {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String widthFileName;
+      double dataValue;
+
+      widthFileName = scnr.next();
+
+      try (Scanner fScanner = new Scanner(new FileInputStream(widthFileName))) {
+         dataValue = fScanner.nextDouble();
+         System.out.println("Value read from " + widthFileName + ": " + dataValue);
+      }
+      catch (IOException e) {
+         System.out.println(widthFileName + ": File not available");
+      }
+   }
+}
+
+width1.txt
+3.8
+
+width2.txt
+4.9
+
+width3.txt
+3.3
 
 
 
+Input: width1.txt
+Your output: Value read from width1.txt: 3.8
+
+Input: badfile.txt
+Your output: badfile.txt: File not available
+
+Input: width2.txt
+Your output: Value read from width2.txt: 4.9
+
+Input: nonexistent.txt
+Your output: nonexistent.txt: File not available
+
+----------------------------------------------------------------------------
+
+Example
+
+ReadInputFile.java
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+public class ReadInputFile {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String yucaFileName;
+      int yucaValue;		
+		boolean hasError = false;
+
+      yucaFileName = scnr.next();
+
+      try (Scanner dataScanner = new Scanner(new FileInputStream(yucaFileName))) {
+         yucaValue = dataScanner.nextInt();
+         System.out.println("Value read from " + yucaFileName + ": " + yucaValue);
+      }
+
+      catch (FileNotFoundException e) {
+         hasError = true;
+      }
+
+      /* dataScanner is automatically closed after the try block terminates. */		
+		if (hasError) {
+			System.out.println(yucaFileName + ": File not found");
+		}
+		else {
+			System.out.println("Success: File processed");
+		}
+   }
+}
+
+
+yuca1.txt
+33
+
+yuca2.txt
+18
+
+yuca3.txt
+26
+
+
+Input
+yuca1.txt
+
+Your output
+Value read from yuca1.txt: 33
+Success: File processed
+
+
+Input
+fail.txt
+
+Your output
+fail.txt: File not found
+
+
+Input
+yuca2.txt
+
+Your output
+Value read from yuca2.txt: 18
+Success: File processed
+
+
+Input
+nosuchfile.txt
+
+Your output
+nosuchfile.txt: File not found
+
+---------------------------------------------------------------------------------
+Example
+
+ReadDataFile.java
+
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+// This program uses an overloaded FileInputStream library to check for file closure
+
+public class ReadDataFile {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      FileInputStream dataInStream;
+      Scanner fInScanner = null;
+      String widthFileName;
+		double valueRead = -1;
+		boolean hasError = false;
+		
+		widthFileName = scnr.next();
+		
+		try {
+			dataInStream = new FileInputStream(widthFileName);
+			fInScanner = new Scanner(dataInStream);
+			valueRead = fInScanner.nextDouble();
+		}
+		
+	    catch (FileNotFoundException e) {
+	    	hasError = true;
+	    }
+	      
+	    finally {
+	         if (fInScanner != null) {
+	         	fInScanner.close();
+	       }
+	    }
+		
+		if (hasError) {
+			System.out.println(widthFileName + ": Open operation failed");
+		}
+		else {
+			System.out.println("Value read from " + widthFileName + ": " + valueRead);
+		}
+   }
+}
+
+
+width1.txt
+3.1
+
+width2.txt
+3.3
+
+width3.txt
+1.2
+
+
+Input
+width3.txt
+
+Your output
+Value read from width3.txt: 1.2
+
+
+Input
+nothing.txt
+
+Your output
+nothing.txt: Open operation failed
+
+
+Input
+width1.txt
+
+Your output
+Value read from width1.txt: 3.1
+
+
+Input
+nosuchfile.txt
+
+Your output
+nosuchfile.txt: Open operation failed
+
+---------------------------------------------------------------------
+
+Example
+
+import java.util.Scanner;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+
+public class WriteMaxSaffronFile {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      PrintWriter saffronFileWriter = null;
+      String saffronDataName;
+      int inValue;
+      int saffronCount = 0;
+		int maxDataValue = 0;
+		
+      saffronDataName = scnr.next();
+      
+      try {
+         saffronFileWriter = new PrintWriter(new FileOutputStream(saffronDataName));
+         for (saffronCount = 0; saffronCount < 2; ++saffronCount) {
+            inValue = scnr.nextInt();
+            saffronFileWriter.println(inValue);				
+				if (maxDataValue < inValue) {
+					maxDataValue = inValue;
+				}
+         }
+      }
+      catch (Exception e) {
+         System.out.println("Error!");
+      }
+
+      finally {
+         if (saffronFileWriter != null ) {
+            if (saffronCount > 0) {
+            saffronFileWriter.println("Maximum value is: " + maxDataValue);
+            }
+            saffronFileWriter.close();
+         }
+      }
+
+   }
+}
 
 
 
+Input
+saffronOut.txt 36 19
+
+Your file content
+36
+19
+Maximum value is: 36
 
 
+Input
+output.txt err 19
+
+Your file content
+Your program correctly produced no output
+
+
+Input
+/nonexistent.txt
+
+Your output
+Error!
+
+
+Input
+data.txt 13 mismatch
+
+Your file content
+13
+Maximum value is: 13
+
+
+Input
+saffronFile.txt 42 badvalue
+
+Your file content
+42
+Maximum value is: 42
+
+
+Input
+/nosuchfile3.txt
+
+Your output
+Error!
+
+-----------------------------------------------------------------------------
 
 
 

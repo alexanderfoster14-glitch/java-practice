@@ -1,7 +1,7 @@
 Files Practice
 
 Walk the files in a given directory of files
-	Given a directy, this is a method that do something with every file found in that directory
+	Given a directory, this is a method that do something with every file found in that directory
 
 Options for walking a directory of files
 	File Class
@@ -34,7 +34,7 @@ Do something with each file that is found
 The method is passed a string instead of converting string into a file
 Subdirectories are not process with dir.listFiles();
 	A recursive call is made to check for subdirectories with the if() statement\
-	if the file is a directory, teh recurssion is started
+	if the file is a directory, the recurssion is started
 processFile(file); is a method to do something, but still needs to be written
 	eventually, it will search the file
 
