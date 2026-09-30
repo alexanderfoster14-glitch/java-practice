@@ -214,6 +214,218 @@ Pattern.compile("x").matcher("example").find(); is true
 
 --------------------------------------------------------------------
 
+PrintStream
+
+System.out
+
+InputStream
+
+System.in
+
+---------------------------------------------------------------------------
+
+Using the InputStream class requires using the throws clause
+
+-----------------------------------------------------------------------
+
+Output Formatting
+
+Methods
+	printf()
+	format()
+
+------------------------------------------------------------------------------
+sub-specifiers
+
+%(flags)(width)(.precision)specifier
+
+------------------------------------------------------------------------------
+
+Example for formatting strings:
+
+public class DogAge {
+   public static void main(String[] args) {
+
+      System.out.printf("Dog age in human years (dogyears.com)\n\n");
+      System.out.printf("-------------------------\n");
+
+         // set num char for each column, left aligned
+      System.out.printf("%-10s | %-12s\n", "Dog age", "Human age");
+      System.out.printf("-------------------------\n");
+
+      // set num char for each column, first col left aligned
+      System.out.printf("%-10s | %12s\n", "2 months", "14 months");
+      System.out.printf("%-10s | %12s\n", "6 months", "5 years");
+      System.out.printf("%-10s | %12s\n", "8 months", "9 years");
+      System.out.printf("%-10s | %12s\n", "1 year", "15 years");
+      System.out.printf("-------------------------\n");
+   }
+}
+
+Output:
+Dog age in human years (dogyears.com)
+
+-------------------------
+Dog age    | Human age   
+-------------------------
+2 months   |    14 months
+6 months   |      5 years
+8 months   |      9 years
+1 year     |     15 years
+-------------------------
+
+--------------------------------------------------------------------------------------------
+
+flush()
+
+System.out.flush();
+
+Characters/strings/lines are added to a buffer. This buffer might take time to fill and the computer might wait to print all items
+	until a certain buffer stage is reached
+flush() pushes the current buffered characters to print
+
+
+--------------------------------------------------------------------------------------------
+
+public class OutputFormatting {
+   public static void main(String[] args) {
+      double myDouble;
+
+      myDouble = 93.9214;
+
+      System.out.printf("%e\n", myDouble);
+   }
+}
+
+Output:
+9.392140e+01
+
+Default precision is 6 decimal places if not specified
+
+-------------------------------------------------------------------------------------------
+
+public class OutputFormatting {
+   public static void main(String[] args) {
+      int myInt;
+      double myDouble;
+
+      myInt = 784;
+      myDouble = 93.14;
+
+      System.out.printf("%05d\n", myInt);
+      System.out.printf("%07.2f\n", myDouble);
+   }
+}
+
+Output:
+00784
+0093.14
+
+----------------------------------------------------------------------------------------------
+
+
+public class OutputFormatting {
+   public static void main(String[] args) {
+      String name1;
+      String name2;
+
+      name1 = "Robb";
+      name2 = "Lucy";
+
+      System.out.printf("%-7s/\n", name1);
+      System.out.printf("%-7s/\n", name2);
+   }
+}
+
+Output:
+Robb   \
+Lucy   \
+
+--------------------------------------------------------------------------------------------------
+Double displacement and integer amountCalculated are read from input. Output the following:
+	displacement as a floating-point value, followed by "%".
+	amountCalculated as an octal integer value, followed by "%".
+	displacement as a floating-point value in scientific notation, followed by "%".
+	End each output with a newline.
+
+Ex: If the input is 48.875 12, then the output is:
+	48.875000%
+	14%
+	4.887500e+01%
+
+
+import java.util.Scanner;
+
+public class OutputNotation {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      double displacement;
+		int amountCalculated;
+      
+      displacement = scnr.nextDouble();
+		amountCalculated = scnr.nextInt();
+
+      System.out.printf("%f%%\n", displacement);
+      System.out.printf("%o%%\n", amountCalculated);
+      System.out.printf("%e%%\n", displacement);
+
+   }
+}
+
+--------------------------------------------------------------------------------------------------
+
+Doubles boxHeight and boxWeight are read from input. Output the following:
+
+	boxHeight with a +/- sign, 0's as padding, a minimum of 8 characters, and 3 digits following the decimal point.
+	boxWeight left-aligned, a minimum of 7 characters, and 3 digits following the decimal point.
+	End each output with a newline.
+
+Ex: If the input is 6.875 4.375, then the output is:
+	+006.875
+	4.375 
+
+import java.util.Scanner;
+
+public class NumFormatter {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      double boxHeight;
+      double boxWeight;
+      
+      boxHeight = scnr.nextDouble();
+      boxWeight = scnr.nextDouble();
+
+      System.out.printf("%+08.3f\n", boxHeight);
+      System.out.printf("%-7.3f\n", boxWeight);
+
+   }
+}
+
+--------------------------------------------------------------------------------------------------------------
+
+String inputVal is read from input. Output "Printed string: ", followed by inputVal with a maximum of 6 characters,
+	and then " is printed". End with a newline.
+
+Ex: If the input is Tanzania, then the output is:
+	Printed string: Tanzan is printed
+
+import java.util.Scanner;
+
+public class StringFormatter {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String inputVal;
+      
+      inputVal = scnr.next();
+
+      System.out.printf("Printed string: %.6s is printed\n", inputVal);
+
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 
