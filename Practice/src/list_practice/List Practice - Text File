@@ -9,6 +9,91 @@ Linked List has each element and a pointer to the next element
 	This is faster to add or remove items, as you just update the value of the pointer (the value pointing to the next element)
 	Linked lists require more memory and can take longer to search
 
+-----------------------------------------------------------------------------------------------------
+
+List Node
+
+intNode.java
+
+public class IntNode {
+   private int dataVal;         // Node data
+   private IntNode nextNodeRef; // Reference to the next node
+
+   public IntNode() {
+      dataVal = 0;
+      nextNodeRef = null;
+   }
+
+   // Constructor
+   public IntNode(int dataInit) {
+      this.dataVal = dataInit;
+      this.nextNodeRef = null;
+   }
+
+   /* Insert node after this node.
+    Before: this -- next
+    After:  this -- node -- next
+    */
+   public void insertAfter(IntNode nodeLoc) {
+      IntNode tmpNext;
+
+      tmpNext = this.nextNodeRef;
+      this.nextNodeRef = nodeLoc;
+      nodeLoc.nextNodeRef = tmpNext;
+   }
+
+   // Get location of nextNodeRef
+   public IntNode getNext() {
+      return this.nextNodeRef;
+   }
+
+   public void printNodeData() {
+      System.out.println(this.dataVal);
+   }
+}
+
+CustomLinkedList.java
+
+public class CustomLinkedList {
+   public static void main(String[] args) {
+      IntNode headObj;  // Create IntNode reference variables
+      IntNode nodeObj1;
+      IntNode nodeObj2;
+      IntNode nodeObj3;
+      IntNode currObj;
+
+      // Front of nodes list
+      headObj = new IntNode(-1); 
+      
+      // Insert more nodes
+      nodeObj1 = new IntNode(555);
+      headObj.insertAfter(nodeObj1);
+
+      nodeObj2 = new IntNode(999);
+      nodeObj1.insertAfter(nodeObj2);
+
+      nodeObj3 = new IntNode(777);
+      nodeObj1.insertAfter(nodeObj3);
+
+      // Print linked list
+      currObj = headObj;
+      while (currObj != null) {
+         currObj.printNodeData();
+         currObj = currObj.getNext();
+      }
+   }
+}
+
+Output:
+-1
+555
+777
+999
+
+----------------------------------------------------------------------------------------------------------
+
+head node contains the pointer to the first element in the list (not actual fister element)
+
 
 
 
