@@ -426,7 +426,12 @@ public class StringFormatter {
 ------------------------------------------------------------------------------------------------------------------------
 
 
+The statement
+	fileByteStream = new FileInputStream(str);
 
+creates a file input stream and opens the file denoted by a String variable, str, for reading.
+	FileInputStream's constructor also allows a programmer to pass the filename as a String literal.
+	Ex: fileByteStream = new FileInputStream("numFile.txt");
 
 
 

@@ -1,0 +1,275 @@
+Working with Streams
+
+-------------------------------------------------------------------------------------------------------------
+
+Input String Stream
+
+------------------------------------------------------------------------------------------------------------------
+
+Scanner inSS = new Scanner(userInfo);
+
+creates a new Scanner object with a copy of the String userInfo
+
+-----------------------------------------------------------------------------------------------------
+
+inSS.next();
+next() extracts all characters in a String before whitespace is encountered.
+
+------------------------------------------------------------------------------------------------------------
+
+Example
+
+The following program uses scnr.nextLine() to read an input line from standard input and copy the line into a String.
+The statement inSS = new Scanner(lineString); creates a Scanner object using the String lineString.
+Afterwards, the program extracts input from the inSS stream using the next() and nextInt() methods.
+
+import java.util.Scanner;
+
+public class ProcessInputText {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in); // Input stream for standard input
+      Scanner inSS = null;                   // Input string stream
+      String lineString;                     // Holds line of text
+      String firstName;                      // First name
+      String lastName;                       // Last name
+      int userAge;                           // Age
+      boolean inputDone;                     // Flag to indicate next iteration
+
+      inputDone = false;
+
+      // Prompt user for input
+      System.out.println("Enter \"firstname lastname age\" on each line");
+      System.out.println("(\"Exit\" as firstname exits).\n");
+
+      // Grab data as long as "Exit" is not entered
+      while (!inputDone) {
+
+         // Entire line into lineString
+         lineString = scnr.nextLine();
+
+         // Create new input string stream
+         inSS = new Scanner(lineString);
+
+         // Now process the line
+         firstName = inSS.next();
+
+         // Output parsed values
+         if (firstName.equals("Exit")) {
+            System.out.println("   Exiting.");
+
+            inputDone = true;
+         }
+         else {
+            lastName = inSS.next();
+            userAge = inSS.nextInt();
+
+            System.out.println("   First name: " + firstName);
+            System.out.println("   Last name: " + lastName);
+            System.out.println("   Age: " + userAge);
+            System.out.println();
+         }
+      }
+   }
+}
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+nextLine() reads an entire line, including whitespace.
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+Output String Stream
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Example
+
+
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+public class StringOutputStream {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+
+      // Basic stream for fullname
+      StringWriter fullnameStream = new StringWriter();
+      // Augments stream (fullname) with print()
+      PrintWriter fullnameOSS = new PrintWriter(fullnameStream);
+      // Basic stream for age
+      StringWriter ageStream = new StringWriter();
+      // Augments stream (age) with print()
+      PrintWriter ageOSS = new PrintWriter(ageStream);
+
+      String firstName;      // First name
+      String lastName;       // Last name
+      String fullName;       // Full name (first and last)
+      int userAge;           // Age
+
+      firstName = scnr.next();
+      lastName = scnr.next();
+      userAge = scnr.nextInt();
+
+      // Writes formatted string to buffer, copies from underlying buffer
+      fullnameOSS.print(lastName + ", " + firstName);
+      fullName = fullnameStream.toString();
+
+      // Output parsed input
+      System.out.println("Full name: " + fullName);
+
+      // Writes int age as characters to buffer
+      ageOSS.print(userAge);
+
+      // Appends (minor) to object if less than 21, then
+      // copies buffer into string
+      if (userAge < 21) {
+         ageOSS.print(" (minor)");
+      }
+
+      // Output string
+      System.out.println("Age: " + ageStream.toString());
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+Declare and initialize a PrintWriter variable named outSS that creates an output string stream using the
+	underlying stream given by StringWriter simpleStream = new StringWriter();.
+
+PrintWriter outSS = new PrintWriter(simpleStream);
+
+------------------------------------------------------------------------------------------------------------------
+
+Write a statement that copies the contents of an output string stream to an existing String variable called myStr.
+	Assume the StringWriter and PrintWriter variables are called simpleStream and outSS respectively.
+
+myStr = simpleStream.toString();
+
+-----------------------------------------------------------------------------------------------------------------
+
+
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+public class StringOutputStream {
+   public static void main(String[] args) {
+      String item;
+      int quantity;
+      int discount;
+
+      StringWriter itemCharStream = new StringWriter();
+      PrintWriter itemOSS = new PrintWriter(itemCharStream);
+
+      item = "Book";
+      quantity = 12;
+      discount = 30;
+
+      itemOSS.println(item + " x" + quantity);
+      itemOSS.print(discount + "% off");
+
+      System.out.print(itemCharStream.toString());
+   }
+}
+
+
+Output:
+Book x12
+30% off
+
+
+-------------------------------------------------------------------------------------------------------------------
+
+Write code that uses the input string stream inSS to read input data from string userInput, and updates
+	variables userMonth, userDate, and userYear.
+
+Sample output if the input is "Jan 12 1992":
+	Month: Jan
+	Date: 12
+	Year: 1992
+
+import java.util.Scanner;
+
+public class StringInputStream {
+   public static void main (String [] args) {
+      Scanner scnr = new Scanner(System.in);
+      Scanner inSS = null;
+      String userInput;
+      String userMonth;
+      int userDate;
+      int userYear;
+
+      userInput = scnr.nextLine();
+      inSS = new Scanner(userInput);
+
+      userMonth = inSS.next();
+      userDate = inSS.nextInt();
+      userYear = inSS.nextInt();
+
+      System.out.println("Month: " + userMonth);
+      System.out.println("Date: " + userDate);
+      System.out.println("Year: " + userYear);
+   }
+}
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Write code that inserts userItem into the output string stream itemsOSS until the user enters "Exit".
+	Each item should be followed by a space. Sample output if user input is "red purple yellow Exit":
+
+red purple yellow
+
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+public class StringStreamOutput {
+   public static void main (String [] args) {
+      Scanner scnr = new Scanner(System.in);
+      String userItem;
+
+      StringWriter itemCharStream = new StringWriter();
+      PrintWriter itemsOSS = new PrintWriter(itemCharStream);
+
+      System.out.println("Enter items (type Exit to quit):");
+      userItem = scnr.next();
+
+      while (!userItem.equals("Exit")) {
+
+         itemsOSS.print(userItem + " ");
+
+         userItem = scnr.next();
+      }
+
+      userItem = itemCharStream.toString();
+      System.out.println(userItem);
+   }
+}
+
+---------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
