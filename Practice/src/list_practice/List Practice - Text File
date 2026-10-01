@@ -1,0 +1,16 @@
+Arrays vs. Linked List
+
+ArrayList requires moving element to insert a new element
+	This can be a lengthy process on a large list
+
+Linked lists use pointer to point to the address of the next element
+
+Linked List has each element and a pointer to the next element
+	This is faster to add or remove items, as you just update the value of the pointer (the value pointing to the next element)
+	Linked lists require more memory and can take longer to search
+
+
+
+
+
+

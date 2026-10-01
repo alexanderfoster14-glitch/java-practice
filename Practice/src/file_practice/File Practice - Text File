@@ -433,6 +433,490 @@ creates a file input stream and opens the file denoted by a String variable, str
 	FileInputStream's constructor also allows a programmer to pass the filename as a String literal.
 	Ex: fileByteStream = new FileInputStream("numFile.txt");
 
+---------------------------------------------------------------------------------------------------------------
+
+Reading a file:
+
+hasNextInt();
+	returns true is the next item is an integer
+	returns false if next item is not an integer or end of file is reached
+	
+hasNext();
+
+------------------------------------------------------------------------------------------------------------------------
+
+Reading data from a file example
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class FileReadVaryingAmount {
+   public static void main(String[] args) throws IOException {
+      FileInputStream fileByteStream = null; // File input stream
+      Scanner inFS = null;                   // Scanner object
+      int fileNum;                           // Data value from file
+
+      // Try to open file
+      System.out.println("Opening file myfile.txt.");
+      fileByteStream = new FileInputStream("myfile.txt");
+      inFS = new Scanner(fileByteStream);
+ 
+      // File is open and valid if we got this far (otherwise exception thrown)
+      System.out.println("Reading and printing numbers.");
+
+      while (inFS.hasNextInt()) {
+         fileNum = inFS.nextInt();
+         System.out.println("num: " + fileNum);
+      }
+
+      // Done with file, so try to close it
+      System.out.println("Closing file myfile.txt.");
+      fileByteStream.close(); // close() may throw IOException if fails
+   }
+}
+
+---------------------------------------------------------------------------------------------------------------------
+
+fileNum = inFS.nextInt();
+	example of how to read the next integer in a file
+	
+if (inFS.hasNextInt());
+	example of how to check if file has a next integer
+
+-----------------------------------------------------------------------------------------------------------------------
+Example
+Count how many times a word appears in a file
+
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class CountingWords {
+   public static void main(String[] args) throws IOException {
+      Scanner scnr = new Scanner(System.in);
+      FileInputStream fileByteStream = null; // File input stream
+      Scanner inFS = null;                   // Scanner object
+      String userWord;
+      int wordFreq = 0;
+      String currWord;
+
+      // Try to open file
+      System.out.println("Opening file wordFile.txt.");
+      fileByteStream = new FileInputStream("wordFile.txt");
+      inFS = new Scanner(fileByteStream);
+
+      // Word to be found
+      System.out.print("Enter a word: ");
+      userWord = scnr.next();
+
+      while (inFS.hasNext()) {
+         currWord = inFS.next();
+         if(currWord.equals(userWord)) {
+            ++wordFreq;
+         }
+      }
+
+      System.out.println(userWord + " appears in the file " +
+                         wordFreq + " times.");
+
+      // Done with file, so try to close it
+      fileByteStream.close(); // close() may throw IOException if fails
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------
+Example
+Program that reads business reviews from a file and computes the average rating.
+
+ReviewSystem.java
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class ReviewSystem {
+   public static void main(String [] args) throws IOException {
+      FileInputStream fileByteStream = null; // Input file stream
+      Scanner inFS = null;                   // Scanner object
+      String restaurantName;
+      String userName;
+      int userRating;
+      int userRatingSum = 0;
+      int userRatingCount = 0;
+
+      // Open file
+      System.out.println("Opening file Trattoria_Reviews.txt.");
+      fileByteStream = new FileInputStream("Trattoria_Reviews.txt");
+      inFS = new Scanner(fileByteStream);
+
+      // Read and display the restaurant's name
+      restaurantName = inFS.nextLine();
+      System.out.println("\n" + restaurantName);
+      System.out.println("--------------------");
+
+      // Loop to read all user reviews
+      while(inFS.hasNext()) {
+         userName = inFS.next();
+         userRating = inFS.nextInt();
+
+         // Display user's name and rating
+         System.out.println("User name: " + userName);
+         System.out.println("   Rating: " + userRating);
+         System.out.println();
+
+         // Add to the sum of all ratings so far
+         userRatingSum += userRating;
+
+         // Increment the number of ratings read
+         userRatingCount++;
+      }
+
+      // Display the restaurant's average rating
+      System.out.println("--------------------");
+      System.out.println("Average rating: " + (double)userRatingSum / userRatingCount);
+
+      fileByteStream.close(); // close() may throw IOException if fails
+   }
+}
+
+
+Trattoria_Reviews.txt
+
+Trattoria Italian Bistro
+
+sunny8trophy
+4
+
+Angelcopter
+2
+
+Mogoodid24
+5
+
+Elixirnoel8626
+5
+
+gobbledygook
+1
+
+Friderday912
+3
+
+
+Output:
+
+Opening file Trattoria_Reviews.txt.
+
+Trattoria Italian Bistro
+--------------------
+User name: sunny8trophy
+   Rating: 4
+
+User name: Angelcopter
+   Rating: 2
+
+User name: Mogoodid24
+   Rating: 5
+
+User name: Elixirnoel8626
+   Rating: 5
+
+User name: gobbledygook
+   Rating: 1
+
+User name: Friderday912
+   Rating: 3
+
+--------------------
+Average rating: 3.3333333333333335
+
+-------------------------------------------------------------------------------------------------------------------
+Example
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class FurnitureDataProcessor {
+   public static void main(String[] args) throws IOException {
+      Scanner scnr = new Scanner(System.in);
+      String cradleFileName;
+      int cradleQuantity;
+      FileInputStream furnitureInStream = null;
+      Scanner inFS = null;
+
+      cradleFileName = scnr.next();
+
+      furnitureInStream = new FileInputStream(cradleFileName);
+      inFS = new Scanner(furnitureInStream);
+
+      cradleQuantity = inFS.nextInt();
+      System.out.println(cradleQuantity);
+
+      furnitureInStream.close();
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class PeopleDataReader {
+   public static void main(String[] args) throws IOException {
+      Scanner scnr = new Scanner(System.in);
+      String buyerFileName;
+      String buyerName;
+      FileInputStream peopleFStream = null;
+      Scanner buyerFileFS = null;
+
+      buyerFileName = scnr.next();
+
+      peopleFStream = new FileInputStream(buyerFileName);
+      buyerFileFS = new Scanner(peopleFStream);
+
+      buyerName = buyerFileFS.next();
+      System.out.println(buyerName);
+      peopleFStream.close();
+
+      // Attempt to access the file for testing purpose
+      peopleFStream.read();
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+public class FileReading {
+   public static void main(String[] args) throws IOException {
+      Scanner scnr = new Scanner(System.in);
+      FileInputStream fileByteStream = null;
+      Scanner dataFS = null;
+      String nameOfFile;
+      int benchCount;
+		int remainingBenches;
+
+      nameOfFile = scnr.next();
+
+      fileByteStream = new FileInputStream(nameOfFile);
+      dataFS = new Scanner(fileByteStream);
+		remainingBenches = 340;
+		System.out.println("Started with: " + remainingBenches);
+
+      while (dataFS.hasNextInt()) {
+         benchCount = dataFS.nextInt();
+
+         System.out.println(benchCount);
+			remainingBenches = remainingBenches - benchCount;
+      }
+
+      if (dataFS.hasNext()) {
+         System.out.println("Reading stopped at " + dataFS.next());
+      }
+      else {
+         System.out.println("Reached end of file");
+      }
+
+		System.out.println("Remaining: " + remainingBenches);
+
+      fileByteStream.close();
+   }
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+File Output Streams
+
+FileOutputStream is the class name
+
+-----------------------------------------------------------------------------------------------------------------
+
+Basic steps to open and write to a file
+
+Open the file helloWorld.txt for writing
+	FileOutputStream fileStream = new FileOutputStream("helloWorld.txt");
+	
+Create a PrintWriter to write to the file
+	PrintWriter outFS = new PrintWriter(fileStream);
+	
+Write the string "Hello World!" to the file
+	outFS.println("Hello World!");
+	
+Close the file after writing all desired data
+	outFS.close();
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Example
+
+
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class TextFileWriteSample {
+  public static void main(String[] args) throws IOException {
+     FileOutputStream fileStream = null;
+     PrintWriter outFS = null;
+
+     // Try to open file
+     fileStream = new FileOutputStream("myoutfile.txt");
+     outFS = new PrintWriter(fileStream);
+
+     // Arriving here implies that the file can now be written
+     // to, otherwise an exception would have been thrown.
+     outFS.println("Hello");
+     outFS.println("1 2 3");
+
+     // Done with file, so try to close
+     // Note that close() may throw an IOException on failure
+     outFS.close();
+  }
+ }
+
+-----------------------------------------------------------------------------------------------------------------
+
+Example
+
+Writing to an HTML file
+
+
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class HTMLFileWriteSample {
+  static void writeHTMLFile(PrintWriter printer, String innerHTML) {
+     printer.println("<!DOCTYPE html>");
+     printer.println("<html>");
+     printer.println("  <body>");
+     printer.println("    <p>" + innerHTML + "</p>");
+     printer.println("  </body>");
+     printer.println("</html>");
+  }
+  public static void main(String[] args) throws IOException {
+     // Open an output file stream and create a PrintWriter
+     FileOutputStream fileStream = new FileOutputStream("simple.html");
+     PrintWriter filePrinter = new PrintWriter(fileStream);
+  
+     // Write the HTML file, then close filePrinter
+     writeHTMLFile(filePrinter, "Hello <b>HTML</b> world!");
+     filePrinter.close();
+
+     // Use the same function, writeHTMLFile, to write to the console
+     PrintWriter systemOutPrinter = new PrintWriter(System.out);
+     writeHTMLFile(systemOutPrinter, "Hello <b>HTML</b> world!");     
+     systemOutPrinter.close();
+  }
+}
+
+------------------------------------------------------------------------------------------------------------------
+Example
+
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class PineappleDataProcessor {
+   public static void main(String[] args) throws IOException {
+      Scanner scnr = new Scanner(System.in);
+      String nameOfFile;
+      double pineappleQuantity;
+      FileOutputStream pineappleStream;
+      PrintWriter pineappleWriter;
+
+      nameOfFile = scnr.next();
+      pineappleStream = new FileOutputStream(nameOfFile);
+      pineappleWriter = new PrintWriter(pineappleStream);
+
+      pineappleQuantity = scnr.nextDouble();
+
+      pineappleWriter.println(pineappleQuantity + " pounds of pineapples");
+      pineappleWriter.close();
+   }
+}
+
+---------------------------------------------------------------------------------------------------------
+
+Example
+
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class BedDataProcessor {
+   public static void main(String[] args) throws IOException {
+      Scanner scnr = new Scanner(System.in);
+      String nameOfFile;
+      int bedCount;
+      FileOutputStream fileStream = null;
+      PrintWriter fileWriter = null;      
+
+      nameOfFile = scnr.next();
+
+      fileStream = new FileOutputStream(nameOfFile);
+      fileWriter = new PrintWriter(fileStream);
+
+      bedCount = scnr.nextInt();
+
+      fileWriter.println(bedCount + " beds");
+      fileWriter.close();
+   }
+}
+
+---------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FileOutput {
+   public static void main(String[] args) throws IOException {
+      Scanner scnr = new Scanner(System.in);
+      FileOutputStream fileStream = null;
+      PrintWriter cabinetOutFS = null;
+      int cabinetQuantity;
+      String friendName;
+
+      cabinetQuantity = scnr.nextInt();
+      friendName = scnr.next();
+  
+      fileStream = new FileOutputStream("data.txt");
+      cabinetOutFS = new PrintWriter(fileStream);
+
+      cabinetOutFS.println("To purchase:");
+      cabinetOutFS.println("* * * *");
+      cabinetOutFS.println(cabinetQuantity + " cabinets for " + friendName);
+      
+      cabinetOutFS.close();
+
+   }
+}
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
