@@ -1,0 +1,56 @@
+Object Practice
+
+An object is a group fo information about a thing
+	This can also include operations that can be done on that thing
+
+Example:
+	"Restaurant" might be an object that includes:
+		Name
+		Contact info
+		Review info
+		Hours
+		etc...
+
+---------------------------------------------------------------------------------------------------------------
+Abstraction
+
+Allowing a user to ineract with a higher-level (mroe big picture) part of the program
+
+Example:
+	Using an oven.
+	A user doesn't have to know all of the mechanical and electrical aspects to use the oven, they just turn a nob.
+
+Alos referred to as
+	information hiding
+	encapsulation
+
+abstract data type (ADT)
+	
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
