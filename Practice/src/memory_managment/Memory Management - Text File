@@ -59,6 +59,123 @@ To manage amount of heap memory with command-line
 	java -Xmn256n HelloWorld
 		this sets the heap size for new objects
 
+-----------------------------------------------------------------------------------------------------------------------------
+
+4 typical regions for memory:
+Code
+Static Memory
+The stack
+The heap
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Code Memory
+Where the program instructions are stored
+
+Static Memory
+Where static fields are stored. Their value and memory location remain the exact same throughout execution
+
+The Stack
+Also called "automatic memory"
+Where a method's local variables are stored
+Called "stack" like a stack of dishes
+This is constantly changes as method calls are made
+
+The Heap
+Also called "free stored"
+Where the "new" operator allocates memory for objects
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Garbage Collection
+
+Clears unreachable (unused) memory locations from the heap.
+
+Reference count
+This a count the Java Virtual Machine keeps of all reference variables that are currently referring to an object
+If this count is 0 (i.e. no variable is referencing a specific object), the object is marked as unreachable
+	and scheduled for deletion (deallocation)
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+Unreachable Object
+	Object that is not referenced by any valid reference variables in the program.
+
+Object Reference Count
+	Value updated by the Java virtual machine in order to keep track of the number of variables referencing an object.
+
+Garbage Collection
+	Automatic process of finding unused allocated memory locations and deallocating that unreachable memory.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Setting all reference variables to the same object as "null" is a method of causing the JVM to deallocate memory
+
+Example
+
+	Integer myInt = null;
+	Integer myOtherInt = null;
+	
+	// Create object and assign reference
+	myInt = new Integer(10);
+	
+	// Assign object reference
+	myOtherInt = myInt;
+	
+	// Use object ...
+	
+	// myInt does not refer to object
+	myInt = null;
+	
+	// myOtherInt does not refer to object
+	myOtherInt = null;
+	
+	// Other instructions ...
+
+Process above
+myInt initialized, reference nothing ("null")
+	This is stored in the stack
+myOtherInt initialized, also referencing nothing ("null")
+	This is stored in the stack
+myInt references the Integer object 10
+	The Integer object is stored in the heap
+	Reference count to this object is 1
+myOhterInt references the same object as myInt (Integer with value 10)
+	This is also stored in the heap
+	Reference count to this object is 2
+myInt now references null
+	This is stored in the stack
+	Reference count to this object is 1
+myOhterInt now also references null
+	This is stored in that stack
+	Reference count to the Integer object is now 0
+	Object is now marked by JVM for deallocation
+	
+---------------------------------------------------------------------------------------------------------------------
+
+Objects created within a method do not need to have all references to the object set to null
+When the method returns, all objects are no longer visible and the JVM will decrement the reference count to that object by 1
+
+When an object is created in a method, even if it is the exact same object in the same method, there is no guarantee the
+	object will be created in the same memory location
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

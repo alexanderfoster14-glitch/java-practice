@@ -95,6 +95,208 @@ Output:
 head node contains the pointer to the first element in the list (not actual fister element)
 
 
+------------------------------------------------------------------------------------------------------------
+
+Example
+
+
+import java.util.Scanner;
+
+public class BedLinkedList {   
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      BedNode headObj;
+      BedNode firstBed;
+      BedNode secondBed;
+      BedNode currBed;
+      String color1;
+      String color2;
+
+      color1 = scnr.next();
+      color2 = scnr.next();
+
+      headObj = new BedNode("color");
+   
+      firstBed = new BedNode(color1);
+      headObj.insertAfter(firstBed);
+      
+      secondBed = new BedNode(color2);
+      firstBed.insertAfter(secondBed);
+
+      currBed = headObj;
+      while (currBed != null) {
+         currBed.printNodeData();
+         currBed = currBed.getNext();
+      }
+   }
+}
+
+BedNode.java
+	//Forgot to copy
+
+--------------------------------------------------------------------------------------------------------------------
+
+Example
+
+Integer rabbitCount is read from input as the number of input values that follow.
+	The node headRabbit is created with the value of rabbitCount.
+	Use scnr.nextInt() to read rabbitCount integers.
+	Insert a RabbitNode for each integer at the end of the linked list.
+
+
+RabbitLinkedList.java
+
+import java.util.Scanner;
+
+public class RabbitLinkedList {   
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      RabbitNode headRabbit = null;
+      RabbitNode currRabbit = null;
+      RabbitNode lastRabbit = null;
+      int rabbitCount;
+      int inputValue;
+      int i;
+
+      rabbitCount = scnr.nextInt();
+   
+      headRabbit = new RabbitNode(rabbitCount);
+      lastRabbit = headRabbit;
+   
+      for (i = 0; i < rabbitCount; ++i) {
+         currRabbit = new RabbitNode(scnr.nextInt());
+         lastRabbit.insertAfter(currRabbit);
+         lastRabbit = currRabbit;
+      }
+
+      currRabbit = headRabbit;
+      while (currRabbit != null) {
+         currRabbit.printNodeData();
+         currRabbit = currRabbit.getNext();
+      }
+   }
+}
+
+RabbitNode.java
+
+class RabbitNode {
+   private int babiesVal;
+   private RabbitNode nextNodeRef;
+
+   public RabbitNode(int babiesInit) {
+      this.babiesVal = babiesInit;
+      this.nextNodeRef = null;
+   }
+
+   public void insertAfter(RabbitNode nodeLoc) {
+      RabbitNode tmpNext = null;
+
+      tmpNext = this.nextNodeRef;
+      this.nextNodeRef = nodeLoc;
+      nodeLoc.nextNodeRef = tmpNext;
+   }
+
+   public RabbitNode getNext() {
+      return this.nextNodeRef;
+   }
+
+   public void printNodeData() {
+      System.out.println(this.babiesVal);
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+Multiple integers, representing the number of ducklings, are read from input and inserted into a linked list of DuckNodes.
+	For each integer greater than or equal to 8 in the linked list of DuckNodes, output the integer followed by
+	" is a large quantity of ducklings." on a new line.
+
+Ex: If the input is 2 24 9, then the output is:
+	24 is a large quantity of ducklings.
+	9 is a large quantity of ducklings.
+
+
+DuckLinkedList.java
+
+import java.util.Scanner;
+
+public class DuckLinkedList {   
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      DuckNode headDuck = null;
+      DuckNode currDuck = null;
+      DuckNode lastDuck = null;
+      int count;
+      int inputValue;
+      int i;
+      
+      count = scnr.nextInt();
+   
+      headDuck = new DuckNode(count);
+      lastDuck = headDuck;
+
+      for (i = 0; i < count; ++i) {
+         inputValue = scnr.nextInt();
+      
+         currDuck = new DuckNode(inputValue);
+      
+         lastDuck.insertAfter(currDuck);
+         lastDuck = currDuck;
+      }
+
+      currDuck = headDuck;
+      while (currDuck != null) {
+         if (currDuck.getNodeData() >= 8) {
+            System.out.println(currDuck.getNodeData() + " is a large quantity of ducklings.");
+         }
+         currDuck = currDuck.getNext();
+            
+      }
+
+   }
+}
+
+DuckNode.java
+
+class DuckNode {
+   private int ducklingsVal;
+   private DuckNode nextNodeRef;
+
+   public DuckNode(int ducklingsInit) {
+      this.ducklingsVal = ducklingsInit;
+      this.nextNodeRef = null;
+   }
+
+   public void insertAfter(DuckNode nodeLoc) {
+      DuckNode tmpNext = null;
+
+      tmpNext = this.nextNodeRef;
+      this.nextNodeRef = nodeLoc;
+      nodeLoc.nextNodeRef = tmpNext;
+   }
+
+   public DuckNode getNext() {
+      return this.nextNodeRef;
+   }
+
+   public int getNodeData() {
+      return this.ducklingsVal;
+   }
+}
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 
 
 
