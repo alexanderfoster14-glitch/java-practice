@@ -14,13 +14,13 @@ Example:
 ---------------------------------------------------------------------------------------------------------------
 Abstraction
 
-Allowing a user to ineract with a higher-level (mroe big picture) part of the program
+Allowing a user to interact with a higher-level (more big picture) part of the program
 
 Example:
 	Using an oven.
 	A user doesn't have to know all of the mechanical and electrical aspects to use the oven, they just turn a nob.
 
-Alos referred to as
+Also referred to as
 	information hiding
 	encapsulation
 
@@ -28,6 +28,570 @@ abstract data type (ADT)
 	
 
 --------------------------------------------------------------------------------------------------------------------
+
+Class Construct
+	defines a new type that can group data and methods to form an object
+
+public class Restaurant {                         // Info about a restaurant
+   // Internal fields
+
+   public void setName(String restaurantName) {   // Sets the restaurant's name
+      ...
+   }
+
+   public void setRating(int userRating) {        // Sets the rating (1-5, with 5 best)
+      ...
+   }
+
+   public void print() {                          // Prints name and rating on one line
+      ...
+   }
+}
+
+--------------------------------------------------------------------------------------------------------
+
+Creating an object
+2 steps
+	Declaring a reference variable the class type
+	Assigning the variables with an explicitly allocated instance of the class type
+
+"new" operator
+	explicitly allocates adn object of the specified class type
+
+Example:
+	Restaurant favLunchPlace = new Restaurant();
+
+	creates a Restaurant object named faveLunchPlace
+
+"." operator
+	member access operator
+	invokes a method on an object
+	
+	Example:
+	favLunchPlace.setRating(4);
+		calls the method setRating on the object favLunchPlace, passes 4 to the method
+
+Example:
+
+public class RestaurantFavorites {
+   public static void main(String[] args) {
+      Restaurant favLunchPlace = new Restaurant();
+      Restaurant favDinnerPlace = new Restaurant();
+
+      favLunchPlace.setName("Central Deli");
+      favLunchPlace.setRating(4);
+
+      favDinnerPlace.setName("Friends Cafe");
+      favDinnerPlace.setRating(5);
+
+      System.out.println("My favorite restaurants: ");
+      favLunchPlace.print();
+      favDinnerPlace.print();
+   }
+}
+
+---------------------------------------------------------------------------------------------------
+
+Syntax for object creation:
+	<class> <object name> = <"new"> <class>
+
+------------------------------------------------------------------------------------------------------
+
+Object bestSushi is of type Restaurant.
+Type a statement that sets bestSushi's name to "Sushi Station".
+
+bestSushi.setName("Sushi Station");
+
+An object's public member method is called using the "." (dot) operator.
+
+
+Type a statement to print bestCoffeeShop's name and rating.
+The Restaurant class' print() method prints the object's name,
+	followed by --, followed by the rating.
+
+bestCoffeeShop.print();
+
+---------------------------------------------------------------------------------------------------------
+
+Class example
+
+String
+
+Some String public member methods (many more exist).
+
+// Returns the character value at the index
+public char charAt(int index); 
+
+// Returns the length of the string
+public int length(); 
+
+// Returns a new string with the string argument 
+// concatenated to the end of this string
+public String concat(String str);
+
+
+Given String greetingStr = "Hi", how can a user assign newGreeting with "!"
+	concatenated to greetingStr.
+
+The concat() method's comment explains that a new string consisting of the string
+	parameter concatenated to the string will be returned.
+	(How that concatenation occurs is unknown to the class user).
+
+newGreeting = greetingStr.concat("!");
+
+--------------------------------------------------------------------------------------------------------------
+
+Defining a class
+
+Private Fields
+	Variables that member methods can access, but class uers cannot
+
+Class Members
+	class' fields and methods
+
+Defining a class steps
+	name the class
+	declares private fields
+	define public member methods
+
+
+------------------------------------------------------------------------------------------------------
+Example
+
+RunnerInfo.java
+
+class RunnerInfo {
+   private int timeRun;
+   private double distRun;
+
+   public void setTime(int timeRunSecs) {     // Time run in seconds
+      timeRun = timeRunSecs;                   // timeRun refers to the field
+   }
+
+   public void setDist(double distRunMiles) {  // Distance run in miles
+      distRun = distRunMiles;
+   }
+
+   public double getSpeedMph() {               // Speed in miles/hour
+      return distRun / (timeRun / 3600.0);     // miles / (secs / (secs / hour))
+   }
+}
+
+RaceResults.java
+
+public class RaceResults {
+   public static void main(String[] args) {
+      RunnerInfo runner1 = new RunnerInfo();	// User-created object of class type RunnerInfo
+      RunnerInfo runner2 = new RunnerInfo();	// A second object
+
+      runner1.setTime(360);
+      runner1.setDist(1.2);
+      runner2.setTime(200);
+      runner2.setDist(0.5);
+
+      System.out.println("Runner1's speed in MPH: " + runner1.getSpeedMph());
+      System.out.println("Runner2's speed in MPH: " + runner2.getSpeedMph());
+   }
+}
+
+-----------------------------------------------------------------------------------------------------
+
+Example
+
+CallPerson.java
+
+public class CallPerson {
+   public static void main(String [] args) {
+      String userName;
+      Person person1 = new Person();
+   
+      userName = "Joe";
+
+      // Check Person.java file for setFirstName() definition
+      person1.setFirstName(userName);
+      
+      // Check Person.java file for getFirstName() definition
+      System.out.println("I am " + person1.getFirstName());
+   }
+}
+
+Person.java
+
+public class Person {
+   private String firstName;
+
+   public void setFirstName(String firstNameToSet) {
+      firstName = firstNameToSet;
+   }
+   public String getFirstName() {
+      return firstName;
+   }
+}
+
+
+Output:
+
+I am Joe
+
+
+----------------------------------------------------------------------------------------------------
+Example
+
+CallPerson.java
+
+public class CallPerson {
+   public static void main(String [] args) {
+      String aFirstName;
+      String anotherFirstName;
+      String aLastName;
+      String anotherLastName;
+
+      aFirstName = "Sam";
+      anotherFirstName = "Joe";
+      aLastName = "Wayne";
+      anotherLastName = "Banner";
+
+      Person person1 = new Person();
+      Person person2 = new Person();
+      
+      person1.setLastName(aLastName);
+      person2.setLastName(anotherLastName);
+      person1.setFirstName(aFirstName);
+      person2.setFirstName(anotherFirstName);
+
+      System.out.println("You are " + person1.getFullName());
+      System.out.println("I am " + person2.getFullName());
+   }
+}
+
+Person.java
+
+public class Person {
+   private String firstName;
+   private String lastName;
+
+   public void setFirstName(String firstNameToSet) {
+      firstName = firstNameToSet;
+   }
+   
+   public void setLastName(String lastNameToSet) {
+      lastName = lastNameToSet;
+   }
+   
+   public String getFullName() {
+      return firstName + " " + lastName;
+   }
+}
+
+Output:
+You are Sam Wayne
+I am Joe Banner
+
+--------------------------------------------------------------------------------------------------------
+
+Example
+
+Geco.java
+
+public class Gecko {
+   private String name;
+	private String color;
+   private int age;
+
+   public void setName(String customName) {
+      name = customName;
+   }
+
+	public void setColor(String customColor) {
+		color = customColor;
+	}
+
+   public void setAge(int customAge) {
+     age = customAge;
+   }
+
+   public String getName() {
+      return name;
+   }
+
+	public String getColor() {
+		return color;
+	}
+
+   public int getAge() {
+      return age;
+   }
+}
+
+GeckoDetails.java
+
+import java.util.Scanner;
+
+public class GeckoDetails {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      Gecko gecko1 = new Gecko();
+      String inputName;
+		String inputColor;
+      int inputAge;
+
+      inputName = scnr.next();
+		inputColor = scnr.next();
+      inputAge = scnr.nextInt();
+
+      gecko1.setName(inputName);
+		gecko1.setColor(inputColor);
+      gecko1.setAge(inputAge);
+
+      System.out.println("Name: " + gecko1.getName());
+		System.out.println("Color: " + gecko1.getColor());
+      System.out.println("Age: " + gecko1.getAge());
+   }
+}
+
+-----------------------------------------------------------------------------------------
+Example
+
+ClientInfo.java
+
+import java.util.Scanner;
+
+public class ClientInfo {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      Client client1 = new Client();
+      double inputHeight;
+		String inputName;
+      int inputAge;
+
+      inputHeight = scnr.nextDouble();
+		inputName = scnr.next();
+      inputAge = scnr.nextInt();
+
+      client1.setHeight(inputHeight);
+		client1.setName(inputName);
+      client1.setAge(inputAge);
+
+      System.out.println("Height: " + client1.getHeight());
+		System.out.println("Name: " + client1.getName());
+      System.out.println("Age: " + client1.getAge());
+   }
+}
+
+
+Client.java
+
+public class Client {
+
+   private double height;
+   private String name;
+   private int age;
+   
+   public void setHeight(double setHeight) {
+      height = setHeight;
+   }
+   
+   public void setName(String setName) {
+      name = setName;
+   }
+   
+   public void setAge(int setAge) {
+      age = setAge;
+   }
+   
+	public double getHeight() {
+		return height;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+}
+
+--------------------------------------------------------------------------------------------------------
+
+Mutators, accessors, private helpers
+
+Mutator
+	Able to modify (mutate) a class' fields
+
+Accessor
+	Able to acces fields, but cannot modify a class' fields
+
+2 assocaited methods
+	mutator -> setting a value
+		setter
+	accessor -> getting a value
+		getter
+
+Setter and Getter methods
+
+Methods typically start with "set" or "get"
+
+--------------------------------------------------------------------------------------------------------
+
+Example
+
+Restaurant.java
+
+public class Restaurant {                          
+   private String name;
+   private int rating;
+
+   public void setName(String restaurantName) {  // Mutator
+      name = restaurantName;
+   }
+
+   public void setRating(int userRating) {       // Mutator
+      rating = userRating;
+   }
+
+   public String getName() {  // Accessor
+      return name;
+   }
+
+   public int getRating() {  // Accessor
+      return rating;
+   }
+
+   public void print() {      // Accessor
+      System.out.println(name + " -- " + rating);
+   }
+}
+
+MyRestaurant.java
+
+public class MyRestaurant {
+  public static void main(String[] args) {
+     Restaurant myPlace = new Restaurant();
+     myPlace.setName("Maria's Diner");
+     myPlace.setRating(5);
+     System.out.print(myPlace.getName() + " is rated ");
+     System.out.println(myPlace.getRating());
+  }
+}
+
+Output:
+Maria's Diner is rated 5
+
+--------------------------------------------------------------------------------------------------------
+
+Note about Private fields:
+Nothing prevents a method from modifying a field.
+	The programmer is responsible for ensuring that a getter method doesn't modify a class' fields.
+
+----------------------------------------------------------------------------------------------------------
+
+Private helper methods
+
+When a class is used, the user can call public methods in the class, but the user cannot directly call
+	private methods
+A public method can call a private method, but the user cannot do this directly
+
+main() cannot call a private class method
+A class' private methods can only be called from the class' other methods.
+
+
+Example:
+
+public class MyClass {
+   private int numA;
+
+   private int methodX() {
+      ...
+   }
+
+   public void method1() { 
+   
+
+   }
+}
+
+public class TestClass {
+   public static void main(String[] args) {
+      
+      MyClass someObj = new MyClass();
+
+      someObj.method1();			// Okay to do
+
+      ...
+
+      someObj.methodX();			// Error
+   }
+}
+
+---------------------------------------------------------------------------------------------------------
+
+CallDog.java
+
+public class CallDog {
+   public static void main(String [] args) {
+      Dog buddy = new Dog();
+
+      buddy.setWeightAndAge(57, 1);
+      System.out.print("Human years: " + buddy.getHumanYears());
+   
+   }
+}
+
+Dog.java
+
+public class Dog {
+   private int years;
+   private int weight;
+   private String size;
+   private int humanYears;
+
+   private void setHumanYears() {
+      int factor;
+   
+      if (size.equals("small")) {
+         factor = 6;
+      }
+      else if (size.equals("medium")) {
+         factor = 7;
+      }
+      else {
+         factor = 8;
+      }
+   
+      humanYears = years * factor;
+   }
+   
+   public int getHumanYears() {
+      return humanYears;
+   }
+
+   public void setWeightAndAge(int weightToSet, int yearsToSet) {
+      weight = weightToSet;
+
+      if (weight <= 15) {
+         size = "small";
+      }
+      else if (weight <= 45) {
+         size = "medium";
+      }
+      else {
+         size = "large";
+      }
+
+      years = yearsToSet;
+      setHumanYears();
+   }
+}
+
+Output:
+Human years: 8
+
+------------------------------------------------------------------------------------------------
+
+
+
+
 
 
 
