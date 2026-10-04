@@ -505,8 +505,7 @@ public class MyClass {
       ...
    }
 
-   public void method1() { 
-   
+   public void method1() {
 
    }
 }
@@ -589,7 +588,383 @@ Human years: 8
 
 ------------------------------------------------------------------------------------------------
 
+Example
 
+Message.java
+
+public class Message {
+   private String greeting;
+   private int areaCode;
+
+   public void setGreeting(String inputGreeting) {
+      greeting = "Please leave a message for " + inputGreeting;
+   }
+   
+   public void setAreaCode(int inputAreaCode) {
+      areaCode = inputAreaCode;   
+   }
+   
+   public void print() {
+      System.out.println("Message: " + greeting);
+      System.out.println("Area Code: " + areaCode);
+   }
+}
+
+MessageInfo.java
+
+import java.util.Scanner;
+
+public class MessageInfo {  
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      Message voicemail = new Message();
+      String inputGreeting;
+      int inputAreaCode;
+   
+      inputGreeting = scnr.next();
+      inputAreaCode = scnr.nextInt();
+      voicemail.setGreeting(inputGreeting);
+      voicemail.setAreaCode(inputAreaCode);
+   
+      voicemail.print();
+   }
+}
+
+If the input is Dan 487, then the output is:
+
+Message: Please leave a message for Dan
+Area Code: 487
+
+---------------------------------------------------------------------------------------------------------
+
+Example
+
+Animal.java
+
+public class Animal {      
+   private String species;
+   private String name;
+
+   public void setSpecies(String inputSpecies) {
+      species = inputSpecies;
+   }
+   
+   public void setName(String inputName) {
+      name = inputName;
+   }
+
+   public String getSpecies() {
+      return species;
+   }
+   
+   public String getName() {
+      return name;
+   }
+}
+
+AnimalDetails.java
+
+import java.util.Scanner;
+
+public class AnimalDetails {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      Animal animal = new Animal();
+      String inputSpecies;
+      String inputName;
+   
+      inputSpecies = scnr.next();
+      inputName = scnr.next();
+      animal.setSpecies(inputSpecies);
+      animal.setName(inputName);
+
+      System.out.println("Animal: " + animal.getSpecies());
+      System.out.println("Name: " + animal.getName());
+   }
+}
+
+If the input is:
+
+deer
+Taj
+
+then the output is:
+
+Animal: deer
+Name: Taj
+
+---------------------------------------------------------------------------------------------------------
+
+Example
+
+Money.java
+
+public class Money {
+   private int cents;
+
+   public void setCents(int inputCents) {
+      cents = inputCents;
+   }
+   
+   public int getCents() {
+      return cents;
+   }
+
+   private int convertToDollars() {
+      return cents/100;
+   }
+
+   public void printInDollars() {
+      System.out.println(convertToDollars() + " dollars");
+   }
+}
+
+MoneyDetails.java
+
+import java.util.Scanner;
+
+public class MoneyDetails {
+      public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      Money money1 = new Money();
+      int inputCents;
+   
+      inputCents = scnr.nextInt();
+      money1.setCents(inputCents);
+   
+      money1.printInDollars();
+   }
+}
+
+Output:
+
+If the input is 2100, then the output is:
+
+21 dollars
+
+------------------------------------------------------------------------------------------------------------
+
+Initialization and Constructors
+
+Good practice is to initialize all variables when declared.
+
+A class can have the fields initialized in the field declaration,
+	then all objects created have the same initialized values by default
+
+Example:
+
+Restaurant.java
+
+public class Restaurant {                          
+   private String name = "NoName";
+   private int rating = -1;
+
+   public void setName(String restaurantName) {  
+      name = restaurantName;
+   }
+
+   public void setRating(int userRating) {
+      rating = userRating;
+   }
+
+   public void print() {  
+      System.out.println(name + " -- " + rating);
+   }
+}
+
+RestaurantFavorites.java
+
+public class RestaurantFavorites {
+   public static void main(String[] args) {
+      Restaurant favLunchPlace = new Restaurant(); // Initializes fields with values in class definition
+
+      favLunchPlace.print();
+
+      favLunchPlace.setName("Central Deli");
+      favLunchPlace.setRating(4);
+      
+      favLunchPlace.print();
+   }
+}
+
+Output:
+
+NoName -- -1
+Central Deli -- 4
+
+--------------------------------------------------------------------------------------------------------
+
+Constructor
+
+Special class member
+
+Constructor is automatically called when an object is created
+the constructor is NOT considered a method
+
+Has no return type (not even void)
+
+Example:
+
+Restaurant.java
+
+public class Restaurant {
+   private String name;
+   private int rating;
+
+   public Restaurant() {  // Constructor with no arguments
+      name = "NoName";    // Default name: NoName indicates name was not set
+      rating = -1;        // Default rating: -1 indicates rating was not set
+   }
+
+   public void setName(String restaurantName) {
+      name = restaurantName;
+   }
+
+   public void setRating(int userRating) {
+      rating = userRating;
+   }
+
+   public void print() {
+      System.out.println(name + " -- " + rating);
+   }
+}
+
+RestaurantFavorites.java
+
+public class RestaurantFavorites {
+   public static void main(String[] args) {
+      Restaurant favLunchPlace = new Restaurant(); // Calls the constructor
+
+      favLunchPlace.print();
+
+      favLunchPlace.setName("Central Deli");
+      favLunchPlace.setRating(4);
+      favLunchPlace.print();
+   }
+}
+
+Output:
+NoName -- -1
+Central Deli -- 4
+
+------------------------------------------------------------------------------------------------------
+
+A default constructor is implicitly defined by Java if a constructor doesn't exist.
+	The default constructor initializes the capacity field to an int's default value, 0.
+
+Field initialization is usually preferred over using a constructor.
+	However, sometimes initializations are more complicated, in which case a constructor is needed.
+
+--------------------------------------------------------------------------------------------------------
+
+Example:
+
+CallBicycle.java
+
+public class CallBicycle {
+   public static void main(String[] args) {
+      Bicycle commuterBike = new Bicycle();
+
+      commuterBike.print();
+      
+      commuterBike.setYear(1962);
+
+      commuterBike.print();
+   }
+}
+
+Bicycle.java
+
+public class Bicycle {                          
+   private String type;
+   private int year;
+   
+   public Bicycle() {
+      type = "NoType";
+      year = -1;
+   }
+
+   public void setType(String bicycleType) {  
+      type = bicycleType;
+   }
+
+   public void setYear(int bicycleYear) {
+      year = bicycleYear;
+   }
+
+   public void print() {  
+      System.out.println(type + " " + year);
+   }
+}
+
+Output:
+
+NoType -1
+NoType 1962
+
+---------------------------------------------------------------------------------------------------------
+
+Example
+
+Eatery.java
+
+public class Eatery {
+   private String owner;
+	private String state;
+
+   public Eatery() {
+      owner = "Unstated";
+      state = "Unspecified";
+   }
+
+   public void setOwner(String eateryOwner) {
+		owner = eateryOwner;
+	}
+	
+	public void setState(String eateryState) {
+		state = eateryState;
+	}
+   
+   public void print() {
+      System.out.println("Name: " + owner + "'s Buffet, State: " + state);
+   }
+}
+
+EasteryDirectory.java
+
+import java.util.Scanner;
+
+public class EateryDirectory {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String newOwner;
+		String newState;
+      Eatery myEatery = new Eatery();
+      
+      System.out.println("Default values: ");
+      myEatery.print();
+      
+      newOwner = scnr.next();
+		newState = scnr.next();
+      
+      myEatery.setOwner(newOwner);
+		myEatery.setState(newState);
+      
+      System.out.println("After mutator methods: ");
+      myEatery.print();
+   }
+}
+
+Output:
+
+If the input is Guy TX, then the output is:
+
+Default values: 
+Name: Unstated's Buffet, State: Unspecified
+After mutator methods: 
+Name: Guy's Buffet, State: TX
+
+---------------------------------------------------------------------------------------------------------
 
 
 
