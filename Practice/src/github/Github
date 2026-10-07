@@ -89,3 +89,91 @@ Exit window
 
 In Git Repositories panel, right click the project name (not the repository name)
 Select "Projects" -> Import Projects"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+Searching
+
+Searching in GitHub is based on Rust
+
+GitHub Code Search
+
+"/" on a GitHub page to automatically start searching
+
+Search Qualifiers
+
+Flex Qualifiers
+	Example -> "type" like "user' or "org"
+	Example -> "is" like "archived" or "issue"
+	Example -> "in" like "title" or "comments"
+
+After starting a search
+	Advanced search panel on Left side of screen
+
+Advanced Search
+
+You can save the search and search results for later
+	Hit "Save" button at top of search results
+
+Syntax Operators
+	Comparisons: >, >=, <, <=
+	Ranges: 10..*, *..10, 10..100
+		"*" for "some amount"
+	Date-Time: YYYY-MM-DD, YYYY-MM-DDTHH:MM:SSZ
+	Excluded: -, NOT
+	Quotations: ""
+
+	Example Search:
+		"syntax highlighter" NOT images NOT python stars:>100 language:JavaScript pushed:>2026-01-01
+
+Sorting
+	sort:*
+	-asc, -dsc
+	-date, -indexed, -updated
+
+	Example Search:
+		"react ui components" stars:>1000 sort:date-asc
+
+When searching for code
+
+"username".githut.io
+	Creating a repository with this name becomes the default repository
+
+	alexanderfoster14-glicht.github.io WOULD be the default repository
+
+Example search:
+	repo:planetoftheweb/planetoftheweb.github.io language:Markdown path:newsletter morten AND prototype
+	pulls up list of files that has "morten' and "prototype" included
+
+"Raw" at top right
+	pulls up a page to make it easy to copy/paste just the code
+
+Ellipses on Left "..." in a file
+	helpful to copy or see info about who created something
+
+Searching for a file to learn something
+	Example search:
+	dockerfile language:Dockerfile path:/^.devcontainer\// python org:LinkedInLearning
+
+Symbols panel
+	Right panel when looking at a code file
+	can find "non-standard" symbols (key terms)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
