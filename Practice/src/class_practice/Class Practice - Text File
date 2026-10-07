@@ -29,9 +29,9 @@ abstract data type (ADT)
 
 --------------------------------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
 Using a class
-=======
+
+
 Class Construct
 	defines a new type that can group data and methods to form an object
 
@@ -968,7 +968,6 @@ After mutator methods:
 Name: Guy's Buffet, State: TX
 
 ---------------------------------------------------------------------------------------------------------
->>>>>>> branch 'main' of https://github.com/alexanderfoster14-glitch/java-practice.git
 
 
 
