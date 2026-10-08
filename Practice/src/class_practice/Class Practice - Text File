@@ -969,20 +969,592 @@ Name: Guy's Buffet, State: TX
 
 ---------------------------------------------------------------------------------------------------------
 
+Example: Setting up classes for soccer team(s)
+
+TeamPerson.java
+
+public class TeamPerson {
+   private String fullName;
+   private int ageYears;
+   
+   public void setFullName(String firstAndLastName) {
+      fullName = firstAndLastName;
+   }
+   
+   public void setAgeYears(int ageInYears) {
+      ageYears = ageInYears;
+   }
+   
+   public String getFullName() {
+      return fullName;
+   }
+   
+   public int getAgeYears() {
+      return ageYears;
+   }
+   
+   public void print() {
+      System.out.println("Full name: " + fullName);
+      System.out.println("Age (years): " + ageYears);
+   }
+}
 
 
+SoccerTeam.java
+
+public class SoccerTeam {
+   private TeamPerson headCoach;
+   private TeamPerson assistantCoach;
+   // Players omitted for brevity
+   
+   public void setHeadCoach(TeamPerson teamPerson) {
+      headCoach = teamPerson;
+   }
+   
+   public void setAssistantCoach(TeamPerson teamPerson) {
+      assistantCoach = teamPerson;
+   }
+   
+   public TeamPerson getHeadCoach() {
+      return headCoach;
+   }
+   
+   public TeamPerson getAssistantCoach() {
+      return assistantCoach;
+   }
+   
+   public void print() {
+      System.out.println("HEAD COACH: ");
+      headCoach.print();
+      System.out.println();
+      
+      System.out.println("ASSISTANT COACH: ");
+      assistantCoach.print();
+      System.out.println();
+   }
+}
+
+SoccerTeamPrinter.java
+
+public class SoccerTeamPrinter {
+   public static void main(String[] args) {
+      SoccerTeam teamCalifornia = new SoccerTeam();
+      TeamPerson headCoach = new TeamPerson();
+      TeamPerson asstCoach = new TeamPerson();
+      
+      headCoach.setFullName("Mark Miwerds");
+      headCoach.setAgeYears(42);
+      teamCalifornia.setHeadCoach(headCoach);
+
+      asstCoach.setFullName("Stanley Lee");
+      asstCoach.setAgeYears(30);
+      teamCalifornia.setAssistantCoach(asstCoach);
+
+      teamCalifornia.print();
+   }
+}
+
+Output:
+
+HEAD COACH: 
+Full name: Mark Miwerds
+Age (years): 42
+
+ASSISTANT COACH: 
+Full name: Stanley Lee
+Age (years): 30
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Defining main() in programmer defined classes
+
+public class BasicCar {
+
+   // Total miles driven by the car
+   private int milesDriven;
+    
+   // Constructor assigns initial values to instance variables
+   public BasicCar() {
+      milesDriven = 0;   
+   }
+
+   // Drive the requested miles
+   public void drive(int tripMiles) {
+      milesDriven = milesDriven + tripMiles;
+   }
+
+   // Return total number of miles driven
+   public int checkOdometer() {
+      return milesDriven;
+   }
+
+   // Main() creates objects of type BasicCar and 
+   // calls methods to operate on the objects
+   public static void main(String [] args) {
+      BasicCar redCorvette = new BasicCar();
+      BasicCar fordMustang = new BasicCar();
+
+      redCorvette.drive(100);        
+      fordMustang.drive(75);
+      fordMustang.drive(300);
+      fordMustang.drive(50);        
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------------------
+
+testbench
+
+A testbench is a program who's job is to test another program, or portion of a program through input and output
+	known as "test cases"
 
 
+Unit Testing
+	Creating and running a testbench for a specific item like a method or class
+
+Features of a good testbench include:
+
+Automatic checks. Ex: Values are compared, as in testData.GetNum1() != 100. For conciseness, only fails are printed.
+Independent test cases. Ex: The test case for GetAverage() assigns new values, vs. relying on earlier values.
+100% code coverage: Every line of code is executed. A good testbench would have more test cases than below.
+Includes not just typical values but also border cases: Unusual or extreme test case values like 0, negative numbers, or large numbers.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+Example of testing a class:
+
+public class StatsInfo {
+
+   // Note: This class intentionally has errors
+
+   private int num1;
+   private int num2;
+
+   public void setNum1(int numVal) {
+      num1 = numVal;
+   }
+
+   public void setNum2(int numVal) {
+      num2 = numVal;
+   }
+
+   public int getNum1() {
+      return num1;
+   }
+
+   public int getNum2() {
+      return num1;
+   }
+
+   public int getAverage() {
+      return num1 + num2 / 2;
+   }
+}
+
+public class StatsInfoTest {
+   public static void main(String[] args) {
+      StatsInfo testData = new StatsInfo();
+
+      // Typical testbench tests more thoroughly
+
+      System.out.println("Beginning tests.");
+
+      // Check set/get num1
+      testData.setNum1(100);
+      if (testData.getNum1() != 100) {
+         System.out.println("   FAILED set/get num1");
+      }
+
+      // Check set/get num2
+      testData.setNum2(50);
+      if (testData.getNum2() != 50) {
+         System.out.println("   FAILED set/get num2");
+      }
+
+      // Check getAverage()
+      testData.setNum1(10);
+      testData.setNum2(20);
+      if (testData.getAverage() != 15) {
+         System.out.println("   FAILED GetAverage for 10, 20");
+      }
+
+      testData.setNum1(-10);
+      testData.setNum2(0);
+      if (testData.getAverage() != -5) {
+         System.out.println("   FAILED GetAverage for -10, 0");
+      }
+
+      System.out.println("Tests complete.");
+   }
+}
+
+Output;
+
+Beginning tests.
+   FAILED set/get num2
+   FAILED GetAverage for 10, 20
+   FAILED GetAverage for -10, 0
+Tests complete.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+Regression Testing
+
+Regression testing means to retest an item like a class anytime that item is changed;
+	if previously-passed test cases fail, the item has "regressed".
+
+----------------------------------------------------------------------------------------------------------------------------
+
+https://junit.org/
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Constructor Overloading
+
+A class creator can overload a constructor by defining multiple constructors differing in parameter types.
+
+-----------------------------------------------------------------------------------------------------------------------------
+Restaurant.java
+
+public class Restaurant {
+   private String name;
+   private int rating;
+
+   // No-arg constructor
+   public Restaurant() {
+      name = "NoName";
+      rating = -1;
+   }
+
+   // Two-arg constructor
+   public Restaurant(String initName, int initRating) {
+      name = initName;
+      rating = initRating;
+   }
+
+   // Prints name and rating on one line
+   public void print() {                           
+      System.out.println(name + " -- " + rating);
+   }
+}
 
 
+RestaurantFavorites.java
+
+public class RestaurantFavorites {
+   public static void main(String[] args) {
+      Restaurant foodPlace = new Restaurant();            // Call no-arg constructor
+      Restaurant coffeePlace = new Restaurant("Joe's", 5); // Call two-arg constructor
+
+      foodPlace.print();
+      coffeePlace.print();
+   }
+}
+
+Output:
+NoName -- -1
+Joe's -- 5
+
+-----------------------------------------------------------------------------------------------
+
+public class SomeClass {
+   public SomeClass() { ... }                     // A
+   public SomeClass(String name) { ... }          // B
+   public SomeClass(String name, int num) { ... } // C
+}
+
+SomeClass myObj = new SomeClass("Lee");
+	//calls B
+
+SomeClass myObj = new SomeClass();
+	//calls A
+
+SomeClass myObj = new SomeClass("Lee", 5, 0);
+	//Error
 
 
+-----------------------------------------------------------------------------------------------
+
+Compiler does not automatically create a no-arg constructor
+
+public class Restaurant {
+   public Restaurant(String initName, int initRating) {
+      ... 
+   }
+
+   // No other constructors
+}
+
+public class RestaurantFavorites {
+   public static void main(String[] args) {
+      Restaurant foodPlace = new Restaurant();              
+      ...
+   }
+}
+
+Output:
+
+RestaurantFavorites.java:3: cannot find symbol
+symbol  : constructor Restaurant()
+location: class Restaurant
+      Restaurant foodPlace = new Restaurant();
+                             ^
+
+-----------------------------------------------------------------------------------------------------------
+
+If the programmer doesn't define any constructors, the compiler implicitly defines a default constructor.
 
 
+-----------------------------------------------------------------------------------------------------------
+
+// ===== Code from file PhonePlan.java =====
+public class PhonePlan {
+   private int freeMinutes;
+   private int freeMessages;
+
+   public PhonePlan() {
+       freeMinutes  = 0;
+       freeMessages = 0;
+    }
+
+    // FIXME: Create a second constructor with numMinutes and numMessages parameters.
+
+   public PhonePlan(int numMinutes, int numMessages) {
+      freeMinutes = numMinutes;
+      freeMessages = numMessages;
+   }
+
+   public void print() {
+      System.out.println("Minutes: " + freeMinutes + ", Messages: " + freeMessages);
+   }
+}
+// ===== end =====
+
+// ===== Code from file CallPhonePlan.java =====
+public class CallPhonePlan {
+   public static void main(String [] args) {
+      PhonePlan user1Plan = new PhonePlan(); // Calls no-arg constructor
+      PhonePlan user2Plan = new PhonePlan(1000, 5000); // Calls newly-created constructor
+
+      System.out.print("User1: ");
+      user1Plan.print();
+
+      System.out.print("User2: ");
+      user2Plan.print();
+   }
+}
+// ===== end =====
 
 
+-----------------------------------------------------------------------------------------------------
+
+The Animal class has a no-arg constructor, a constructor with two parameters, and a constructor with three parameters.
+Declare the following objects:
+	animal1 with no arguments
+	animal2 with animalType and animalColor as arguments
+	animal3 with animalType, animalColor, and animalAge as arguments
+	
+	Ex: If the input is cougar orange 6, then the output is:
+	Animal: Unspecified, Unknown, -1
+	Animal: cougar, orange, -1
+	Animal: cougar, orange, 6
 
 
+import java.util.Scanner;
+
+public class Zoo {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String animalType;
+      String animalColor;
+      int animalAge;
+   
+      animalType = scnr.next();
+      animalColor = scnr.next();
+      animalAge = scnr.nextInt();
+
+      Animal animal1 = new Animal();
+      Animal animal2 = new Animal(animalType, animalColor);
+      Animal animal3 = new Animal(animalType, animalColor, animalAge);  
+
+      animal1.print();
+      animal2.print();
+      animal3.print();
+   }
+}
+
+
+public class Animal {
+   private String type;
+   private String color;
+   private int age;
+   
+   public Animal() { // No-arg constructor
+      type = "Unspecified";
+      color = "Unknown";
+      age = -1;
+   }
+   
+   public Animal(String animalType, String animalColor) {
+      type = animalType;
+      color = animalColor;
+      age = -1;
+   }
+   
+   public Animal(String animalType, String animalColor, int animalAge) {
+      type = animalType;
+      color = animalColor;
+      age = animalAge;
+   }
+   
+   public void print() {
+      System.out.println("Animal: " + type + ", " + color + ", " + age);
+   }
+}
+
+-------------------------------------------------------------------------------------------
+
+The Article class has a constructor with no parameters.
+	Define a public overloaded constructor that takes one string parameter and initializes the article's title with the string.
+
+Ex: If the input is Guitar, then the output is:
+
+Article: Unspecified
+Article: Guitar
+
+Article.java
+
+public class Article {
+   private String title;
+   
+   public Article() { // Default constructor
+      title = "Unspecified";
+   }
+
+   public Article (String articleTitle) {
+      title = articleTitle;
+   }
+
+   public void print() {
+      System.out.println("Article: " + title);
+   }
+}
+
+
+WrittenWork.java
+
+import java.util.Scanner;
+
+public class WrittenWork {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String articleTitle;
+   
+      articleTitle = scnr.next();
+   
+      Article emptyArticle = new Article();
+      Article article1 = new Article(articleTitle);
+   
+      emptyArticle.print();
+      article1.print();
+   }
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+
+The Person class has a constructor with no parameters.
+	Define a public overloaded constructor that takes a string parameter, an integer parameter,
+	and a double parameter for the name, the age, and the height of the person.
+
+Ex: If the input is Meg 26 4.50, then the output is:
+
+Person: Undefined, 0, 0.00
+Person: Meg, 26, 4.50
+
+Person.java
+
+public class Person {
+   private String name;
+   private int age;
+   private double height;
+   
+   public Person() { // No-arg constructor
+      name = "Undefined";
+      age = 0;
+      height = 0.0;
+   }
+
+   public Person(String personName, int personAge, double personHeight) {
+      name = personName;
+      age = personAge;
+      height = personHeight;
+   }
+
+   public void print() {
+      System.out.printf("Person: %s, %d, %.2f\n", name, age, height);
+   }
+}
+
+Roster.java
+
+import java.util.Scanner;
+
+public class Roster {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      String personName;
+      int personAge;
+      double personHeight;
+   
+      personName = scnr.next();
+      personAge = scnr.nextInt();
+      personHeight = scnr.nextDouble();
+   
+      Person emptyPerson = new Person();
+      Person person1 = new Person(personName, personAge, personHeight);
+   
+      emptyPerson.print();
+      person1.print();
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+Objects and References
+
+References
+A reference is a variable type that refers to an object.
+	A reference may be thought of as storing the memory address of an object.
+	Variables of a class data type (and array types, discussed elsewhere) are reference variables.
+
+The new operator allocates memory for an object
+
+Declaration:
+	TimeHrMin travelTime; //declares a reference variable with an unknown value
+Object Creation:
+	travelTime = new TimeHrMin(); //sets travelTime to refer to a new TimeHrMin object in memory
+	
+The reference variable declaration and object creation may be combined into a single statement:
+	TimeHrMin travelTime = new TimeHrMin();
+
+---------------------------------------------------------------------------------------------------------------------
+
+Multiple reference variables may refer to the same object.
+
+DriveTime timeRoute1 = new DriveTime();
+DriveTime timeRoute2;
+DriveTime bestRoute;
+
+timeRoute2 = new DriveTime();
+bestRoute = timeRoute1;
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+Implicit Parameter
+
+An object's member method is called using the syntax objectReference.method()
 
 
 
