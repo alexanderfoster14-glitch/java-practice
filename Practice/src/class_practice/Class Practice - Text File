@@ -1556,6 +1556,432 @@ Implicit Parameter
 
 An object's member method is called using the syntax objectReference.method()
 
+The object reference before the method name is known as an implicit parameter of the member method because
+	the compiler converts the call syntax objectReference.method(...) into a method call with the object reference
+	implicitly passed as a parameter. Ex: method(objectReference, ...).
+
+Within a member method, the implicitly-passed object reference is accessible via the keyword this.
+	In particular, a class member can be accessed as this.classMember.
+	The "." is the member access operator.
+
+Using "this" makes clear that a class member is being accessed and is essential if a field member and parameter have the same identifier.
+	In the example below, "this" is necessary to differentiate between the field member sideLength and the parameter sideLength.
+
+
+ShapeSquare.java:
+public class ShapeSquare {
+   // Private fields
+   private double sideLength;
+
+   // Public methods
+   public void setSideLength(double sideLength) {
+      this.sideLength = sideLength;
+      // Field member    Parameter
+   }
+
+   public double getArea() {
+      return sideLength * sideLength; // Both refer to field
+   }
+}
+
+ShapeTest.java:
+public class ShapeTest {
+   public static void main(String[] args) {
+      ShapeSquare square1 = new ShapeSquare();
+
+      square1.setSideLength(1.2);
+      System.out.println("Square's area: " + square1.getArea());
+   }
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+Given a class Spaceship with private field numYears and method:
+public void addNumYears(int numYears)
+
+In addNumYears(), which line adds the parameter numYears to the existing value of field numYears?
+this.numYears = this.numYears + numYears;
+
+Given variable Spaceship ss1 = new Spaceship() is declared in main(), which line assigns ss1's numYears with 5?
+numYears is a private field, so numYears cannot be accessed in main().
+
+------------------------------------------------------------------------------------------------------------------------------------
+Using This as  keyword:
+
+https://docs.oracle.com/javase/tutorial/java/javaOO/thiskey.html
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+CallAirplane.java
+
+public class CallAirplane {
+   public static void main(String[] args) {
+      Airplane airbus330 = new Airplane();
+
+      airbus330.addPassengers(1);
+      airbus330.addPassengers(4);
+
+      System.out.println(airbus330.getAvailableSeats() + " seats");
+   }
+}
+
+Airplane.java
+
+public class Airplane {
+   private int totalSeats;
+   private int passengers;
+
+   public Airplane() {
+      this.totalSeats = 300;
+      this.passengers = 0;
+   }
+
+   public void addPassengers(int passengers) {
+      this.passengers = this.passengers + passengers;
+   }
+
+   public int getAvailableSeats() {
+      return this.totalSeats - this.passengers;
+   }
+}
+
+---------------------------------------------------------------------------------------------------------------
+
+// ===== Code from file CablePlan.java =====
+public class CablePlan {
+   private int numDays;
+
+   // FIXME: Define setNumDays() method, using "this" implicit parameter.
+   public void setNumDays(int numDays) {
+
+      this.numDays = numDays;
+
+   }
+
+   public int getNumDays() {
+      return numDays;
+   }
+}
+// ===== end =====
+
+// ===== Code from file CallCablePlan.java =====
+import java.util.Scanner;
+
+public class CallCablePlan {
+   public static void main(String [] args) {
+      Scanner scnr = new Scanner(System.in);
+      CablePlan house1Plan = new CablePlan();
+      int userNum;
+
+      userNum = scnr.nextInt();
+      house1Plan.setNumDays(userNum);
+      System.out.println(house1Plan.getNumDays());
+   }
+}
+// ===== end =====
+
+----------------------------------------------------------------------------------------------------------------
+
+Primitive and reference types
+
+2 types of Java variables
+	primitive type -> stores data for that variable type (such as int)
+	reference type -> refers to an instance of a class, called an object
+
+Wrapper classes
+
+	Synopsis (correct?) Wrappers take a primitive type make it into a reference type object.
+
+Commonly used wrapper classes:
+	Reference type	Associated primitive type
+	Character		char
+	Integer			int
+	Double			double
+	Boolean			boolean
+	Long			long
+
+--------------------------------------------------------------------------------------------------------------------
+
+ArrayList can ONLY contain objects -> it's like a required wrapper class
+
+----------------------------------------------------------------------------------------------------------------------
+
+Immutable
+	A programmer cannot change the object via methods or variable assignments after object creation
+	
+----------------------------------------------------------------------------------------------------------------------
+
+Primitive types store the data directly -> they don't have a "separate" memory allocation for where the actual value is located
+
+----------------------------------------------------------------------------------------------------------------------------
+
+You CAN mix-and-match int and Integer -> the type would/does become a reference type (object)
+
+For example;
+
+int timeMins = 0;		// timeMins is stored in memory as a single location for an int value
+Integer timeHrs = 0;	// timeHrs is created as a reference type and has a memory location for the memory location and for the value
+
+timeMins = 400;			// timeMins is still stored in the same memory location, but the value is updated
+timeHrs = timeMins / 60;// timeHrs is updated to a NEW memory value location (the location of the reference value is the still the same)
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Program using the Double class to calculate flight and driving times.
+
+import java.util.Scanner;
+
+public class FlyDrive {
+   public static void main(String [] args) {
+      Scanner scnr = new Scanner(System.in);
+      Double distMiles; 
+      Double hoursFly;
+      Double hoursDrive;
+
+      System.out.print("Enter a distance in miles: ");
+      distMiles = scnr.nextDouble();
+
+      hoursFly = distMiles / 500.0;
+      hoursDrive = distMiles / 60.0;
+
+      System.out.println(distMiles + " miles would take:");
+      System.out.println(hoursFly + " hours to fly");
+      System.out.println(hoursDrive + " hours to drive");
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Limits on initialization values
+
+When using a literal for initialization, the programmer must ensure that the literal's value falls within the appropriate
+	numeric range, e.g., -2,147,483,648 to 2,147,483,647 for an integer.
+	The wrapper classes (except for Character and Boolean) declare the MAX_VALUE and MIN_VALUE fields, which are static fields
+	initialized with the maximum and minimum values a type may represent, respectively. A programmer may access these fields to
+	check the supported numeric range by typing the wrapper class' name followed by a dot and the field name, as in
+	Integer.MIN_VALUE, which returns -2,147,483,648.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+Declare a variable called gameScore that refers to a wrapper class object with an int value of 81.
+	Integer gameScore = 81;
+
+Declare a variable called trackCircumference that refers to a wrapper class object with a double value of 29.5.
+	Double trackCircumference = 29.5;
+
+Declare a variable called logoChar that refers to a wrapper class object with a char value of 'U'.
+	Character logoChar = 'U';
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Comparing wrapper class objects using relational operators.
+
+objectVar == objectVar
+(also applies to !=)	DO NOT USE. Compares references to objects, not the value of the objects.
+
+objectVar == primitiveVar
+(also applies to !=)	OK. Compares value of object to value of primitive variable.
+
+objectVar == 100
+(also applies to !=)	OK. Compares value of object to literal constant.
+
+objectVar < objectVar
+(also applies to <=, >, and >=)	OK. Compares values of objects.
+
+objectVar < primitiveVar
+(also applies to <=, >, and >=)	OK. Compares values of object to value of primitive.
+
+objectVar < 100
+(also applies to <=, >, and >=)	OK. Compares values of object to literal constant.
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+equals() and compareTo() methods for wrapper class types.
+Given:
+Integer num1 = 10;
+Integer num2 = 8;
+Integer num3 = 10;
+int regularInt = 20;
+
+equals(otherInt)
+	true if both Integers contain the same value. otherInt may be an Integer object, int variable, or integer literal.
+	num1.equals(num2) // Evaluates to false
+	num1.equals(10)   // Evaluates to true
+	!(num2.equals(regularInt)) // Evaluates to true because 8 != 20
+
+compareTo(otherInt)
+	return 0 if the two Integer values are equal, returns a negative number if the Integer value is less than otherInt's value, and returns a positive number if the Integer value is greater than otherInt's value. otherInt may be an Integer object, int variable, or integer literal.
+	num1.compareTo(num2) // Returns value greater than 0, because 10 > 8 
+	num2.compareTo(8)    // Returns 0 because 8 == 8
+	num1.compareTo(regularInt)   // Returns value less than 0, because 10 < 20
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Java documentation for classes
+
+Javadoc tool
+
+API is short for application programming interface
+
+Doc comments:
+	multi-line comments consisting of all text enclosed between the /** and */
+	Doc comments are distinguished by the opening characters /**
+
+Example of how to comment a program:
+
+ElapsedTime.java
+
+/**
+ * A class representing an elapsed time measurement 
+ * in hours and minutes. 
+ * @author Mary Adams
+ * @version 1.0
+ */
+public class ElapsedTime {
+   /**
+    * The hours portion of the time
+    */
+   private int hours;
+   
+   /**
+    * The minutes portion of the time
+    */
+   private int minutes;
+
+   /**
+    * Constructor initializing hours to timeHours and 
+    * minutes to timeMins. 
+    * @param timeHours hours portion of time
+    * @param timeMins minutes portion of time
+    */   
+   public ElapsedTime(int timeHours, int timeMins) {
+      hours   = timeHours;
+      minutes = timeMins;
+   }
+   
+   /**
+    * Default constructor initializing all fields to 0. 
+    */   
+   public ElapsedTime() {
+      hours = 0;
+      minutes = 0;
+   }
+   
+   /**
+    * Prints the time represented by an ElapsedTime 
+    * object in hours and minutes.
+    */
+   public void printTime() {
+      System.out.print(hours + " hour(s) " + minutes + " minute(s)");
+   }
+   
+   /**
+    * Sets the time to timeHours:timeMins.
+    * @param timeHours hours portion of time
+    * @param timeMins minutes portion of time
+   */
+   public void setTime(int timeHours, int timeMins) {
+      hours = timeHours;
+      minutes = timeMins;
+   }
+
+   /**
+    * Returns the total time in minutes.
+    * @return an int value representing the elapsed time in minutes.
+    */
+   public int getTimeMinutes() {
+      return ((hours * 60) + minutes);
+   }
+}
+
+TimeDifference.java
+
+import java.util.Scanner;
+
+/**
+ * This program calculates the difference between two 
+ * user-entered times. This class contains the 
+ * program's main() method and is not meant to be instantiated.
+ * @author Mary Adams
+ * @version 1.0
+ */
+public class TimeDifference {
+   /**
+    * Asks for two times, creating an ElapsedTime object for each, 
+    * and uses ElapsedTime's getTimeMinutes() method to properly 
+    * calculate the difference between both times.
+    * @param args command-line arguments
+    * @see ElapsedTime#getTimeMinutes()
+    */
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int timeDiff;     // Stores time difference
+      int userHours;
+      int userMins;
+      ElapsedTime startTime = new ElapsedTime(); // Starting time
+      ElapsedTime endTime = new ElapsedTime(); // Ending time
+
+      // Read starting time in hours and minutes
+      System.out.print("Enter starting time (hrs mins): ");
+      userHours = scnr.nextInt();
+      userMins = scnr.nextInt();
+      startTime.setTime(userHours, userMins);
+              
+      // Read ending time in hours and minutes
+      System.out.print("Enter ending time (hrs mins): ");
+      userHours = scnr.nextInt();
+      userMins = scnr.nextInt();
+      endTime.setTime(userHours, userMins);
+
+      // Calculate time difference by converting both times to minutes
+      timeDiff = endTime.getTimeMinutes() - startTime.getTimeMinutes(); 
+      
+      System.out.println("Time difference is " + timeDiff + " minutes");
+   }
+}
+
+A Doc comment associated with a class is written immediately before the class definition.
+	The main description typically describes the class' purpose.
+	The tag section of the Doc comment may include block tags such as @author and @version to specify the
+	class' author and version number respectively. For the classes above, the Doc comments specify
+	"Mary Adams" as the author of the first version of both classes.
+
+Each class also contains Doc comments describing member methods.
+	Programmers can use the @param and @return block tags to specify a method parameter and method return value respectively.
+
+Common block tags used in Javadoc comments.
+	Block tag	Compatibility			Description
+	@author		classes					Used to specify an author.
+	@version	classes					Used to specify a version number.
+	@param		methods, constructors	Used to describe a parameter.
+	@return		methods					Used to describe the value or object returned by the method.
+	@see		all						Used to refer reader to relevant websites or class members.
+
+----------------------------------------------------------------------------------------------------------------------
+
+Private class members are not included by default in the API documentation generated by the Javadoc tool
+
+The Javadoc tool can be executed with the -private flag, as in javadoc -private -d destination class1.java class2.java
+	to enable the documentation of private class members.
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
