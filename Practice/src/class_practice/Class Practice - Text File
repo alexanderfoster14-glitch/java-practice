@@ -1966,30 +1966,533 @@ The Javadoc tool can be executed with the -private flag, as in javadoc -private 
 
 -------------------------------------------------------------------------------------------------------------------------
 
+Abstract Classes
+
+Abstract Method
+	A method not implemented in the base class
+	-> All derived classes must override the method
+	Denoted with keyword "abstract" in front of method signature
+
+Method Signature
+	defines method's name and signature
+
+Example:
+	abstract double computeArea();
+
+Abstract Class
+	Cannot be instantiated as an object
+	Any class with 1 or more abstract methods MUST be an abstract class
+
+Concrete Class
+	"Standard" classes
+	Not abstract
+	Can be instantiated
+
+------------------------------------------------------------------------------------------------
+
+Example of trying to instantiate an abstract class
+
+public abstract class Shape {
+
+  protected Point position;
+
+  abstract double computeArea();
+
+  public Point getPosition() {
+     return this.position;
+  }
+
+  public void setPosition(Point position) {
+     this.position = position;
+  }
+
+  public void movePositionRelative(Point position) {
+     double x = this.position.getX() + position.getX();
+     double y = this.position.getY() + position.getY();
+
+     this.position.setX(x);
+     this.position.setY(y);
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+     Shape shape = new Shape();	//GIVES ERROR - Abstract Class cannot be instantiated
+     ...
+  }
+}
+
+-------------------------------------------------------------------------------------------------------
+
+Example: Shape classes
+The example program below manages sets of shapes
+	Shape is an abstract class, and Circle and Rectangle are concrete classes.
+	The Shape abstract class specifies that any derived class must define a method
+		computeArea() that returns type double.
+
+Circle and Rectangle are concrete classes that extend the Shape class.
+
+Shape.java implements the Shape base class
+public abstract class Shape {
+
+   protected Point position;
+
+   abstract double computeArea();
+
+   public Point getPosition() {
+      return this.position;
+   }
+
+   public void setPosition(Point position) {
+      this.position = position;
+   }
+
+   public void movePositionRelative(Point position) {
+      double x = this.position.getX() + position.getX();
+      double y = this.position.getY() + position.getY();
+
+      this.position.setX(x);
+      this.position.setY(y);
+   }
+}
+
+Point.java holds the x, y coordinates for a point
+public class Point {
+
+   private double x;
+   private double y;
+
+   public Point(double x, double y) {
+      this.x = x;
+      this.y = y;
+   }
+
+   public double getX() {
+      return x;
+   }
+
+   public double getY() {
+      return y;
+   }
+
+   public void setX(double x) {
+      this.x = x;
+   }
+   
+   public void setY(double y) {
+      this.y = y;
+   }
+}
+
+Circle.java defines a Circle class
+public class Circle extends Shape {
+
+   private double radius;
+
+   public Circle(Point center, double radius) {
+      this.radius = radius;
+      this.position = center;
+   }
+
+   @Override
+   public double computeArea() {
+      return (Math.PI * Math.pow(radius, 2));
+   }
+}
+
+Rectangle.java defines a Rectangle class
+public class Rectangle extends Shape {
+
+   private double length, height;
+
+   public Rectangle(Point upperLeft, double length,double height) {
+      this.position = upperLeft;
+      this.length = length;
+      this.height = height;
+   }
+
+   @Override
+   public double computeArea() {
+      return (length * height);
+   }
+}
+
+TestShapes.java tests the Shape class
+public class TestShapes {
+   public static void main(String[] args) {
+      Circle circle1 = new Circle(new Point(1.0, 1.0), 1.0);
+      Circle circle2 = new Circle(new Point(1.0, 1.0), 2.0);
+      
+      Rectangle rectangle = new Rectangle(new Point(0.0, 1.0), 1.0, 1.0);
+
+      // Print areas
+      System.out.println("Area of circle 1 is: " + circle1.computeArea());
+      System.out.println("Area of circle 2 is: " + circle2.computeArea());
+      System.out.println("Area of rectangle is: " + rectangle.computeArea());
+      System.out.println();
+      
+      // Print positions
+      System.out.println("Circle 1 is at: (" + circle1.getPosition().getX() + 
+                         ", " + circle1.getPosition().getY() + ")");
+      
+      System.out.println("Rectangle is at: (" + rectangle.getPosition().getX() +
+                         ", " + rectangle.getPosition().getY() + ")");
+      System.out.println();
+      
+      // Move shapes
+      circle1.setPosition(new Point(3.0, 1.0));
+      rectangle.movePositionRelative(new Point(1.0, 1.0));
+      
+      // Print positions
+      System.out.println("Circle 1 is at: (" + circle1.getPosition().getX() + 
+                         ", " + circle1.getPosition().getY() + ")");
+
+      System.out.println("Rectangle is at: (" + rectangle.getPosition().getX() +
+                         ", " + rectangle.getPosition().getY() + ")");
+      System.out.println();
+   }
+}
+
+Output:
+	Area of circle 1 is: 3.141592653589793
+	Area of circle 2 is: 12.566370614359172
+	Area of rectangle is: 1.0
+	
+	Circle 1 is at: (1.0, 1.0)
+	Rectangle is at: (0.0, 1.0)
+	
+	Circle 1 is at: (3.0, 1.0)
+	Rectangle is at: (1.0, 2.0)
+
+Why do it this way if a shape object cannot be created?
+	Allows the coder to still create a single code block that can be used for other shapes
+
+All child classes MUST implement any abstract methods that at in the parent class
+
+-------------------------------------------------------------------------------------------------------------
+
+Example
+
+TestPerson.java
+public class TestPerson {
+   public static void main(String[] args) {
+      Student myStudent = new Student("Gus", 14, 3.9);
+
+      myStudent.printInfo();
+   }
+}
+
+Person.java
+public abstract class Person {
+   protected String name; 
+   protected int age; 
+
+   abstract void printInfo();
+
+   public String getNameAndAge() { 
+      return name + ", " + age + " years";
+   }
+}
+
+Student.java
+public class Student extends Person {
+   private double gpa; 
+
+   public Student(String studentName, int studentAge, double studentGPA) {
+      this.name = studentName;
+      this.age = studentAge;
+      this.gpa = studentGPA;
+   }
+
+   public void printInfo() {
+      String nameAndAge = this.getNameAndAge();
+
+      System.out.println(nameAndAge);
+      System.out.println("GPA: " + this.gpa);
+   }
+}
+
+Output;
+	Gus, 14 years
+	GPA: 3.9
 
 
+-----------------------------------------------------------------------------------------------------
+
+Composition
+
+Inheritance is NOT the same as composition
+Composition is the idea that 1 OBJECT may be made up of other objects
+
+has-a vs. is-a
+
+Mother vs Child as a has-a vs is-a relationship
+
+has-a relationship example without inheritance:
+
+	public class ChildInfo {
+	   public String firstName;
+	   public String birthDate;
+	   public String schoolName;
+	
+	   ...
+	}
+	  
+	public class MotherInfo {
+	   public String firstName;
+	   public String birthDate;
+	   public String spouseName;
+	   public ArrayList<ChildInfo> childrenData;
+	
+	   ...
+	}
+
+is-a relationship example using inheritance:
+
+	public class PersonInfo {
+	   public String firstName;
+	   public String birthDate;
+	
+	   ...
+	}
+	
+	public class ChildInfo extends PersonInfo {
+	   public String schoolName;
+	
+	   ...
+	}
+	
+	public class MotherInfo extends PersonInfo {
+	   public String spouseName;
+	   public ArrayList<ChildInfo> childrenData;
+	  ...
+	}
+
+Derived classes and inheritance are related to is-a relationships, not has-a relationships.
+
+----------------------------------------------------------------------------------------------
+
+Unified Modeling Language
+UML
+
+Shows inheritance between objects
+Uses graphics
+	Arrow points to the parent class, only shows additional members
+
+Uses diagrams
+
+Structural Diagram
+	Used to show static elements of a program, like variables and methods
+
+Behavioral Diagram
+	Shows how the program progresses, like how an algorithm changes something
+
+Class Diagram
+	Type of structural diagram
+
+Basic structure of a class diagram:
 
 
+----------------------------------------------
+|                <Class Name>                |
+|--------------------------------------------|
+| <+/-> <attribute name>: <attribute type>   |
+| <+/-> <attribute name>: <attribute type>   |
+|--------------------------------------------|
+| <+/-> <method name>: <method return type>  |
+| <+/-> <method name>: <method return type>  |
+----------------------------------------------
 
+Private vs. Public denoted with the "+" or "-"
+	"-" is Private
+	"+" is Public
 
+Example:
 
+----------------------------
+|          Circle          |
+|--------------------------|
+| - radius: double         |
+| - center: Point          |
+|--------------------------|
+| + computeArea(): double  |
+----------------------------
 
+----------------------------
+|          Square          |
+|--------------------------|
+| - size: double           |
+| - center: Point          |
+|--------------------------|
+| + computeArea(): double  |
+----------------------------
 
+UML using italics to denote an abstract class with everything in the abstract class being italics
 
+----------------------------------------------------------------------------------------------
 
+Interfaces
 
+Keyword "interface"
 
+Kind of like saying "everything in the class is abstract" without using the keywrord abstract?
+	Is that correct?
 
+keyword "implements" (instead of "extends")
+	a class can implement multiple interfaces, but a class can only extend 1 abstract class
 
+Example implementing an interface:
 
+import java.awt.Graphics2D;
 
+public interface Drawable {
+   public void draw(Graphics2D graphicsObject);
+}
 
+public interface DrawableASCII {
+   public void drawASCII(char drawChar);
+}
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
+public class Square implements Drawable, DrawableASCII {
+   private int sideLength;
 
+   public Square(int sideLength) {
+      this.sideLength = sideLength;
+   }
 
+   @Override
+   public void draw(Graphics2D graphicsObject) {
+      Rectangle shapeObject = new Rectangle(0, 0, this.sideLength, this.sideLength);
+      Color colorObject = new Color(255, 0, 0);
+      graphicsObject.setColor(colorObject);
+      graphicsObject.fill(shapeObject);
+   }
 
+   @Override
+   public void drawASCII(char drawChar) {
+      int rowIndex;
+      int columnIndex;
 
+      for (rowIndex = 0; rowIndex < this.sideLength; ++rowIndex) {
+         for (columnIndex = 0; columnIndex < this.sideLength; ++columnIndex) {
+            System.out.print(drawChar);
+         }
+         System.out.println();
+      }
+   }
+}
 
+------------------------------------------------------------------------------------------------
+
+Interfaces can declare public static final fields and don't restrict a class' inheritance.
+
+Only abstract classes can provide variables/fields to the subclasses.
+
+An interface does not restrict future inheritance, so is the best choice if no other code is provided.
+
+-------------------------------------------------------------------------------------------------
+
+PrintMedia.java
+public class PrintMedia {
+   public static void main(String[] args) {
+      Media med = new Media();
+
+      med.setDirector("David Silverman");
+      med.setDuration(25);
+
+      med.printDuration();
+      med.printDirector();
+   }
+}
+
+AudioVisual.java
+public interface AudioVisual {
+   public void printDuration();
+}
+
+Show.java
+public interface Show {
+   public void printDirector();
+}
+
+Media.java
+public class Media implements AudioVisual, Show {
+   int duration;
+   String director;
+
+   public void setDuration(int setDuration) {
+      duration = setDuration;
+   }
+
+   public void setDirector(String setDirector) {
+      director = setDirector;
+   }
+
+   @Override
+   public void printDuration() {
+      System.out.println(duration + " minutes");
+   }
+
+   @Override
+   public void printDirector() {
+      System.out.println("Director: " + director);
+   }
+}
+
+Output:
+25 minutes
+Director: David Silverman
+
+-------------------------------------------------------------------------------------------------------
+Person.java
+import java.util.Scanner;
+
+public class Person implements BankAccount {
+   private String name;
+	private int accountNumber;
+
+   public void setInformation(String name, int accountNumber) {
+      this.name = name;
+		this.accountNumber = accountNumber;
+   }
+
+   @Override
+
+   public String getClosedAccount() {
+      return (name + " closed account " + accountNumber + ".");
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      Person person = new Person();
+      String personName;
+      int personAccountNumber;
+
+      personName = scnr.next();
+      personAccountNumber = scnr.nextInt();
+
+      person.setInformation(personName, personAccountNumber);
+      System.out.println(person.getClosedAccount());
+   }
+}
+
+BankAccount.java
+public interface BankAccount {
+   public String getClosedAccount();
+}
+
+Input/Output:
+
+Input: Abe 242068
+Your output: Abe closed account 242068.
+
+Input: Jeb 596327
+Your output: Jeb closed account 596327.
+
+----------------------------------------------------------------------------------------------------
 
 

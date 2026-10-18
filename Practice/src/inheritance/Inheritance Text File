@@ -1,0 +1,764 @@
+Inheritance
+
+Superclass (parent)
+-> Sublcass (child)
+
+Imparts variables from Superclass to Subclass
+
+Parent: A vehicle is representative as a parent class
+Child 1: A car and a truck are types of vehicles
+Child 2: Electric and Petrol are types of cars
+	Child 2 is a second tier child (child of Child 1)
+
+The Car, Truck, Electric, and Petrol classes would all inherit attributes and methods from the Vehicle class.
+Ehe Electric and Petrol classes contain additional attributes and methods from the Vehicle class.
+
+Child, also known as derived class
+
+Keyword "Extends" in Java
+
+Example
+To indicate that the Car class is derived from the Vehicle class, we would code the following header:
+	public class Car extends Vehicle{}
+
+To indicate that the Truck class is derived from the Vehicle class, we would have the following class header for the Vehicle class:
+	public class Truck extends Vehicle{}
+
+Class Person (parent class)
+	- name
+	- age
+	- gender
+
+Class Employee (child class inherits the properties of "Person" class)
+	- (name)
+	- (age)
+	- (gender)
+	- title
+	- employee ID
+
+Polymophism
+Any Java object that can pass more than one IS-A test (i.e., a parent class having two or more subclasses)
+	is considered to be polymorphic.
+
+"Poly" means many
+
+an exmaple of polymorphism is overloading, like below. Different methods with the same name, but different parameters
+
+	public class SimplePoly {
+		public static void mymessage() {
+			System.out.println("Just a simple message"); 
+		}
+		public static void mymessage(String msg) {
+			System.out.println(msg);
+		}
+		public static void main(String[] args)
+		{
+			mymessage();
+			mymessage("Simple message from Main");
+		}
+	}
+
+Object class
+	The ultimate object class in Java
+
+Some methods specified by the Object class:
+	toString()
+	equals()
+	hashCode
+
+Interfaces
+interface type
+blueprint for a subclass
+	Abstract and cannot be instantiated
+like a template for an abstract concept
+Does not have constructors
+Cannot extend classes, must be implemented by them
+Fields are final and cannot change
+
+To create an interface using built-in tools
+	start to create a class, select "interface"
+
+Example:
+	package interface;
+	
+	public interface Product {
+		private String name;	//Compilation error
+		//Cannot be "private"
+		//Becuase fields have to be static and final, it is common to only have methods in interfaces
+		
+		String getName()
+		void setName(String name);
+		
+	}
+
+
+as a "standard" class, this would have been
+	package interface;
+	
+	public class Product {
+		private String name;
+	}
+
+fields in an interface are ALWAYS Static AND Final
+	Implicitly Static and Final even when not declared
+
+Classes that implement an interface would not have access to a prive field
+
+------------------------------------------------------------------------------------------------------
+
+Derived class
+
+Extends
+
+class <derived or child class> extends <base class or parent class>
+
+---------------------------------------------------------------------------------------------------------
+
+Example:
+
+GenericItem.java
+
+public class GenericItem {
+   private String itemName;
+   private int itemQuantity;
+
+   public void setName(String newName) {
+      itemName = newName;
+   }
+
+   public void setQuantity(int newQty) {
+      itemQuantity = newQty;
+   }
+
+   public void printItem() {
+      System.out.println(itemName + " " + itemQuantity);
+   }
+}
+
+ProduceItem.java
+
+public class ProduceItem extends GenericItem { 
+   private String expirationDate;
+
+   public void setExpiration(String newDate) {
+      expirationDate = newDate;
+   }
+
+   public String getExpiration() {
+      return expirationDate;
+   }  
+}
+
+public class ClassDerivationEx {
+   public static void main(String[] args) {
+      GenericItem miscItem = new GenericItem();
+      ProduceItem perishItem = new ProduceItem();
+
+      miscItem.setName("Crunchy Cereal");
+      miscItem.setQuantity(9);
+      miscItem.printItem();
+
+      perishItem.setName("Apples");
+      perishItem.setQuantity(40);
+      perishItem.setExpiration("Dec 5, 2019");
+      perishItem.printItem();
+
+      System.out.println("  (Expires: "
+         + perishItem.getExpiration() + ")");
+   }
+}
+
+--------------------------------------------------------------------------------------------
+
+Inheritance example: Business and Restaurant classes.
+
+Business.java
+
+public class Business {
+   private String name;
+   private String address;
+   
+   public void setName(String busName) { 
+      name = busName; 
+   }
+   
+   public void setAddress(String busAddress) {
+      address = busAddress; 
+   }
+   
+   public String getDescription() {
+      return name + " -- " + address;
+   }
+}
+Restaurant.java
+
+public class Restaurant extends Business {
+   private int rating;
+   
+   public void setRating(int userRating) {
+      rating = userRating;
+   }
+   
+   public int getRating() {
+      return rating;
+   }
+}
+InheritanceExample.java
+
+public class InheritanceExample {
+   public static void main(String[] args) {
+      Business someBusiness = new Business();
+      Restaurant favoritePlace = new Restaurant();
+
+      someBusiness.setName("ACME");
+      someBusiness.setAddress("4 Main St");
+
+      favoritePlace.setName("Friends Cafe");
+      favoritePlace.setAddress("500 W 2nd Ave");
+      favoritePlace.setRating(5);
+
+      System.out.println(someBusiness.getDescription());
+      System.out.println(favoritePlace.getDescription());
+      System.out.println("  Rating: " + favoritePlace.getRating());
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+// ===== Code from file Person.java =====
+public class Person {
+   private int ageYears;
+   private String lastName;
+
+   public void setName(String userName) {
+      lastName  = userName;
+   }
+
+   public void setAge(int numYears) {
+      ageYears = numYears;
+   }
+
+   // Other parts omitted
+
+   public void printAll() {
+      System.out.print("Name: " + lastName);
+      System.out.print(", Age: "  + ageYears);
+   }
+}
+// ===== end =====
+
+// ===== Code from file Student.java =====
+public class Student extends Person {
+   private int idNum;
+
+   public void setID(int studentId) {
+      idNum = studentId;
+   }
+
+   public int getID() {
+      return idNum;
+   }
+}
+// ===== end =====
+
+// ===== Code from file StudentDerivationFromPerson.java =====
+public class StudentDerivationFromPerson {
+   public static void main(String[] args) {
+      Student courseStudent = new Student();
+
+      courseStudent.setName("Smith");
+      courseStudent.setAge(20);
+      courseStudent.setID(9999);
+      courseStudent.printAll();
+      System.out.println(", ID: " + courseStudent.getID());
+
+   }
+}
+// ===== end =====
+
+
+-------------------------------------------------------------------------------------------------------
+
+The members of a derived class have access to the public members of the base class,
+	but not to the private members of the base class
+
+-------------------------------------------------------------------------------------------------------
+
+Member methods of a derived class cannot access private members of the base class.
+
+Exapmle:
+
+public class Business {
+   private String name;
+   private String address;
+   ...
+}
+
+public class Restaurant extends Business {
+   private int rating;
+   ...
+   public void displayRestaurant() {
+      System.out.println(name);
+      System.out.println(address);
+      System.out.println("Rating: "+ rating);
+   }
+   ...
+}
+
+Output:
+
+$ javac Restaurant.java 
+Restaurant.java:12: name has private access in Business
+      System.out.println(name);
+                         ^
+Restaurant.java:12: address has private access in Business
+      System.out.println(address);
+                         ^              
+2 errors
+
+--------------------------------------------------------------------------------------------------------
+
+Assume public class Restaurant extends Business{...}
+
+Restaurant's private fields can NOT be accessed by Business.
+
+---------------------------------------------------------------------------------------------------------
+
+Protected
+
+Protected member access
+
+Members of a class can be "public" or "private"
+
+3rd type is "protected"
+
+-------------------------------------------------------------------------------------------------------
+
+Example:
+
+Access specifiers—Protected allows access by derived classes and classes in the same package but not by others.
+
+Code contains intended errors to demonstrate protected accesses.
+
+Business.java:
+public class Business{
+   protected String name;    // Member accessible by self and derived classes
+   private String address;   // Member accessible only by self
+
+   public void printMembers() { // Member accessible by anyone
+      // Print information ...
+   }
+   
+}
+
+Restaurant.java:
+public class Restaurant extends Business{
+   private int rating; 
+
+   public void displayRestaurant() {
+      // Attempted accesses
+      printMembers();             // OK
+      name = "Gyro Hero";         // OK    ("protected" above made this possible)
+      address = "5 Fifth St";    // ERROR
+   }
+
+   // Other class members ...
+}
+
+InheritanceAccessEx.java
+public class InheritanceAccessEx {
+   public static void main(String[] args) {
+      Business business = new Business();
+      Restaurant restaurant = new Restaurant();
+    
+      // Attempted accesses
+      business.printMembers();          // OK
+      business.name = "Gyro Hero";      // OK (protected also applies to other classes in the same package)
+      business.address = "5 Fifth St";  // ERROR
+      
+      restaurant.printMembers();        // OK
+      restaurant.name = "Gyro Hero";    // OK (protected also applies to other classes in the same package)
+      restaurant.rating = 5; // ERROR
+      
+      // Other instructions ...
+   }
+}
+
+-----------------------------------------------------------------------------------------------------------
+
+Overriding
+
+"@" at the beginning on a line creates an annotation
+	annotation give the compiler instructions
+
+@Override
+	A derived class wtih this annotation will Override the Base class's method
+	The child class does the stuff instead of the parent class
+
+----------------------------------------------------------------------------------------------------------
+
+// Business.java	//parent class
+public class Business {
+   protected String name;
+   protected String address;
+   ... 
+
+   public String getDescription() {
+      return name + " -- " + address;
+   }
+}
+
+// Restaurant.java	//Child class
+public class Restaurant extends Business {
+   private int rating;
+   ...
+   
+   @Override
+   public String getDescription() {
+      return name + " -- " + address +
+         "\n  Rating: " + rating;
+   }
+}
+// OverridingExample 
+public class OverridingExample {
+   public static void main(String[] args) {
+      Restaurant favoritePlace = new Restaurant();
+      favoritePlace.setName("Friends Cafe");
+      favoritePlace.setAddress("500 W 2nd Ave");
+      favoritePlace.setRating(5);
+      System.out.println(favoritePlace.getDescription());
+   }
+}
+
+-------------------------------------------------------------------------------------------------
+
+An overriding method can call the overridden method by using the super keyword.
+	Ex: super.getDescription().
+The super keyword is a reference variable used to call the parent class's methods or constructors.
+
+Method calling overridden method of base class.
+
+public class Restaurant extends Business{
+   ...
+   
+   @Override
+   public String getDescription() {
+      return super.getDescription() + "\n  Rating: " + rating;
+   }
+   
+   ...
+}
+
+----------------------------------------------------------------------------------------------------------
+
+// ===== Code from file AnimalData.java =====
+public class AnimalData {
+   private int ageYears;
+   private String fullName;
+
+   public void setName(String givenName) {
+      fullName = givenName;
+   }
+
+   public void setAge(int numYears) {
+      ageYears = numYears;
+   }
+
+   // Other parts omitted
+
+   public void printAll() {
+      System.out.print("Name: "  + fullName);
+      System.out.print(", Age: " + ageYears);
+   }
+}
+// ===== end =====
+
+// ===== Code from file PetData.java =====
+public class PetData extends AnimalData {
+   private int idNum;
+
+   public void setID(int petID) {
+      idNum = petID;
+   }
+
+   // FIXME: Add printAll() member function
+
+   @Override
+   public void printAll() {
+      super.printAll();
+      System.out.print(", ID: " + idNum);
+   }
+}
+// ===== end =====
+
+// ===== Code from file BasicDerivedOverride.java =====
+import java.util.Scanner;
+
+public class BasicDerivedOverride {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      PetData userPet = new PetData();
+      String userName;
+      int userAge;
+      int userID;
+
+      userName = scnr.next();
+      userAge = scnr.nextInt();
+      userID = scnr.nextInt();
+
+      userPet.setName(userName);
+      userPet.setAge (userAge);
+      userPet.setID  (userID);
+      userPet.printAll();
+      System.out.println("");
+   }
+}
+// ===== end =====
+
+------------------------------------------------------------------------------------------------
+
+The Object Class
+
+"Object class" is different from generic "object"
+
+2 common methods within the Object class:
+	toString()
+	equals(otherObject)
+
+toString()
+	method returns a String representation of the Object.
+		By default, toString() returns a String containing the object's class name followed by the
+			object's hash code in hexadecimal form.
+		Ex: java.lang.Object@372f7a8d.	
+
+equals(otherObject)
+	method compares an Object to otherObject and returns true if both variables reference the same object.
+		Otherwise, equals() returns false.
+	By default, equals() tests the equality of the two Object references, not the equality of the Objects' contents.
+
+----------------------------------------------------------------------------------------------------
+
+Derived class Restaurant overrides toString().
+
+Business.java
+public class Business {
+   protected String name;
+   protected String address;
+   
+   void setName(String busName) { 
+      name = busName; 
+   }
+   
+   void setAddress(String busAddress) {
+      address = busAddress; 
+   }   
+   
+   @Override
+   public String toString() {
+      return name + " -- " + address;
+   }
+}
+
+Restaurant.java
+public class Restaurant extends Business {
+   private int rating;
+   
+   public void setRating(int userRating) {
+      rating = userRating;
+   }
+   
+   public int getRating() {
+      return rating;
+   }
+
+   @Override
+   public String toString() {      
+      return super.toString() + ", Rating: " + rating;
+   }
+}
+
+--------------------------------------------------------------------------------------------------------
+CallCar.java
+public class CallCar {
+   public static void main(String[] args) {
+      Car myCar = new Car();
+      ElectricCar electricCar = new ElectricCar();
+
+      myCar.setBrand("Toyota");
+      myCar.setModel("Corolla");
+      electricCar.setBrand("Hyundai");
+      electricCar.setModel("Kona Electric");
+      electricCar.setRange("280 miles");
+
+      System.out.println(myCar);
+      System.out.println(electricCar);
+   }
+}
+
+Car.java
+public class Car {
+   protected String brand;
+   protected String model;
+
+   void setBrand(String carBrand) {
+      brand = carBrand;
+   }
+
+   void setModel(String carModel) {
+      model = carModel;
+   }
+
+   @Override
+   public String toString() {
+      return model + " - " + brand;
+   }
+}
+
+ElectricCar.java
+public class ElectricCar extends Car {
+   protected String range;
+
+   void setRange(String newRange) {
+      range = newRange;
+   }
+
+   @Override
+   public String toString() {
+      return super.toString() + " (" + range + ")";
+   }
+}
+
+Output:
+	Corolla - Toyota
+	Kona Electric - Hyundai (208 miles)
+
+-----------------------------------------------------------------------------------------------
+
+Polymorphism
+	Method overloading is a form of run-time polymorphism
+	Run-time polymorphism = when compiler cannot make a determination about which method will be called
+
+Example of run-time polymorphism:
+	ArrayList<GenericItem> inventoryList = new ArrayList<GenericItem>();
+	ProduceItem derived from GenerticItem
+	inventoryList could be a list of objects from GenerticItem or it's derivatives (ProduceItem)
+
+------------------------------------------------------------------------------------------------
+
+derived/base class reference conversion
+
+references to derived class can be converted to references to base classes without the need to be cast
+
+The JVM determines as run time which class should be called based on the object type
+
+----------------------------------------------------------------------------------------------------
+
+CallEmployee.java
+import java.util.ArrayList;
+
+public class CallEmployee {
+   public static void main(String[] args) {
+      Employee person1;
+      Professor person2;
+      Coach person3;
+
+      ArrayList<Employee> personList = new ArrayList<Employee>();
+      int i;
+
+      person1 = new Employee();
+      person1.setName("Amy");
+
+      person2 = new Professor();
+      person2.setName("Aja");
+      person2.setSubject("Art");
+
+      person3 = new Coach();
+      person3.setName("Cora");
+      person3.setSport("basketball");
+
+      personList.add(person1);
+      personList.add(person3);
+      personList.add(person2);
+
+      for(i = 0; i < personList.size(); ++i){
+         personList.get(i).printInfo();
+      }
+   }
+}
+
+Employee.java
+public class Employee {
+   protected String name;
+
+   public void setName(String setName) {
+      name = setName;
+   }
+
+   public void printInfo() {
+      System.out.println(name);
+   }
+}
+
+Professor.java
+public class Professor extends Employee {
+   private String subject;
+
+   public void setSubject(String setSubject) {
+      subject = setSubject;
+   }
+
+   @Override
+   public void printInfo() {
+      System.out.println(name + " teaches " + subject);
+   }
+}
+
+Coach.java
+public class Coach extends Employee {
+   private String sport;
+
+   public void setSport(String setSport) {
+      sport = setSport;
+   }
+
+   @Override
+   public void printInfo() {
+      System.out.println(name + " coaches " + sport);
+   }
+}
+
+Output:
+	Amy
+	Cora coaches basketball
+	Aja teaches Art
+
+--------------------------------------------------------------------------------------------------------
+
+Abstract Classes
+
+abstract class is a class that guides the design of subclasses but cannot itself be instantiated as an object.
+	Ex: An abstract Shape class might also specify that any subclass must define a computeArea() method.
+
+Inheriting classes must implement methods that are abstract in the superclass.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
