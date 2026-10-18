@@ -31,7 +31,7 @@ Step 2: Create a Blank Repository on GitHub
 Step 3: Initialize a Local Git Repository in Eclipse
 	Inside Eclipse, right-click your project name in the Project Explorer
 	Select Team > Share Project....Choose Git and click Next
-	In "Repository" line, select or create and select where the respository folder will be saved
+	In "Repository" line, select or create and select where the repository folder will be saved
 	click on your project name
 	click Create Repository
 	click Finish
