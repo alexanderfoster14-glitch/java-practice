@@ -206,12 +206,46 @@ Drawing the shape
 		draws the outline and fills in the shape
 
 --------------------------------------------------------------------------------------------------------------------------
+Some examples of Rectangle()
 
+Rectangle rectangle = new Rectangle(0, 0, 150, 100);  
+Color color = new Color(0, 255, 0);
+graphicsObj.setColor(color);
+graphicsObj.fill(rectangle);
+	//Draws a rectangle whose top-left corner is located at the origin of the coordinate system.
 
+Rectangle rectangle = new Rectangle(0, 100, 200, 200); 
+Color color = new Color(255, 0, 0);
+graphicsObj.setColor(color);
+graphicsObj.fill(rectangle);
+	//Draws a filled in red square.
 
+Rectangle rectangle = new Rectangle(0, 100, 50, 150); 
+Color color = new Color(255, 0, 255);
+graphicsObj.setColor(color);
+graphicsObj.draw(rectangle);
+	//Draws the outline of a magenta rectangle 50 pixels wide and 150 pixels in height.
+	
+-----------------------------------------------------------------------------------------------------------------
 
+Common shapes for drawing:
 
+Rectangle
+	The Rectangle class for drawing a rectangle.
 
+RoundRectangle2D
+	The RoundRectangle2D class for drawing a rectangle with rounded corners
+
+Ellipse2D.Double
+	The Ellipse2D.Double class for drawing an ellipse with a size and location
+
+Line2D.Double
+	The Line2D.Double class for drawing a line between two coordinate points
+
+Polygon
+	The Polygon class for drawing a generic polygon with user-specified boundary points
+
+-------------------------------------------------------------------------------------------------------------
 
 
 
