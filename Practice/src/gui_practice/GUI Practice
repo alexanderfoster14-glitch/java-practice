@@ -289,6 +289,278 @@ public class SalaryGUI {
    }
 }
 
+------------------------------------------------------------------------------------------------------------
+
+JTextField
+JFrame
+
+JTextField is a Swing GUI component
+import javax.swing.JTextField;
+outputField = new JTextField();	//Creates a text field object
+
+Setting the output text within the text field:
+outputField.setText("An hourly ... ");
+
+By default the output text is editable, but this statement makes it static:
+outputField.setEditable(false);
+
+JFrame
+JFrame is a top-level container
+import javax.swing.JFrame;
+frame = new JFrame("Salary");	//Creates a new window frame titled "Salary"
+
+JFrame's add() method
+frame.add(outputField);	//add GUI components
+
+JFrame's pack() method
+frame.pack();	//method call to automatically resizes the window to the appropriate size
+adding/removing/changing the GUI components after this will NOT automatically update the window size
+	-> the window size might be wonky
+
+By default, closing a GUI windows does NOT end the program.
+	A line of code is needed to link closing the window with ending the program;
+	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+The statements in the program's main() method construct a GUI as outlined by the following procedure:
+	Create GUI components (e.g., JTextField)
+	Create a top-level GUI component container (e.g., JFrame)
+	Add GUI components to the top-level container
+	Configure the top-level container (e.g., set the default close operation)
+	Display the top-level container (e.g., make the frame visible)
+
+Set visibility to true
+	Example: topFrame.setVisible(true);
+
+---------------------------------------------------------------------------------------------------------------------
+
+GridBadLayout
+
+Layout Manager
+	Gives programmer control over layout of components within a container
+
+GridBagLayout
+	Positions GUI components in a 2-D grid layout
+	This is a layout manager supported by Java
+
+Using a GridBagLayout to arrange GUI components.
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class SalaryLabelGUI {
+
+   public static void main(String[] args) {
+      int hourlyWage;             
+      JFrame topFrame = null;                // Application window
+      JLabel wageLabel = null;               // Label for hourly salary
+      JLabel salLabel = null;                // Label for yearly salary
+      JTextField salField = null;            // Displays hourly salary 
+      JTextField wageField = null;           // Displays yearly salary
+      GridBagConstraints layoutConst = null; // GUI component layout
+
+      hourlyWage = 20;
+
+      // Set hourly and yearly salary
+      wageLabel = new JLabel("Hourly wage:");
+      salLabel = new JLabel("Yearly salary:");
+
+      wageField = new JTextField(15);
+      wageField.setEditable(false);
+      wageField.setText(Integer.toString(hourlyWage));
+
+      salField = new JTextField(15);
+      salField.setEditable(false);
+      salField.setText(Integer.toString((hourlyWage * 40 * 50)));
+
+      // Create frame and add components using GridBagLayout
+      topFrame = new JFrame("Salary");
+      
+      // Use a GridBagLayout
+      topFrame.setLayout(new GridBagLayout());
+
+      // Create GridBagConstraints
+      layoutConst = new GridBagConstraints();
+      
+      // Specify component's grid location
+      layoutConst.gridx = 0;
+      layoutConst.gridy = 0;
+      
+      // 10 pixels of padding around component
+      layoutConst.insets = new Insets(10, 10, 10, 10);
+      
+      // Add component using the specified constraints
+      topFrame.add(wageLabel, layoutConst);
+
+      layoutConst = new GridBagConstraints();
+      layoutConst.gridx = 1;
+      layoutConst.gridy = 0;
+      layoutConst.insets = new Insets(10, 10, 10, 10);
+      topFrame.add(wageField, layoutConst);
+
+      layoutConst = new GridBagConstraints();
+      layoutConst.gridx = 0;
+      layoutConst.gridy = 1;
+      layoutConst.insets = new Insets(10, 10, 10, 10);
+      topFrame.add(salLabel, layoutConst);
+
+      layoutConst = new GridBagConstraints();
+      layoutConst.gridx = 1;
+      layoutConst.gridy = 1;
+      layoutConst.insets = new Insets(10, 10, 10, 10);
+      topFrame.add(salField, layoutConst);
+
+      // Terminate program when window closes
+      topFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      
+      // Resize window to fit components
+      topFrame.pack();
+      
+      // Display window
+      topFrame.setVisible(true);
+   }
+}
+
+Statements creating the JTextField components (e.g., wageField = new JTextField(15);)
+	now specify the fields' widths in number of columns, where a column is proportional
+	to a character's pixel width given a particular font.
+
+"Column" as a strange type of width measurement
+
+JLabel
+import javax.swing.JLabel;
+wageLabel = new JLabel("Hourly wage:");
+
+A layout manager is needed and needs to be assigned to the JFrame before adding components
+
+frame.setLayout(new GridBagLayout());
+
+layoutConst = new GridBagConstraints();
+
+Each component has it's own GridLayoutConstraints() object, all named the same, but all different... how does that work?
+
+layoutConst.insets = new Insets(10, 10, 10, 10);
+	The four numbers within parentheses denote the padding in the top, left, bottom, and right directions
+
+Common Constraints
+
+Constraint
+	Description
+	Sample usage
+	
+gridx, gridy
+	Used to specify the location (i.e., row and column) of a component
+	layoutConst.gridx = 10;
+	
+insets
+	Used to specify the minimum pixel padding in all four cardinal directions between a component
+		and the edge of its containing cell.
+	layoutConst.insets = new Insets(topPad, leftPad, botPad, rightPad);
+	
+gridwidth, gridheight
+	Used to specify the width (or height) of a component in number of cells
+	layoutConst.gridwidth = 2;
+
+Alternative method compared to above example. This used inheritance.
+	Using an alternative coding style that defines a custom JFrame class.
+
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class SalaryLabelFrame extends JFrame {
+   private JLabel wageLabel;     // Label for hourly salary
+   private JLabel salLabel;      // Label for yearly salary
+   private JTextField salField;  // Displays hourly salary 
+   private JTextField wageField; // Displays yearly salary
+
+   /* Constructor initializes the SalaryLabelFrame, 
+      creates GUI components, and adds them
+      using a GridBagLayout. */
+   public SalaryLabelFrame() {
+      int hourlyWage;                  // Hourly wage
+      GridBagConstraints layoutConst;  // Used to specify GUI component layout
+
+      hourlyWage = 20;
+
+      // Set frame's title
+      setTitle("Salary");
+
+      // Set hourly and yearly salary
+      wageLabel = new JLabel("Hourly wage:");
+      salLabel = new JLabel("Yearly salary:");
+
+      wageField = new JTextField(15);
+      wageField.setEditable(false);
+      wageField.setText(Integer.toString(hourlyWage));
+
+      salField = new JTextField(15);
+      salField.setEditable(false);
+      salField.setText(Integer.toString((hourlyWage * 40 * 50)));
+
+      // Use a GridBagLayout
+      setLayout(new GridBagLayout());
+
+      // Create GridBagConstraints
+      layoutConst = new GridBagConstraints();
+      
+      // Specify component's grid location
+      layoutConst.gridx = 0;
+      layoutConst.gridy = 0;
+
+      // 10 pixels of padding around component
+      layoutConst.insets = new Insets(10, 10, 10, 10);
+
+      // Add component using the specified constraints
+      add(wageLabel, layoutConst);
+
+      layoutConst = new GridBagConstraints();
+      layoutConst.gridx = 1;
+      layoutConst.gridy = 0;
+      layoutConst.insets = new Insets(10, 10, 10, 10);
+      add(wageField, layoutConst);
+
+      layoutConst = new GridBagConstraints();
+      layoutConst.gridx = 0;
+      layoutConst.gridy = 1;
+      layoutConst.insets = new Insets(10, 10, 10, 10);
+      add(salLabel, layoutConst);
+
+      layoutConst = new GridBagConstraints();
+      layoutConst.gridx = 1;
+      layoutConst.gridy = 1;
+      layoutConst.insets = new Insets(10, 10, 10, 10);
+      add(salField, layoutConst);
+   }
+
+   /* Creates a SalaryLabelFrame and makes it visible */
+   public static void main(String[] args) {
+      // Creates SalaryLabelFrame and its components
+      SalaryLabelFrame myFrame = new SalaryLabelFrame();
+
+      // Terminate program when window closes
+      myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      // Resize window to fit components
+      myFrame.pack();
+
+      // Display window
+      myFrame.setVisible(true);
+   }
+}
+
+
+
+
+
+
+
 
 
 
