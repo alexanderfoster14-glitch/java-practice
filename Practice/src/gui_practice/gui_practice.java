@@ -1,23 +1,26 @@
 package gui_practice;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class gui_practice {
 	public static void main(String[] args) {
       
-		// Construct the JFrame object
-		JFrame appFrame = new JFrame();
-
-		// Set the frame's width (400) and height (250) in pixels
-		appFrame.setSize(400, 250);
-      
-		// Set the frame's title
-		appFrame.setTitle("An Empty Frame");
-      
-		// Set the program to exit when the user closes the frame
-		appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      
-		// Make the frame visible to the user
-		appFrame.setVisible(true);
+		JFrame jFrame = new JFrame();	//New JFrame object
+		JPanel jPanel = new JPanel();	//New JPanel object
+		JTextField jTextField = new JTextField();	//New JTextFieldObject
+		
+		jFrame.setSize(400, 300);		//Set the frame's width to 400 and height to 300 pixels
+		jFrame.setTitle("An Example JFrame");	//Set the frame's title
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			//Set program to exit when the frame is closed
+		
+		jTextField.setText("You can type here!");
+		
+		jPanel.add(jTextField);			//Add the JTextField to the JPanel
+		jFrame.add(jPanel);				//Add the JPanel to the JFrame
+		
+		jFrame.setVisible(true);		//Make the frame visible	
 	}
 }
