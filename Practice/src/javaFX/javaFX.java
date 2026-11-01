@@ -1,4 +1,6 @@
+/*
 import javafx.application.Application;
+
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -38,3 +40,4 @@ public class javaFX extends Application {
       launch(args); // Launch application
    }
 }
+*/

@@ -1,5 +1,17 @@
 JavaFX
 
+Getting JavaFX to work in Eclipse
+	This is a process.
+	Green button "run" -> drop down arrow "Run Configuration"
+	VM Arguments tab
+		add:
+			--module-path "C:\Program Files\Java\javafx-sdk-25.0.5\lib" --add-modules javafx.controls --enable-native-access=javafx.graphics
+	Libraries -> Module Path
+		Add JavaFX
+		Add the .lib files from the JavaFX file/folder
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
 Example project
 
 Displaying a yearly salary using a GUI.
@@ -732,6 +744,31 @@ Oval
 Polygon
 	fillPolygon() draws a filled polygon with programmer-specified boundary points.
 	strokePolygon() draws an outline of a polygon with programmer-specified boundary points.
+
+---------------------------------------------------------------------------------------------------------------------------
+Examples from others
+
+panel.add(Box.createVerticalStrut(10));
+	Placing this between the label and text field adds a consistent 10-pixel vertical gap without manually positioning either component.
+
+BoxLayout can also be used horizontally by changing `BoxLayout.Y_AXIS` to `BoxLayout.X_AXIS`
+
+JPanel panel = new JPanel();
+panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+panel.add(new JLabel("Username:"));
+panel.add(new JTextField());
+
+JPanel panel = new JPanel();
+panel.setLayout(new FlowLayout());
+panel.add(new JButton("Deposit"));
+panel.add(new JButton("Withdraw"));
+
+JPanel panel = new JPanel(new FlowLayout());
+
+
+
+
+
 
 
 

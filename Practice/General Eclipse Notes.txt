@@ -1,0 +1,7 @@
+General Eclipse notes and tips
+
+Disable the autocomplete
+	Window -> Java -> Editor -> Content assist
+		Deactivate "Insert single proposals automatically"
+
+		
