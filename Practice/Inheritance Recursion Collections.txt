@@ -1,0 +1,104 @@
+Recursion
+
+A method that calls itself is recursive
+
+Examples of a recursive method
+
+public class CountDownTimer {
+	public static void countDown(int countInt) {
+		if (countInt <= 0) {
+			System.out.println("Go!");
+		}
+		else {
+			System.out.println(countInt);
+			countDown(countInt - 1);
+		}
+	}
+
+	public static void main (String[] args) {
+		countDown(2);
+	}
+}
+
+------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+
+public class RecursiveCalls {
+   public static void backwardsAlphabet(char currLetter) {
+      if (currLetter == 'a') {
+         System.out.println(currLetter);
+      }
+      else {
+         System.out.print(currLetter + " ");
+         backwardsAlphabet((char)(currLetter - 1));
+      }
+   }
+
+   public static void main (String [] args) {
+      Scanner scnr = new Scanner(System.in);
+      char startingLetter;
+
+      startingLetter = scnr.next().charAt(0);
+
+      backwardsAlphabet(startingLetter);
+
+   }
+}
+
+--------------------------------------------------------------------------------------------------------
+
+Recursive Searching
+
+ A recursive method carrying out a binary search algorithm.
+import java.util.Scanner;
+
+public class NumberGuessGame {
+   public static void guessNumber(int lowVal, int highVal, Scanner scnr) {
+      int midVal;            // Midpoint of low..high
+      char userAnswer;       // User response
+
+      midVal = (highVal + lowVal) / 2;
+
+      // Prompt user for input
+      System.out.print("Is it " + midVal + "? (l/h/y): ");
+      userAnswer = scnr.next().charAt(0);
+
+      if ((userAnswer != 'l') && (userAnswer != 'h')) { // Base case: found number
+         System.out.println("Thank you!");
+      }
+      else {                                            // Recursive case: split into lower OR upper half
+         if (userAnswer == 'l') {                       // Guess in lower half
+            guessNumber(lowVal, midVal, scnr);            // Recursive call
+         }
+         else {                                         // Guess in upper half
+            guessNumber(midVal + 1, highVal, scnr);           // Recursive call
+         }
+      }
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+
+      // Print game objective, user input commands
+      System.out.println("Choose a number from 0 to 100.");
+      System.out.println("Answer with:");
+      System.out.println("   l (your num is lower)");
+      System.out.println("   h (your num is higher)");
+      System.out.println("   any other key (guess is right).");
+
+      // Call recursive function to guess number
+      guessNumber(0, 100, scnr);
+   }
+}
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

@@ -765,12 +765,58 @@ panel.add(new JButton("Withdraw"));
 
 JPanel panel = new JPanel(new FlowLayout());
 
+panel.setLayout(new GridLayout(2, 2, 5, 5));
 
+import javax.swing.*;
+import java.awt.*;
+public class LayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Layout class example");
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 2));
+        panel.add(new JButton("Button 1"));
+        panel.add(new JButton("Button 2"));
+        panel.add(new JButton("Button 3"));
+        panel.add(new JButton("Button 4"));
+        frame.add(panel);
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}
 
+import javax.swing.*;
+import java.awt.GridLayout;
+public class UnderwordBoard extends JPanel {
+    public UnderwordBoard() {
+        setLayout(new GridLayout(6, 5, 4, 4));   // 6 rows, 5 columns, 4px gaps
+        for (int i = 0; i < 30; i++) {
+            JLabel cell = new JLabel("", SwingConstants.CENTER);
+            cell.setBorder(BorderFactory.createLineBorder(java.awt.Color.GRAY));
+            add(cell);
+        }
+    }
+}
 
-
-
-
-
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.GridLayout;
+public class LayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Vehicle Inventory")
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 2));
+        panel.add(new JButton("Add Vehicle"));
+        panel.add(new JButton("View Vehicles"));
+        panel.add(new JButton("Update Vehicle"));
+        panel.add(new JButton("Remove Vehicle"));
+        frame.add(panel);
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+}
 
 

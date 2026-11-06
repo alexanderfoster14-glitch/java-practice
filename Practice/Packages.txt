@@ -1,0 +1,243 @@
+Packages
+
+https://docs.oracle.com/javase/tutorial/java/package/packages.html
+
+Names in one package will not conflict with another because each package creates a new namespace
+
+"package <package name>;" MUST be in the source file that uses the package
+	This must be the 1st line in the source file
+
+------------------------------------------------------------------------------------------------------------
+
+Example with package useage:
+
+//in the Draggable.java file
+public interface Draggable {
+    ...
+}
+
+//in the Graphic.java file
+public abstract class Graphic {
+    ...
+}
+
+//in the Circle.java file
+public class Circle extends Graphic
+    implements Draggable {
+    . . .
+}
+
+//in the Rectangle.java file
+public class Rectangle extends Graphic
+    implements Draggable {
+    . . .
+}
+
+//in the Point.java file
+public class Point extends Graphic
+    implements Draggable {
+    . . .
+}
+
+//in the Line.java file
+public class Line extends Graphic
+    implements Draggable {
+    . . .
+}
+------------------------------------------------------------------------------------------------------------------
+
+Adding the above to a package "graphics" would look liek this:
+
+//in the Draggable.java file
+package graphics;
+public interface Draggable {
+    . . .
+}
+
+//in the Graphic.java file
+package graphics;
+public abstract class Graphic {
+    . . .
+}
+
+//in the Circle.java file
+package graphics;
+public class Circle extends Graphic
+    implements Draggable {
+    . . .
+}
+
+//in the Rectangle.java file
+package graphics;
+public class Rectangle extends Graphic
+    implements Draggable {
+    . . .
+}
+
+//in the Point.java file
+package graphics;
+public class Point extends Graphic
+    implements Draggable {
+    . . .
+}
+
+//in the Line.java file
+package graphics;
+public class Line extends Graphic
+    implements Draggable {
+    . . .
+}
+
+------------------------------------------------------------------------------------------------------
+
+Without a package statement, the types end up in an unnamed package, which is fine on small projects, but not good on larger ones
+
+---------------------------------------------------------------------------------------------------------------
+
+Naming
+
+Java allows classes to have the same name if they are in different packages
+	The example above uses "Rectangle" even though there is already a "Rectangle" class in Java.awt
+
+The fully qualified name of each <name> class includes the package name
+Example:
+	graphics.Rectangle (from above example)
+	java.awt.Rectangle (a "built-in" class)
+	<package>.<class>
+
+Package names are written in all lower case
+
+Underscore "_" is used to prevent issues with illegal characters such as "int" or "-"
+
+One option is to use a reversed internet domain name for naming packages
+	Examples:
+		Domain Name						Package Name Prefix
+		hyphenated-name.example.org		org.example.hyphenated_name
+		example.int						int_.example
+		123name.example.com				com.example._123name
+
+-------------------------------------------------------------------------------------------------------
+
+Package Members
+
+Types that comprise a package are known as package members
+
+Using a public package memeber from outside its package requires 1 of the following:
+	Refer to member by its fully qualified name
+	Import the package memeber
+	Import the member's entire package
+
+Example using the fully qualified name:
+	graphics.Rectangle myRect = new graphics.Rectangle();
+
+Importing a package member
+
+"import" keyword
+	this is AFTER the package statement
+	BEFORE any type definitions
+
+Example:
+	import graphics.Rectangle;
+	Rectangle myRectangle = new Rectangle();
+
+Importing an entire package
+
+Same idea with "import"
+
+Use the "*" symbol at the end
+
+Example:
+	import graphics.*;
+	Circle myCircle = new Circle();
+	Rectangle myRectangle = new Rectangle();
+
+Import with "*" does NOT work to match a subset of the classes in a package
+	// does not work to get classes starting with "A"
+	import graphics.A*;
+
+Importing nested classes
+	import graphics.Rectangle;
+	import graphics.Rectangle.*;
+	
+	The second import statement will NOT import Rectangle.
+
+Java compiler automatically imports 2 entire packages
+	java.lang
+	current package
+
+---------------------------------------------------------------------------------------------
+
+java.awt* DOES NOT import all of the java.awt.xxxx packages
+	java.awt.color
+	java.awt.font
+
+Packages are NOT hierarchical like expected. The naming is to help with understanding the relationship only
+	Most likely, this is what above wanted:
+	
+		import java.awt.*;
+		import java.awt.color.*;
+
+----------------------------------------------------------------------------------------------------
+
+Naming ambiguity
+
+If a member in one package matches another an both packages are imported, the qualified name is required
+
+Example.
+	import java.awt;
+	import graphics.*;
+
+	//assume Rectangle class is in both
+	
+	Rectange rect; is amibiguous for which package class this should be
+	
+	graphics.Rectangle rect;
+
+-------------------------------------------------------------------------------------------------------------
+
+Static Import Statment
+
+import static <package/class name>
+
+Allows the constants (like PI) to be used without needing to retype teh prefix every time
+
+Example
+
+	public static final double PI 
+	    = 3.141592653589793;
+	public static double cos(double a)
+	{
+	    ...
+	}
+	
+	import java.lang.Math.*;
+	double r = Math.cos(Math.PI * theta);
+
+Becomes
+
+	import static java.lang.Math.*;
+	double r = cos(PI * theta);
+
+--------------------------------------------------------------------------------------------
+
+CLASSPATH
+
+Use this if the JVM has issues compiling everythind and getting all of the classes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
