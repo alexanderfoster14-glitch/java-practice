@@ -879,9 +879,162 @@ public class MethodOverloading {
 
 -------------------------------------------------------------------------------------------------
 
+Abstraction
 
+public abstract class Shape {
 
+  protected Point position;
 
+  abstract double computeArea();
+
+  public Point getPosition() {
+     return this.position;
+  }
+
+  public void setPosition(Point position) {
+     this.position = position;
+  }
+
+  public void movePositionRelative(Point position) {
+     double x = this.position.getX() + position.getX();
+     double y = this.position.getY() + position.getY();
+
+     this.position.setX(x);
+     this.position.setY(y);
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+     Shape shape = new Shape();
+     ...
+  }
+}
+
+-----------------------------------------------------------------------------------------
+
+a full Shape program
+
+Shape.java implements the Shape base class
+public abstract class Shape {
+
+   protected Point position;
+
+   abstract double computeArea();
+
+   public Point getPosition() {
+      return this.position;
+   }
+
+   public void setPosition(Point position) {
+      this.position = position;
+   }
+
+   public void movePositionRelative(Point position) {
+      double x = this.position.getX() + position.getX();
+      double y = this.position.getY() + position.getY();
+
+      this.position.setX(x);
+      this.position.setY(y);
+   }
+}
+
+Point.java holds the x, y coordinates for a point
+public class Point {
+
+   private double x;
+   private double y;
+
+   public Point(double x, double y) {
+      this.x = x;
+      this.y = y;
+   }
+
+   public double getX() {
+      return x;
+   }
+
+   public double getY() {
+      return y;
+   }
+
+   public void setX(double x) {
+      this.x = x;
+   }
+   
+   public void setY(double y) {
+      this.y = y;
+   }
+}
+
+Circle.java defines a Circle class
+public class Circle extends Shape {
+
+   private double radius;
+
+   public Circle(Point center, double radius) {
+      this.radius = radius;
+      this.position = center;
+   }
+
+   @Override
+   public double computeArea() {
+      return (Math.PI * Math.pow(radius, 2));
+   }
+}
+
+Rectangle.java defines a Rectangle class
+public class Rectangle extends Shape {
+
+   private double length, height;
+
+   public Rectangle(Point upperLeft, double length,double height) {
+      this.position = upperLeft;
+      this.length = length;
+      this.height = height;
+   }
+
+   @Override
+   public double computeArea() {
+      return (length * height);
+   }
+}
+
+TestShapes.java tests the Shape class
+public class TestShapes {
+   public static void main(String[] args) {
+      Circle circle1 = new Circle(new Point(1.0, 1.0), 1.0);
+      Circle circle2 = new Circle(new Point(1.0, 1.0), 2.0);
+      
+      Rectangle rectangle = new Rectangle(new Point(0.0, 1.0), 1.0, 1.0);
+
+      // Print areas
+      System.out.println("Area of circle 1 is: " + circle1.computeArea());
+      System.out.println("Area of circle 2 is: " + circle2.computeArea());
+      System.out.println("Area of rectangle is: " + rectangle.computeArea());
+      System.out.println();
+      
+      // Print positions
+      System.out.println("Circle 1 is at: (" + circle1.getPosition().getX() + 
+                         ", " + circle1.getPosition().getY() + ")");
+      
+      System.out.println("Rectangle is at: (" + rectangle.getPosition().getX() +
+                         ", " + rectangle.getPosition().getY() + ")");
+      System.out.println();
+      
+      // Move shapes
+      circle1.setPosition(new Point(3.0, 1.0));
+      rectangle.movePositionRelative(new Point(1.0, 1.0));
+      
+      // Print positions
+      System.out.println("Circle 1 is at: (" + circle1.getPosition().getX() + 
+                         ", " + circle1.getPosition().getY() + ")");
+
+      System.out.println("Rectangle is at: (" + rectangle.getPosition().getX() +
+                         ", " + rectangle.getPosition().getY() + ")");
+      System.out.println();
+   }
+}
 
 
 
