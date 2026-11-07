@@ -1,0 +1,50 @@
+Unified Modeling Language
+
+Requirement specification
+	Identifying needed requirements
+
+CRC Cards
+	Class Responsibility Collaborator
+
+Made on an index card
+	A real, physical card
+
+---------------------------------------------
+|					Class Name				|
+|-------------------------------------------|
+|	Responsibility		|	Collaborator	|
+|	xxxxxxxxx			|	xxxxxxxxxx		|
+---------------------------------------------
+
+Example card
+---------------------------------------------
+|				Invoice						|
+|-------------------------------------------|
+|	Responsibility		|	Collaborator	|
+|	compute amount due	|	LineItem		|
+---------------------------------------------
+
+Having physical cards makes it easy to see if a card is overloaded
+Allow the physical cards to be moved around on a table
+
+-----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

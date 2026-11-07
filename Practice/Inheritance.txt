@@ -741,16 +741,143 @@ abstract class is a class that guides the design of subclasses but cannot itself
 
 Inheriting classes must implement methods that are abstract in the superclass.
 
+----------------------------------------------------------------------------------------------------
 
+Extends keyword
 
+class A {
+	int i;
+	void methodOne() {
+		System.out.println("From methodOne");
+	}
+}
 
+class B extends A {
+	int j;
+	void methodTwo() {
+		System.out.println("From methodTwo");
+	}
+}
 
+Java does NOT support multiple inheritance
 
+----------------------------------------------------------------------------------------------
 
+package com1;
 
+public class A {
+	private int i;
+	int j;
+	protected int k;
+	public int m;
+}
 
+class B extends A {
+	void methodOfClassB() {
+		//System.out.println(i);        Private member cannot be inherited
+		System.out.println(j);         //Default member can be inherited within package
+		System.out.println(k);        //protected member can be inherited to any subclass
+		System.out.println(m);       //public member can be inherited to all sub classes
+	}
+}
 
+class C extends B {
+	void methodOfClassC() {
+		System.out.println(j);    //Default member can be inherited within package
+		System.out.println(k);    //protected member can be inherited to any subclass
+		System.out.println(m);    //public member can be inherited to any subclass
+		B b = new B();
+		System.out.println(b.j);  //Default member can be used within package
+		System.out.println(b.k);  //Protected member can be used anywhere in the package
+		System.out.println(b.m);  //Public member can be used anywhere
+	}
+}
 
+package com2;
+
+import com1.A;
+
+public class D extends A {
+	void methodOfClassD() {
+		//System.out.println(j);   Default members cannot be inherited outside package
+		System.out.println(k);  //Protected member can be inherited to any subclass
+		System.out.println(m);  //public member is always inherited to any subclass
+		A a = new A();
+		//System.out.println(a.i);   private member not visible outside the class
+		//System.out.println(a.j);   Default members are not visible outside package
+		//System.out.println(a.k);   Protected member cannot be used outside the package.
+		System.out.println(a.m);     //public member can be used anywhere
+	}
+}
+
+class E extends D {
+	void methodOfClassE() {
+		System.out.println(k);     //Protected member can be inherited to any subclass
+		System.out.println(m);     //public member is always inherited
+		D d = new D();
+		//System.out.println(d.k);     Protected member cannot be used outside the package.
+		System.out.println(d.m);    //public member can be used anywhere
+	}
+}
+
+------------------------------------------------------------------------------------------------------------
+Method Overriding
+
+class SuperClass {
+	void methodOfSuperClass() {
+		System.out.println("From Super Class");
+	}
+}
+
+class SubClass extends SuperClass {
+	void methodOfSuperClass() {
+		//SuperClass method is overrided
+		//We can keep any tasks here according to our requirements.
+		System.out.println("From Sub Class");
+	}
+}
+
+public class MethodOverriding {
+	public static void main(String[] args) {
+		SuperClass superclass = new SuperClass();
+		superclass.methodOfSuperClass();         //Output : From Super Class
+		SubClass subclass = new SubClass();
+		subclass.methodOfSuperClass();          //Output : From Sub Class
+	}
+}
+
+-------------------------------------------------------------------------------------------------------------------
+
+Method Overloading
+
+public class MethodOverloading {
+	void methodOverloaded() {
+		//No argument method
+	}
+	void methodOverloaded(int i) {
+		//One argument is passed
+	}
+	void methodOverloaded(double d) {
+		//One argument is passed but type of argument is different
+	}
+	void methodOverloaded(int i, double d) {
+		//Two argument method
+		//Method signature of this method is methodOverloaded(int, double)
+	} 
+	void methodOverloaded(double d, int i) {
+		//It is also two argument method but type of arguments changes
+		//Method signature of this method is methodOverloaded(double, int)
+	}
+	void methodOverloaded(double d1, int i1) {
+		//It has same method signature methodOverloaded(double, int) as of above method
+		//So, it is a duplicate method, you will get compile time error here
+	}
+	void differentMethod() {
+		//Different method
+	}
+}
+
+-------------------------------------------------------------------------------------------------
 
 
 

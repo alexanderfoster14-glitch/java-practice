@@ -1,0 +1,93 @@
+Abstraction
+
+Example
+
+abstract class Animal {
+	abstract void soundOfAnimal();  // It is just an idea
+}
+
+class Cat extends Animal {
+	void soundOfAnimal() {
+		System.out.println("Meow");
+		//Implementation of the idea according to requirements of sub class
+	}
+}
+
+class Dog extends Animal {
+	void soundOfAnimal() {
+		System.out.println("Bow Bow");
+		//Implementation of the idea according to requirements of sub class
+	}
+}
+
+------------------------------------------------------------------------------------------------------
+
+abstract class AbstractClass {
+	abstract void abstractMethod();
+}
+
+class ConcreteClass extends AbstractClass {
+	void abstractMethod() {
+		System.out.println("Abstract Method Implemented");
+	}
+}
+
+public class Abstraction {
+	public static void main(String[] args) {
+	//AbstractClass A = new AbstractClass();  Can't create objects to Abstract class
+	ConcreteClass C = new ConcreteClass();
+	//ConcreteClass implements abstract method,
+	//so we can create object to ConcreteClass
+	AbstractClass A1 = C;
+	//ConcreteClass object is auto-upcasted to AbsractClass
+	}
+}
+
+
+Abstract classes cannot be instantiated.
+Abstract classes can be a combination of non-abstract (concrete) and abstract methods.
+Classes extending an abstract class must implement all abstract methods.
+Abstract classes, like concrete classes, may have zero (default) or more constructors.
+Abstract methods cannot be private.
+Constructors and fields of abstract classes cannot be abstract.
+Abstract method cannot be static.
+
+--------------------------------------------------------------------------------------------------------
+
+Interfaces
+
+Interfaces in Java are very much similar to abstract classes but interfaces contain only abstract methods.
+Every field of an interface is public, static, and final.
+All methods of an interface are public and abstract.
+A class can implement more than one interface.
+
+interface InterfaceClassOne {
+	void methodOne();
+}
+
+interface InterfaceClassTwo {
+	void methodTwo();
+}
+
+class AnyClass implements InterfaceClassOne, InterfaceClassTwo {
+	public void methodOne() {
+		//method of first interface is implemented
+	}
+	//method of Second interface must also be implemented.
+	//Otherwise, you have to declare this class as abstract.
+	public void methodTwo() {
+		//Now, method of Second interface is also implemented.
+		//No need to declare this class as abstract
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
