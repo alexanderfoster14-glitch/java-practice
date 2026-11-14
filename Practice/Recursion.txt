@@ -94,9 +94,477 @@ public class NumberGuessGame {
 
 ---------------------------------------------------------------------------------------------------------------------
 
+public double Factorial (double num) {
+	if (num == 1)
+		return 1;
+	else (num * Factorial (num - 1))
+}
+
+----------------------------------------------------------------------------------------------------------------------
+
+Iteration vs. Recursion
+
+Definition
+	Iteration: Iteration refers to a situation where some statements are executed again and again using loops until
+		some condition is true.
+	Recursion: Recursion refers to a situation where a function calls itself again and again until some base condition
+		is not reached.
+Performance
+	Iteration: Its execution is faster because it doesn't use stack.
+	Recursion: It is comparatively slower because before each function call the current state of function is stored
+		in stack. After the return statement the previous function state is again restored from stack.
+Code Size
+	Iteration: Iteration makes the code size bigger.
+	Recursion: Size of code is comparatively smaller in recursion.
+Memory
+	Iteration: Memory usage is less as it doesn't use stack.
+	Recursion: Memory usage is more as stack is used to store the current function state.
 
 
+Iteration Example:
+int factorial(int n) {
+	int product = 1;
+	for (int i = 2; i <= n; i++) {
+		product *= i;
+	}
+return product;
+}
 
+Recursion Example:
+int factorial (int n) {
+	if (n == 1) {
+		return 1;
+	}
+	else {
+		return n*factorial(n-1);
+	}
+}
+
+------------------------------------------------------------------------------------
+
+Questions when making a recursive formula:
+	Can I break the problem into small subtasks?
+	Can I determine a base condition that will terminate the recursive method?
+
+----------------------------------------------------------------------------------------------
+
+Searching using Recursion
+
+A recursive method carrying out a binary search algorithm.
+import java.util.Scanner;
+
+public class NumberGuessGame {
+   public static void guessNumber(int lowVal, int highVal, Scanner scnr) {
+      int midVal;            // Midpoint of low..high
+      char userAnswer;       // User response
+
+      midVal = (highVal + lowVal) / 2;
+
+      // Prompt user for input
+      System.out.print("Is it " + midVal + "? (l/h/y): ");
+      userAnswer = scnr.next().charAt(0);
+
+      if ((userAnswer != 'l') && (userAnswer != 'h')) { // Base case: found number
+         System.out.println("Thank you!");
+      }
+      else {                                            // Recursive case: split into lower OR upper half
+         if (userAnswer == 'l') {                       // Guess in lower half
+            guessNumber(lowVal, midVal, scnr);            // Recursive call
+         }
+         else {                                         // Guess in upper half
+            guessNumber(midVal + 1, highVal, scnr);           // Recursive call
+         }
+      }
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+
+      // Print game objective, user input commands
+      System.out.println("Choose a number from 0 to 100.");
+      System.out.println("Answer with:");
+      System.out.println("   l (your num is lower)");
+      System.out.println("   h (your num is higher)");
+      System.out.println("   any other key (guess is right).");
+
+      // Call recursive function to guess number
+      guessNumber(0, 100, scnr);
+   }
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+e following program guesses the hidden number known by the user. Assume the hidden number is 63.
+
+import java.util.Scanner;
+
+public class NumberGuessGame {
+   public static void guessNumber(int lowVal, int highVal, Scanner scnr) {
+      int midVal;            // Midpoint of low..high
+      char userAnswer;       // User response
+
+      midVal = (highVal + lowVal) / 2;
+
+      System.out.print("Is it " + midVal + "? (l/h/y): ");
+      userAnswer = scnr.next().charAt(0);
+
+      if ((userAnswer != 'l') && (userAnswer != 'h')) { // Base case:
+         System.out.println("Thank you!");              // Found number
+      }
+      else { // Recursive case: split into lower OR upper half
+         if (userAnswer == 'l') {                   // Guess in lower half
+            guessNumber(lowVal, midVal, scnr);      // Recursive call
+         }
+         else {                                     // Guess in upper half
+            guessNumber(midVal + 1, highVal, scnr); // Recursive call
+         }
+      }
+      return;
+   }
+
+   public static void main (String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      System.out.println("Choose a number from 0 to 100.");
+      System.out.println("Answer with:");
+      System.out.println("   l (your num is lower)");
+      System.out.println("   h (your num is higher)");
+      System.out.println("   any other key (guess is right).");
+
+      guessNumber(0, 100, scnr);
+
+      return;
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+Recursively searching a sorted list.
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class NameFinder {
+   /* Finds index of string in vector of strings, else -1.
+      Searches only with index range low to high
+      Note: Upper/lower case characters matter
+   */
+   public static int findMatch(ArrayList<String> stringList, String itemMatch, 
+                               int lowVal, int highVal) {
+      int midVal;        // Midpoint of low and high values
+      int itemPos;       // Position where item found, -1 if not found
+      int rangeSize;     // Remaining range of values to search for match
+
+      rangeSize = (highVal - lowVal) + 1;
+      midVal = (highVal + lowVal) / 2;
+
+      if (itemMatch.equals(stringList.get(midVal))) {           // Base case 1: item found at midVal position
+         itemPos = midVal;
+      }
+      else if (rangeSize == 1) {                                // Base case 2: match not found
+         itemPos = -1;
+      }
+      else {                                                    // Recursive case: search lower or upper half
+         if (itemMatch.compareTo(stringList.get(midVal)) < 0) { // Search lower half, recursive call
+            itemPos = findMatch(stringList, itemMatch, lowVal, midVal);
+         }
+         else {                                                 // Search upper half, recursive call
+            itemPos = findMatch(stringList, itemMatch, midVal + 1, highVal);
+         }
+      }
+
+      return itemPos;
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<String> attendeesList = new ArrayList<String>(); // List of attendees
+      String attendeeName;                                       // Name of attendee to match
+      int matchPos;                                              // Matched position in attendee list
+
+      // Omitting part of program that adds attendees
+      // Instead, we insert some sample attendees in sorted order
+      attendeesList.add("Adams, Mary");
+      attendeesList.add("Carver, Michael");
+      attendeesList.add("Domer, Hugo");
+      attendeesList.add("Fredericks, Carlos");
+      attendeesList.add("Li, Jie");
+
+      // Prompt user to enter a name to find
+      System.out.print("Enter person's name: Last, First: ");
+      attendeeName = scnr.nextLine(); // Use nextLine() to allow space in name
+     
+      // Call function to match name, output results
+      matchPos = findMatch(attendeesList, attendeeName, 0, attendeesList.size() - 1);
+      if (matchPos >= 0) {
+         System.out.println("Found at position " + matchPos + ".");
+      }
+      else {
+         System.out.println("Not found.");
+      }
+   }
+}
+
+----------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+
+public class NumberSearch {
+   public static void findNumber(int number, int lowVal, int highVal) {
+      int midVal;
+
+      midVal = (highVal + lowVal) / 2;
+      System.out.print(number);
+      System.out.print(" ");
+      System.out.print(midVal);
+
+      if (number == midVal) {    // Base case
+         System.out.println(" q");
+      }
+      else {
+         if (number < midVal) {  // First recursive case
+            System.out.println(" r");
+            findNumber(number, lowVal, midVal);
+         }
+         else {                  // Second recursive case
+            System.out.println(" s");
+            findNumber(number, midVal + 1, highVal);
+         }
+      }
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int number;
+
+      number = scnr.nextInt();
+      findNumber(number, 0, 10);
+   }
+}
+
+input:
+1
+
+output:
+1 5 r
+1 2 r
+1 1 q
+
+
+-----------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class FindName {
+   public static void findMiddle(ArrayList<String> itemList, String matchItem, int minIndex, int maxIndex) {
+      int rangeSize;
+      int midIndex;
+      String midValue;
+
+      System.out.println("Searching range from index " + minIndex + " to " + maxIndex);
+
+      rangeSize = (maxIndex - minIndex) + 1;
+      midIndex = (minIndex + maxIndex) / 2;
+      midValue = itemList.get(midIndex);
+
+      if (matchItem.equals(midValue)) {
+         System.out.println(matchItem + " is found at index " + midIndex);
+      }
+      else if (rangeSize == 1) {
+         System.out.println(matchItem + " is not in the list");
+      }
+      else {
+         if (matchItem.compareTo(midValue) < 0) {
+            findMiddle(itemList, matchItem, minIndex, midIndex);
+         }
+         else {
+            findMiddle(itemList, matchItem, midIndex + 1, maxIndex);
+         }
+      }
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<String> dataList = new ArrayList<String>();
+      String matchItem;
+      int numData;
+      int i;
+
+      matchItem = scnr.next();
+      numData = scnr.nextInt();
+
+      for (i = 0; i < numData; ++i) {
+         dataList.add(scnr.next());
+      }
+
+      findMiddle(dataList, matchItem, 0, dataList.size() - 1);
+   }
+}
+
+---------------------------------------------------------------------------------------------------------------------
+
+Debugging by adding output statements
+
+Output statements can help debug recursive methods, especially if indented based on recursion depth.
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class NameFinder {
+   /* Finds index of string in vector of strings, else -1.
+      Searches only with index range low to high
+      Note: Upper/lower case characters matter
+   */
+   public static int findMatch(ArrayList<String> stringList, String itemMatch,
+                               int lowVal, int highVal, String indentAmt) { // indentAmt used for print debug
+      int midVal;        // Midpoint of low and high values
+      int itemPos;       // Position where item found, -1 if not found
+      int rangeSize;     // Remaining range of values to search for match
+
+      System.out.println(indentAmt + "Find() range " + lowVal + " " + highVal);
+      rangeSize = (highVal - lowVal) + 1;
+      midVal = (highVal + lowVal) / 2;
+
+      if (itemMatch.equals(stringList.get(midVal))) {           // Base case 1: item found at midVal position
+         System.out.println(indentAmt + "Found person.");
+         itemPos = midVal;
+      }
+      else if (rangeSize == 1) {                                // Base case 2: match not found
+         System.out.println(indentAmt + "Person not found.");
+         itemPos = -1;
+      }
+      else {                                                    // Recursive case: search lower or upper half
+         if (itemMatch.compareTo(stringList.get(midVal)) < 0) { // Search lower half, recursive call
+            System.out.println(indentAmt + "Searching lower half.");
+            itemPos = findMatch(stringList, itemMatch, lowVal, midVal, indentAmt + "   ");
+         }
+         else {                                                 // Search upper half, recursive call
+            System.out.println(indentAmt + "Searching upper half.");
+            itemPos = findMatch(stringList, itemMatch, midVal + 1, highVal, indentAmt + "   ");
+         }
+      }
+
+      System.out.println(indentAmt + "Returning pos = " + itemPos + ".");
+      return itemPos;
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<String> attendeesList = new ArrayList<String>(); // List of attendees
+      String attendeeName;                                       // Name of attendee to match
+      int matchPos;                                              // Matched position in attendee list
+
+      // Omitting part of program that adds attendees
+      // Instead, we insert some sample attendees in sorted order
+      attendeesList.add("Adams, Mary");
+      attendeesList.add("Carver, Michael");
+      attendeesList.add("Domer, Hugo");
+      attendeesList.add("Fredericks, Carlos");
+      attendeesList.add("Li, Jie");
+
+      // Prompt user to enter a name to find
+      System.out.print("Enter person's name: Last, First: ");
+      attendeeName = scnr.nextLine(); // Use nextLine() to allow space in name
+
+      // Call function to match name, output results
+      matchPos = findMatch(attendeesList, attendeeName, 0, attendeesList.size() - 1, "   ");
+      if (matchPos >= 0) {
+         System.out.println("Found at position " + matchPos + ".");
+      }
+      else {
+         System.out.println("Not found.");
+      }
+   }
+}
+
+---------------------------------------------------------------------------------------------------------
+
+Always have a base case
+
+Steps:
+	Write the base case
+	Write the recursive case
+
+Recursive method can have multiple base cases
+
+N! is actually easier/better to do using a loop, but it's an easy example of recursion
+
+----------------------------------------------------------------------------------------------------------------
+
+public class PrimeChecker {
+// Returns 0 if value is not prime, 1 if value is prime
+   public static int isPrime(int testVal, int divVal) {
+      // Base case 1: 0 and 1 are not prime, testVal is not prime
+   
+      // Base case 2: testVal only divisible by 1, testVal is prime
+   
+      // Recursive Case
+         // Check if testVal can be evenly divided by divVal
+         // Hint: use the % operator
+      
+         // If not, recursive call to isPrime with testVal and (divVal - 1)
+      
+   }
+
+   public static void main(String[] args) {
+      int primeCheckVal;     // Value checked for prime
+
+      // Check primes for values 1 to 10
+      for (primeCheckVal = 1; primeCheckVal <= 10; ++primeCheckVal) {
+         if (isPrime(primeCheckVal, (primeCheckVal - 1)) == 1) {
+            System.out.println(primeCheckVal + " is prime.");
+         }
+         else {
+            System.out.println(primeCheckVal + " is not prime.");
+         }
+      }
+   }
+}
+
+---------------------------------------------------------------------------------------------------------------
+
+Fibonacci Sequence
+
+Fibonacci sequence step-by-step.
+import java.util.Scanner;
+
+public class FibonacciSequence {
+   /* Output the Fibonacci sequence step-by-step.
+      Fibonacci sequence starts as:
+      0 1 1 2 3 5 8 13 21 ... in which the first
+      two numbers are 0 and 1 and each additional
+      number is the sum of the previous two numbers
+   */
+   public static void computeFibonacci(int fibNum1, int fibNum2, int runCnt) {
+      System.out.println(fibNum1 + " + " + fibNum2 + " = " + 
+                         (fibNum1 + fibNum2));
+
+      if (runCnt <= 1) { // Base case: Ran for user specified
+                         // number of steps, do nothing
+      }
+      else {             // Recursive case: compute next value
+         computeFibonacci(fibNum2, fibNum1 + fibNum2, runCnt - 1);
+      }
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      int runFor;     // User specified number of values computed
+
+      // Output program description
+      System.out.println("This program outputs the\n" +
+                         "Fibonacci sequence step-by-step,\n" +
+                         "starting after the first 0 and 1.\n");
+
+      // Prompt user for number of values to compute
+      System.out.print("How many steps would you like? ");
+      runFor = scnr.nextInt();
+
+      // Output first two Fibonacci values, call recursive function     
+      System.out.println("0\n1");
+      computeFibonacci(0, 1, runFor);
+   }
+}
+
+-------------------------------------------------------------------------------------------------------------
 
 
 
