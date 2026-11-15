@@ -1,28 +1,14 @@
-import java.util.Random;
 
 public class practice {
-	public static int rollDie(int attempts) {
-		Random rand = new Random();
-		int roll = rand.nextInt(6) + 1;
-		System.out.println("You rolled: " + roll);
-		
-		// Base case 1: Rolled a 6
-		if (roll == 6) {
-			System.out.println("You win!");
-			return roll;
-	    }
-		
-		// Base case 2: Reached maximum attempts
-		if (attempts >= 10) {
-			System.out.println("Maximum attempts reached!");
-			return roll;
+	public static void countdown(int number) {
+		for (int i = 1; i <= number;) {
+			System.out.println(number);
+			number--;
 		}
-		
-		// Recursive case
-		return rollDie(attempts + 1);
+		return;
 	}
 	
 	public static void main(String[] args) {
-		rollDie(1);
+		countdown(2147483647);
 	}
 }
