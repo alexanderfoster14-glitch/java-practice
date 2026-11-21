@@ -1,0 +1,432 @@
+Sorting and searching
+
+Linear Search
+
+Linear search algorithm.
+import java.util.Scanner;
+public class LinearSearch {
+   public static int linearSearch(int [] numbers, int key) {
+      int i;
+      
+      for (i = 0; i < numbers.length; ++i) {
+         if (numbers[i] == key) {
+            return i;
+         }
+      }
+      
+      return -1; /* not found */
+   }
+   
+   public static void main(String [] args) {
+      Scanner scnr = new Scanner(System.in);
+      int [] numbers = {2, 4, 7, 10, 11, 32, 45, 87};
+      int i;
+      int key;
+      int keyIndex;
+      
+      System.out.print("NUMBERS: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+      
+      System.out.print("Enter a value: ");
+      key = scnr.nextInt();
+      
+      keyIndex = linearSearch(numbers, key);
+      
+      if (keyIndex == -1) {
+         System.out.println(key + " was not found.");
+      } 
+      else {
+         System.out.println("Found " + key + " at index " + keyIndex + ".");
+      }
+   }
+}
+
+--------------------------------------------------------------------------------------------------------------------
+
+Runtime
+Runtime is the time is take for the algorithm to execute
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+Binary search
+
+Binary search is useful with an orderd lists
+Check the center option first
+
+Binary search algorithm.
+import java.util.Scanner;
+
+public class BinarySearch {
+   public static int binarySearch(int [] numbers, int key) {
+      int mid;
+      int low;
+      int high;
+      
+      low = 0;
+      high = numbers.length - 1;
+
+      while (high >= low) {
+         mid = (high + low) / 2;
+         if (numbers[mid] < key) {
+            low = mid + 1;
+         } 
+         else if (numbers[mid] > key) {
+            high = mid - 1;
+         } 
+         else {
+            return mid;
+         }
+      }
+
+      return -1; // not found
+   }
+
+   public static void main(String [] args) {
+      Scanner scnr = new Scanner(System.in);
+      int [] numbers = {2, 4, 7, 10, 11, 32, 45, 87};
+      int i;
+      int key;
+      int keyIndex;
+
+      System.out.print("NUMBERS: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+
+      System.out.print("Enter a value: ");
+      key = scnr.nextInt();
+
+      keyIndex = binarySearch(numbers, key);
+
+      if (keyIndex == -1) {
+         System.out.println(key + " was not found.");
+      } 
+      else {
+         System.out.println("Found " + key + " at index " + keyIndex + ".");
+      }
+   }
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+Steps required for Binary search at most is
+[log(base 2) N] + 1
+
+------------------------------------------------------------------------------------------------------------------
+
+Big O Notation
+
+Notation: O(1)
+	Name: Constant
+	Example pseudocode
+	FindMin(x, y) {
+	   if (x < y) {
+	      return x
+	   }
+	   else {
+	      return y
+	   }
+	}
+
+Notation: O(log N)
+	Name: Logarithmic
+	Example pseudocode	
+	BinarySearch(numbers, N, key) {
+	   mid = 0;
+	   low = 0;
+	   high = 0;
+	   
+	   high = N - 1;
+	   
+	   while (high >= low) {
+	      mid = (high + low) / 2
+	      if (numbers[mid] < key) {
+	         low = mid + 1
+	      }
+	      else if (numbers[mid] > key) {
+	         high = mid - 1
+	      }
+	      else {
+	         return mid
+	      }
+	   }
+	   
+	   return -1   // not found
+	}
+
+Notation: O(N)
+	Name: Linear
+	Example pseudocode
+	LinearSearch(numbers, N, key) {
+	  for (i = 0; i < N; ++i) {
+	      if (numbers[i] == key) {
+	         return i
+	      }
+	   }
+	   
+	   return -1 // not found
+	}
+
+Notation O(N log N)
+	Name: Log-linear	
+	MergeSort(numbers, i, k) {
+	   j = 0
+	   if (i < k) {
+	      j = (i + k) / 2              // Find midpoint 
+	      
+	      MergeSort(numbers, i, j)     // Sort left part
+	      MergeSort(numbers, j + 1, k) // Sort right part
+	      Merge(numbers, i, j, k)      // Merge parts
+	   }
+	}
+
+Notation: O(N^2)
+	Name: Quadratic	
+	SelectionSort(numbers, N) { 
+	   for (i = 0; i < N; ++i) {
+	      indexSmallest = i
+	      for (j = i + 1; j < N; ++j) {
+	         if (numbers[j] < numbers[indexSmallest]) {
+	            indexSmallest = j
+	         }
+	      }
+	      
+	      temp = numbers[i]
+	      numbers[i] = numbers[indexSmallest]
+	      numbers[indexSmallest] = temp
+	   }
+	}
+
+Notation: O(c^N)
+	Name: Exponential	
+	Fibonacci(N) {
+	  if ((1 == N) || (2 == N)) {
+	    return 1
+	  }
+	  return Fibonacci(N-1) + Fibonacci(N-2)
+	}
+
+-----------------------------------------------------------------------------------------------------
+
+Worst Case Runtime Analysis
+
+------------------------------------------------------------------------------------------------------
+
+Since constants are omitted in big-O notation, any constant number of constant time operations is O(1)
+
+-----------------------------------------------------------------------------------------------------
+
+Sorting
+
+Selection Sort
+
+Selection sort algorithm.
+public class SelectionSort {
+   public static void selectionSort(int [] numbers) {
+      int i;
+      int j;
+      int indexSmallest;
+      int temp;      // Temporary variable for swap
+
+      for (i = 0; i < numbers.length - 1; ++i) {
+
+         // Find index of smallest remaining element
+         indexSmallest = i;
+         for (j = i + 1; j < numbers.length; ++j) {
+
+            if (numbers[j] < numbers[indexSmallest]) {
+               indexSmallest = j;
+            }
+         }
+
+         // Swap numbers[i] and numbers[indexSmallest]
+         temp = numbers[i];
+         numbers[i] = numbers[indexSmallest];
+         numbers[indexSmallest] = temp;
+      }
+   }
+
+   public static void main(String [] args) {
+      int numbers [] = {10, 2, 78, 4, 45, 32, 7, 11};
+      int i;
+
+      System.out.print("UNSORTED: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+
+      /* initial call to selection sort with index */
+      selectionSort(numbers);
+
+      System.out.print("SORTED: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+   }
+}
+
+
+Runtime of Selection Sort is O(N^2)
+
+-------------------------------------------------------------------------------------------------
+
+Insertion Sort
+
+Insertion sort algorithm.
+public class InsertionSort {
+   public static void insertionSort(int [] numbers) {
+      int i;
+      int j;
+      int temp;      // Temporary variable for swap
+
+      for (i = 1; i < numbers.length; ++i) {
+         j = i;
+         // Insert numbers[i] into sorted part 
+         // stopping once numbers[i] in correct position
+         while (j > 0 && numbers[j] < numbers[j - 1]) {
+
+            // Swap numbers[j] and numbers[j - 1]
+            temp = numbers[j];
+            numbers[j] = numbers[j - 1];
+            numbers[j - 1] = temp;
+            --j;
+         }
+      }
+   }
+
+   public static void main(String [] args) {
+      int [] numbers = {10, 2, 78, 4, 45, 32, 7, 11};
+      int i;
+
+      System.out.print("UNSORTED: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+
+      insertionSort(numbers);
+
+      System.out.print("SORTED: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+   }
+}
+
+Typcial runtime is O(N^2)
+
+-------------------------------------------------------------------------------------------------
+
+Quicksort
+
+Quicksort algorithm.
+public class QuickSort {
+   public static int partition(int [] numbers, int i, int k) {
+      int l;
+      int h;
+      int midpoint;
+      int pivot;
+      int temp;
+      boolean done;
+
+      /* Pick middle element as pivot */
+      midpoint = i + (k - i) / 2;
+      pivot = numbers[midpoint];
+
+      done = false;
+      l = i;
+      h = k;
+
+      while (!done) {
+         /* Increment l while numbers[l] < pivot */
+         while (numbers[l] < pivot) {
+            ++l;
+         }
+
+         /* Decrement h while pivot < numbers[h] */
+         while (pivot < numbers[h]) {
+            --h;
+         }
+
+         /* If there are zero or one items remaining,
+            all numbers are partitioned. Return h */
+         if (l >= h) {
+            done = true;
+         } 
+         else {
+            /* Swap numbers[l] and numbers[h],
+               update l and h */
+            temp = numbers[l];
+            numbers[l] = numbers[h];
+            numbers[h] = temp;
+
+            ++l;
+            --h;
+         }
+      }
+
+      return h;
+   }
+
+   public static void quicksort(int [] numbers, int i, int k) {
+      int j;
+
+      /* Base case: If there are 1 or zero entries to sort,
+       partition is already sorted */
+      if (i >= k) {
+         return;
+      }
+
+      /* Partition the data within the array. Value j returned
+         from partitioning is location of last item in low partition. */
+      j = partition(numbers, i, k);
+
+      /* Recursively sort low partition (i to j) and
+         high partition (j + 1 to k) */
+      quicksort(numbers, i, j);
+      quicksort(numbers, j + 1, k);
+   }
+
+   public static void main(String [] args) {
+      int [] numbers = {10, 2, 78, 4, 45, 32, 7, 11};
+      int i;
+
+      System.out.print("UNSORTED: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+
+      /* Initial call to quicksort */
+      quicksort(numbers, 0, numbers.length - 1);
+
+      System.out.print("SORTED: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+   }
+}
+
+Runtime O(N log^N)
+
+-------------------------------------------------------------------------------------------------------
+
+Merge Sort
+
+
+
+
+
+
+
+
+
