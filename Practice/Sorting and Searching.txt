@@ -327,7 +327,27 @@ Typcial runtime is O(N^2)
 
 Quicksort
 
+Quicksort is a sorting algorithm that repeatedly partitions the input into low and high parts (each part unsorted),
+	and then recursively sorts each of those parts.
+	To partition the input, quicksort chooses a pivot to divide the data into low and high parts.
+	The pivot can be any value within the array being sorted, commonly the value of the middle array element.
+	Ex: For the list {4, 34, 10, 25, 1}, the middle element is located at index 2 (the middle of indices 0..4)
+	and has a value of 10.
+
+The partitioning algorithm uses two index variables l and h (low and high),
+	initialized to the left and right sides of the current elements being sorted.
+	As long as the value at index l is less than the pivot value, the algorithm increments l,
+	because the element should remain in the low partition.
+	Likewise, as long as the value at index h is greater than the pivot value, the algorithm decrements h,
+	because the element should remain in the high partition.
+	Then, if l >= h, all elements have been partitioned, and the partitioning algorithm returns h,
+	which is the index of the last element in the low partition. Otherwise, the elements at
+	indices l and h are swapped to move those elements to the correct partitions.
+	The algorithm then increments l, decrements h, and repeats.
+
+
 Quicksort algorithm.
+
 public class QuickSort {
    public static int partition(int [] numbers, int i, int k) {
       int l;
@@ -422,11 +442,182 @@ Runtime O(N log^N)
 
 Merge Sort
 
+Merge sort is a sorting algorithm that divides a list into two halves, recursively sorts each half,
+	and then merges the sorted halves to produce a sorted list.
+	The recursive partitioning continues until a list of 1 element is reached, as list of
+	1 element is already sorted.
+
+3 index values are used to keep track of the variables
+	i is the index of first element in the list
+	k is the index variable of the last element
+	j is the index variable used to divide the list into two halves.
+Elements from i to j are in the left half
+	Elements from j + 1 to k are in the right half.
 
 
+Merge sort algorithm.
+
+public class MergeSort {
+   public static void merge(int [] numbers, int i, int j, int k) {
+      int mergedSize = k - i + 1;       // Size of merged partition
+      int mergedNumbers [] = new int[mergedSize]; // Temporary array for merged numbers
+      int mergePos;                     // Position to insert merged number
+      int leftPos;                      // Position of elements in left partition
+      int rightPos;                     // Position of elements in right partition
+
+      mergePos = 0;
+      leftPos = i;                      // Initialize left partition position
+      rightPos = j + 1;                 // Initialize right partition position
+
+      // Add smallest element from left or right partition to merged numbers
+      while (leftPos <= j && rightPos <= k) {
+         if (numbers[leftPos] <= numbers[rightPos]) {
+            mergedNumbers[mergePos] = numbers[leftPos];
+            ++leftPos;
+         } 
+         else {
+            mergedNumbers[mergePos] = numbers[rightPos];
+            ++rightPos;
+         }
+         ++mergePos;
+      }
+
+      // If left partition is not empty, add remaining elements to merged numbers
+      while (leftPos <= j) {
+         mergedNumbers[mergePos] = numbers[leftPos];
+         ++leftPos;
+         ++mergePos;
+      }
+
+      // If right partition is not empty, add remaining elements to merged numbers
+      while (rightPos <= k) {
+         mergedNumbers[mergePos] = numbers[rightPos];
+         ++rightPos;
+         ++mergePos;
+      }
+
+      // Copy merge number back to numbers
+      for (mergePos = 0; mergePos < mergedSize; ++mergePos) {
+         numbers[i + mergePos] = mergedNumbers[mergePos];
+      }
+   }
+
+   public static void mergeSort(int [] numbers, int i, int k) {
+      int j;
+
+      if (i < k) {
+         j = (i + k) / 2;  // Find the midpoint in the partition
+
+         // Recursively sort left and right partitions
+         mergeSort(numbers, i, j);
+         mergeSort(numbers, j + 1, k);
+
+         // Merge left and right partition in sorted order
+         merge(numbers, i, j, k);
+      }
+   }
+
+   public static void main(String [] args) {
+      int [] numbers = {10, 2, 78, 4, 45, 32, 7, 11};
+      int i;
+
+      System.out.print("UNSORTED: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+
+      /* initial call to merge sort with index */
+      mergeSort(numbers, 0, numbers.length - 1);
+
+      System.out.print("SORTED: ");
+      for (i = 0; i < numbers.length; ++i) {
+         System.out.print(numbers[i] + " ");
+      }
+      System.out.println();
+   }
+}
 
 
+Runtime is O(N log N)
 
+-------------------------------------------------------------------------------------------------------------
 
+Java's sort() method
+
+An array in Java can easily be sorted using the static sort() method of the Arrays class that is available for all arrays.
+	To utilize the sort() method, consider the following code segment.
+
+import java.util.*;
+public class SortTest {
+	public static void main(String[] args) {
+		int [] myarray = {20, 21, 30, 1, 2, 4};
+		for(int i=0;imyarray.length;i++)
+		System.out.print(myarray[i]+ " ");
+		Arrays.sort(myarray);
+		System.out.println();
+		for(int i=0;imyarray.length;i++)
+		System.out.print(myarray[i]+ " ");
+		System.out.println();
+	}
+}
+
+----------------------------------------------------------------------------------------------------------------
+
+Comparator Interface
+
+java.util package
+
+compare(Object obj1,Object obj2)
+equals(Object element)
+
+Consider the Java student class.
+
+class Student {
+	int rollno;
+	String name;
+	int age;
+	
+	Student(int rollno,String name,int age) {  
+		this.rollno=rollno;  
+		this.name=name;  
+		this.age=age;  
+	}
+}
+
+Consider the following main method that stuffs an array list with student objects.
+
+import java.util.*;
+import java.io.*;
+class Simple {
+	public static void main(String args[]) {
+		ArrayList al=new ArrayList();
+		al.add(new Student(101,"Vijay",23));
+		al.add(new Student(106,"Ajay",27));
+		al.add(new Student(105,"Jai",21));
+	}
+}
+
+Suppose you want to sort your array of students by student name.
+	First, you will need a name comparator class.
+
+import java.util.*;
+class NameComparator implements Comparator {
+	public int compare(Object o1,Object o2) {
+		Student s1=(Student)o1;
+		Student s2=(Student)o2;
+		return s1.name.compareTo(s2.name);
+	}
+}
+
+Call your compare method from your main class.
+	To do this, you need 1) an instance of a name comparator class, and 2) an iterator that loops through your array list.
+
+Collections.sort(al,new NameComparator());
+iterator itr = al.iterator();
+while (itr.hasNext()) {
+	Student st = (Student)itr.next();
+	System.out.println(st.rollno+" "+st.name+" "+st.age);
+}
 
 
