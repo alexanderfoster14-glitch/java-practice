@@ -620,4 +620,29 @@ while (itr.hasNext()) {
 	System.out.println(st.rollno+" "+st.name+" "+st.age);
 }
 
+-----------------------------------------------------------------------------------------------------------------
+
+Comparator class
+
+he Java Comparator interface is used to order objects of user-defined class.
+This interface is found in the java.util package and contains two methods, which are:
+
+	compare(Object obj1,Object obj2)
+	equals(Object element)
+
+compare method compares the first object with a second object
+
+import java.util.*;  
+class NameComparator implements Comparator {
+	public int compare(Object o1,Object o2) {
+		Student s1=(Student)o1;
+		Student s2=(Student)o2;
+		return s1.name.compareTo(s2.name);
+	}
+}
+
+------------------------------------------------------------------------------------------------------------------
+
+
+
 

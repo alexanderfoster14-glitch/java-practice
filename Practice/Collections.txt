@@ -1,0 +1,1069 @@
+Collections
+
+Enhanced for loops
+
+The enhanced for loop is a for loop that iterates through each element in an array or Collection.
+	An enhanced for loop is also known as a for each loop.
+	The enhanced for loop declares a new variable that will be assigned with each successive element of a container object,
+		such as an array or ArrayList.
+	The enhanced for loop only allows elements to be accessed forward from the first element to the last element.
+
+Basic example:
+
+ArrayList<String> teamRoster = new ArrayList<String>();
+
+// Adding player names
+teamRoster.add("Mike");
+teamRoster.add("Scottie");
+teamRoster.add("Toni");
+
+System.out.println("Current roster:");
+
+for (String playerName : teamRoster) {
+   System.out.println(playerName);
+}
+
+----------------------------------------------------------------------------------------------------------
+
+Why use an enhances for loop?
+	Readability -> less coding
+	Less prone to making a mistake by trying to access a value outside the array
+
+----------------------------------------------------------------------------------------------------------
+
+Regular for loop:
+
+ArrayList<String> teamRoster = new ArrayList<String>();
+String playerName;
+int i;
+
+// Adding player names
+teamRoster.add("Mike");
+teamRoster.add("Scottie");
+teamRoster.add("Toni");
+
+System.out.println("Current roster: ");
+
+for (i = 0; i < teamRoster.size(); ++i) {
+   playerName = teamRoster.get(i);
+   System.out.println(playerName);
+}
+
+
+Enhanced for loop:
+
+ArrayList<String> teamRoster = new ArrayList<String>();
+
+// Adding player names
+teamRoster.add("Mike");
+teamRoster.add("Scottie");
+teamRoster.add("Toni");
+
+System.out.println("Current roster: ");
+
+for (String playerName : teamRoster) {
+   System.out.println(playerName);
+}
+
+-------------------------------------------------------------------------------------------------------------
+
+Example:
+
+import java.util.ArrayList;
+
+public class ShelterManager {
+   public static void main(String[] args) {
+      ArrayList<String> shelterPets = new ArrayList<String>();
+
+      shelterPets.add("Whiskers");
+      shelterPets.add("Spot");
+      shelterPets.add("Emma");
+
+      System.out.println("Pets:");
+
+      for (String petName : shelterPets) {
+         System.out.println(petName);
+      }
+   }
+}
+
+Output:
+Pets:
+Whiskers
+Spot
+Emma
+
+
+----------------------------------------------------------------------------------------------------------------
+
+Example:
+
+import java.util.ArrayList;
+
+public class Checkout {
+   public static void main(String[] args) {
+      ArrayList<Integer> cartItems = new ArrayList<Integer>();
+      int cartTotal;
+
+      cartTotal = 0;
+
+      cartItems.add(6);
+      cartItems.add(5);
+
+      for (Integer currItem : cartItems) {
+         cartTotal = cartTotal + currItem;
+      }
+
+      System.out.println("Total: " + cartTotal);
+   }
+}
+
+Output:
+Total: 11
+
+-----------------------------------------------------------------------------------------------------------
+
+Example:
+
+import java.util.ArrayList;
+
+public class ValueFilter {
+   public static void main(String[] args) {
+      ArrayList<Integer> userValues  = new ArrayList<Integer>();
+
+      userValues.add(-6);
+      userValues.add(7);
+      userValues.add(6);
+      userValues.add(-4);
+
+      System.out.print("Valid:");
+
+      for (Integer currVal : userValues) {
+         if (currVal < -4) {
+            System.out.print(" " + currVal);
+         }
+      }
+
+      System.out.println();
+   }
+}
+
+Output:
+Valid: -6
+
+--------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Names {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<String> namesList = new ArrayList<String>();
+      int numSize;
+      int i;
+
+      numSize = scnr.nextInt();
+      for (i = 0; i < numSize; ++i) {
+         namesList.add(scnr.next());
+      }
+      
+      for (String nameVal : namesList) {
+         System.out.print("(" + nameVal + ") ");
+      }
+		System.out.println();
+   }
+}
+
+------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Colors {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<String> colorsList = new ArrayList<String>();
+      String allColors;
+      int numSize;
+      int i;
+  
+      numSize = scnr.nextInt();
+      for (i = 0; i < numSize; ++i) {
+         colorsList.add(scnr.next());
+      }
+           
+      allColors = "";
+      for (String colorValue : colorsList) {
+
+         allColors = allColors + colorValue + " ";
+
+      }
+      
+      System.out.println(allColors);
+   }
+}
+
+--------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Heights {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      ArrayList<Double> measurementsCollection = new ArrayList<Double>();
+      ArrayList<Double> inflatedValuesList = new ArrayList<Double>();
+      int numSize;
+      int i;
+  
+      numSize = scnr.nextInt();
+      for (i = 0; i < numSize; ++i) {
+         measurementsCollection.add(scnr.nextDouble());
+      }
+           
+      for (Double currentMeasurement : measurementsCollection) {
+
+         inflatedValuesList.add(currentMeasurement * 3);
+
+      }
+      
+      System.out.println("Values after multiplying by 3.0:");
+
+      for (Double currentMeasurement : inflatedValuesList) {
+         System.out.printf("%.1f ", currentMeasurement);
+      }
+		System.out.println();
+   }
+}
+
+------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class Surnames {
+   // printElements() is a generic method, so can be called with an ArrayList of any type
+   public static <T> void printElements(ArrayList<T> surnamesList) {
+
+      for (var surname : surnamesList) { 
+         System.out.println(surname + " is found");
+      }
+
+   }
+
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      var surnameStrings = new ArrayList<String>();
+      var surnameInitials = new ArrayList<Character>();
+      int numSize;
+      int i;
+
+      numSize = scnr.nextInt();
+      for (i = 0; i < numSize; ++i) {
+         surnameStrings.add(scnr.next());
+      }
+      for (i = 0; i < numSize; ++i) {
+         surnameInitials.add(scnr.next().charAt(0));
+      }
+      
+      printElements(surnameStrings);
+      printElements(surnameInitials);
+   }
+}
+
+------------------------------------------------------------------------------------------
+
+LinkedList
+
+A LinkedList is one of several types that implement the List interface.
+
+A LinkedList can be declared and created as:
+	LinkedList<T> linkedList = new LinkedList<T>();
+
+	T is the LinkedList type
+
+import java.util.LinkedList;
+
+LinkedList supports insertion at the end of a list or at a specific element
+	How is this different from an arraylist?
+
+If an index is not provided,
+	as in authorList.add("Martin");,
+	the add() method adds the element at the end of the list.
+If an index is specified,
+	as in authorList.add(0, "Butler");,
+	the element is inserted at the specified index, with the list element previously located
+	at the specified index appearing after the inserted element.
+
+add()
+get()
+
+The get() method starts at the begining and traverses the entire list
+
+set()
+
+remove()
+
+-------------------------------------------------------------------------------------------------------
+
+Common LinkedList methods.
+
+get()
+	get(index)
+	
+	Returns element at specified index.
+	
+	// Assume List is: 5, 10, 11
+	exList.get(2);	// Returns 11
+
+set()
+	set(index, newElement)
+	
+	Replaces element at specified index with newElement.
+	Returns element previously at specified index.
+
+	// Assume List is: 5, 8, 11
+	exList.set(0, new Integer(3));	// Returns 5
+	// List is now: 3, 8, 11
+
+add()
+	add(newElement)
+	
+	Adds newElement to the end of the List.
+	List's size is increased by one.
+
+	add(index, newElement)
+
+	Adds newElement to the List at the specified index. Indices of the elements previously at that specified index and higher are increased by one. List's size is increased by one.	
+
+	// Assume List is empty
+	exList.add(new Integer(7));		// List is: 7 
+	exList.add(14);					// List is: 7, 14
+	exList.add(0, new Integer(21));	// List is: 21, 7, 14
+	exList.add(2, 9);				// List is: 21, 7, 9, 14
+
+size()
+	size()
+
+	Returns the number of elements in the List.	
+
+	// Assume List is empty
+	exList.size();	// Returns 0
+	exList.add(8);
+	exList.add(22);
+	// List is now: 8, 22
+	exList.size();	// Returns 2
+	
+remove()
+	remove(index)
+
+	Removes element at specified index.
+	Indices for elements from higher positions
+		are decreased by one.
+	List size is decreased by one.
+	Returns reference to element removed from List.
+
+	remove(existingElement)
+
+	Removes the first occurrence of an element which is
+		equal to existingElement.
+	Indices for elements from higher positions are
+		decreased by one.
+	List size is decreased by one.
+	Returns true if specified element was found and removed.
+
+	// Assume List is: 22, 8, 4, 4
+	exList.remove(1);	// Returns 8
+	// List is now: 22, 4, 4
+	exList.remove(5);	// Throws exception
+	// List is still: 22, 4, 4  
+	exList.remove(2);	// Returns 4
+	// List is now: 22, 4
+
+-------------------------------------------------------------------------------------------
+
+Iterating through a linkedlist
+
+LinkedList<String> authorsList = new LinkedList<String>();  
+String authorName;  
+int i;
+ 
+authorsList.add("Gamow");  
+authorsList.add("Greene");  
+authorsList.add("Penrose");        
+
+for (i = 0; i < authorsList.size(); ++i) {     
+   authorName = authorsList.get(i);     
+   System.out.println(authorName);  
+}
+
+----------------------------------------------------------------------------------------------
+
+ListIterator
+
+java.util.ListIterator;
+
+LinkedList<String> authorsList = new LinkedList<String>();  
+String authorName;  
+ListIterator<String> listIterator;
+
+authorsList.add("Gamow");  
+authorsList.add("Greene");  
+authorsList.add("Penrose");
+ 
+listIterator = authorsList.listIterator();
+
+while (listIterator.hasNext()) {     
+   authorName = listIterator.next();     
+   System.out.println(authorName);  
+}
+
+This takes advantage of ListIterator's next() method
+
+---------------------------------------------------------------------------------------------
+
+A ListIterator is located between two elements in a list.
+The next() method returns the next element in the list and moves the ListIterator to the next location.
+The hasNext() method returns true if there is a next element, and false otherwise.
+
+A good practice is to always call hasNext() before calling next() to ensure a list element exists.
+
+LinkedList<String> authorsList = new LinkedList<String>(); 
+String authorName; 
+String upperCaseName; 
+ListIterator<String> listIterator;
+ 
+authorsList.add("Gamow"); 
+authorsList.add("Greene"); 
+authorsList.add("Penrose");
+
+listIterator = authorsList.listIterator(); 
+while (listIterator.hasNext()) {    
+   authorName = listIterator.next();    
+   upperCaseName = authorName.toUpperCase();    
+   listIterator.set(upperCaseName); 
+}
+ 
+listIterator = authorsList.listIterator(); 
+while (listIterator.hasNext()) {    
+   authorName = listIterator.next();    
+   System.out.println(authorName); 
+}
+
+----------------------------------------------------------------------------------------------------
+
+Common ListIterator methods.
+
+next()
+	next()
+	
+	Returns the next element in the List and moves the
+		ListIterator after that element.	
+
+	// Assume exList is:   3 4 
+	exIterator = exList.listIterator();
+	// exList is now:      3 4
+	// Iterator position: ^
+
+	exIterator.next(); // Returns 3
+	// exList is now:      3 4  
+	// Iterator position:   ^
+	
+nextIndex()
+	nextIndex()
+
+	Returns the index of the next element.	
+	// Assume exList is:   3 4
+	// Iterator position: ^
+	
+	exIterator.nextIndex(); // Returns 0
+	
+	exIterator.next();      // Returns 3
+	// exList is now:      3 4
+	// Iterator position:   ^  
+	
+	exIterator.nextIndex(); // Returns 1
+
+previous()
+	previous()
+
+	Returns the previous element in the List and moves
+		the ListIterator before that element.	
+
+	// Assume exList is:   3 4 
+	exIterator = exList.listIterator();
+	// exList is now:      3 4
+	// Iterator position: ^
+	
+	exIterator.next();     // Returns 3
+	// exList is now:      3 4  
+	// Iterator position:   ^
+	
+	exIterator.previous(); // Returns 3
+	// exList is now:      3 4
+	// Iterator position: ^
+
+previousIndex()
+	previousIndex()
+
+	Returns the index of the previous element.	
+	// Assume exList is:    3 4 5
+	// Iterator position:        ^
+	
+	exIterator.previousIndex(); // Returns 2
+	
+	exIterator.previous();      // Returns 5
+	// exList is now:       3 4 5  
+	// Iterator position:      ^
+	
+	exIterator.previousIndex(); // Returns 1
+	
+hasNext()
+	hasNext()
+
+	Returns true if ListIterator has a next element.
+		Otherwise, returns false.	
+	// Assume exList is:   3 4 
+	// Iterator position:   ^
+	exIterator.hasNext(); // Returns true
+	
+	exIterator.next(); // Returns 4
+	// exList is now:      3 4
+	// Iterator position:     ^
+	
+	exIterator.hasNext(); // Returns false
+	
+hasPrevious()
+	hasPrevious()
+
+	Returns true if ListIterator has a previous element.
+		Otherwise, returns false.	
+	// Assume exList is:   3 4 
+	// Iterator position:   ^
+	exIterator.hasPrevious(); // Returns true
+	
+	exIterator.previous(); // Returns '3'
+	// exList is now:      3 4 
+	// Iterator position: ^
+	
+	exIterator.hasPrevious(); // Returns false
+
+add()
+	add(newElement)
+
+	Adds the newElement between the next and previous
+		elements and moves the ListIterator after newElement.	
+	// Assume exList is:   4 5 
+	// Iterator position: ^
+	exIterator.add(3);
+	// exList is now:      3 4 5
+	// Iterator position:   ^
+	
+	exIterator.add(11);
+	// exList is now:      3 11 4 5
+	// Iterator position:      ^
+
+remove()
+	remove()
+
+	Removes the element returned by the prior call to next()
+		or previous().
+	Fails if used more than once per call to next() or
+		previous().
+	Fails if add() has already been called since the last
+		call to next() or previous().	
+	// Assume exList is:   3 4 5
+	// Iterator position:   ^
+	exIterator.next();     // Returns 4
+	// exList is now:      3 4 5
+	// Iterator position:     ^
+	
+	exIterator.remove();   // Removes 4
+	// exList is now:      3 5
+	// Iterator position:   ^
+	
+	exIterator.previous(); // Returns 3
+	// exList is now:      3 5
+	// Iterator position: ^
+	exIterator.remove();   // Removes 3
+	// exList is now:      5
+	// Iterator position: ^
+	
+set()
+	set(newElement)
+
+	Replaces the element returned by the prior call next()
+		or previous() with newElement.	
+	// Assume exList is:   3 4 5
+	// Iterator position:   ^
+	exIterator.next();     // Returns 4
+	// exList is now:      3 4 5
+	// Iterator position:     ^
+	
+	exIterator.set(44); 
+	// exList is now:      3 44 5
+	// Iterator position:      ^
+	exIterator.set(21);
+	// exList is now:      3 21 5
+	// Iterator position:      ^
+	
+	exIterator.previous(); // Returns 21
+	// exList is now:      3 21 5
+	// Iterator position:   ^
+	
+	exIterator.set(15);
+	// exList is now:      3 15 5
+	// Iterator position:   ^
+
+-----------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.LinkedList;
+
+public class MakeLengthList {
+	public static void main(String[] args) {
+		Scanner scnr = new Scanner(System.in);
+		int numIterations;
+		int i;
+		LinkedList<Integer> lengthList = new LinkedList<Integer>();
+		
+		numIterations = scnr.nextInt();
+		
+		for (i = 0; i < (numIterations * 2); ++i) {
+			if (i % 2 == 0) {
+				lengthList.add(48);
+			} else {
+				lengthList.add(27);
+			}
+		}
+		
+		// Traversing a list using indexes
+		for (i = 0; i < lengthList.size(); ++i) {
+			System.out.print(lengthList.get(i) + " ");
+		}
+		System.out.println();
+	}
+}
+
+Output:
+48 27 48 27 48 27 48 27 48 27 48 27
+
+---------------------------------------------------------------------------------------------------------------
+
+LinkedList vs. ArrayList
+
+LinkedList and ArrayList are ADTs implementing the List interface.
+Although both LinkedList and ArrayList implement a List, a programmer should select the implementation
+	that is appropriate for the intended task.
+A LinkedList typically provides faster element insertion and removal at the list's ends
+	(and middle if using ListIterator), whereas an ArrayList offers faster positional access with indices.
+In this material, we use the LinkedList class, but the examples can be modified to use ArrayList.
+
+-------------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.LinkedList;
+
+public class LengthList {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      LinkedList<Integer> lengthList = new LinkedList<Integer>();
+      int numLengths;
+		int idxLength;	
+		int i;
+
+      numLengths = scnr.nextInt();
+
+      for (i = 0; i < numLengths; ++i) {
+         lengthList.add(scnr.nextInt());
+      }
+
+		idxLength = scnr.nextInt();
+
+      if (idxLength < lengthList.size() && idxLength >= 0) {
+         lengthList.remove(idxLength);
+      }
+      
+      for (i = 0; i < lengthList.size(); ++i) {
+         lengthList.set(i, lengthList.get(i)+2);
+      }
+
+		// Traversing a list using indexes
+		for (i = 0; i < lengthList.size(); ++i) {
+			System.out.print(lengthList.get(i) + " ");
+		}
+      System.out.println();
+   }
+}
+
+
+Ex: If the input is:
+	6
+	19 15 42 13 47 18
+	-1
+
+Then the output is:
+	21 17 44 15 49 20 
+
+---------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.ListIterator;
+
+public class LengthList {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      LinkedList<Integer> lengthList = new LinkedList<Integer>();
+      ListIterator<Integer> listIterator;
+      int numLengths;
+      int lengthValue;
+      int i;
+
+      numLengths = scnr.nextInt();
+      for (i = 0; i < numLengths; ++i) {
+         lengthList.add(scnr.nextInt());
+      }
+
+      listIterator = lengthList.listIterator();
+      while (listIterator.hasNext()) {
+
+         lengthValue = listIterator.next();
+         listIterator.set(lengthValue * 5);
+
+      }
+      
+		listIterator = lengthList.listIterator();
+		while (listIterator.hasNext()) {
+			lengthValue = listIterator.next();
+			System.out.print(lengthValue + " ");
+		}
+		System.out.println();
+   }
+}
+
+
+Ex: If the input is:
+	6
+	26 29 47 28 45 15
+
+Then the output is:
+	130 145 235 140 225 75 
+
+-----------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.ListIterator;
+
+public class HeightsList {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      LinkedList<Integer> heightList = new LinkedList<Integer>();
+      ListIterator<Integer> heightIterator;
+      int i;
+      int nextIndex;
+      int previousIndex;
+
+      for (i = 0; i < 6; ++i) {
+         heightList.add(scnr.nextInt());
+      }
+
+      /* Your code goes here */
+      heightIterator = heightList.listIterator();
+      while(heightIterator.hasNext()) {
+         heightIterator.next();
+      }
+      
+      heightIterator.remove();
+
+      previousIndex = heightIterator.previousIndex();
+      nextIndex = heightIterator.nextIndex();
+
+      System.out.print("List contains:");
+      heightIterator = heightList.listIterator();
+      while (heightIterator.hasNext()) {
+         System.out.print(" " + heightIterator.next());
+      }
+      System.out.println();
+      if (nextIndex == heightList.size()) {
+         System.out.println("heightIterator is at the end of the list.");
+      }
+      else {
+         System.out.println("heightIterator is between " + heightList.get(previousIndex) + " and " + heightList.get(nextIndex) + ".");
+      }
+   }
+}
+
+Ex: If the input is 15 35 26 17 25 33, then the output is:
+
+List contains: 15 35 26 17 25
+heightIterator is at the end of the list.
+
+---------------------------------------------------------------------------------------------------------------------------
+
+HashMap
+
+Map interface
+
+import java.util.HashMap;	//enables use of a HashMap
+
+HashMap<K, V> hashMap = new HashMap<K, V>();
+	K represents the HashMap's key type
+	V represents the HashMap's value type
+	
+put()
+	Associates a key with a specific value
+	Creates a new key if one is not already existing
+	At most, 1 value for a key
+
+get()
+	returns the value associated with a kay
+	example:
+		statePopulation.get("CA");
+
+How is this different from just naming a value?
+
+----------------------------------------------------------------------------------------------------------------
+
+HashMap<String, Integer> statePopulation = new HashMap<String, Integer>();
+
+// 2013 population data from census.gov
+statePopulation.put("CA", 38332521);
+statePopulation.put("AZ", 6626624);
+statePopulation.put("MA", 6692824);
+
+System.out.print("Population of Arizona in 2013 is ");
+System.out.print(statePopulation.get("AZ"));
+System.out.println(".");
+
+Like instead of listing the element #, you just get the key?
+
+----------------------------------------------------------------------------------------------------------------
+
+import java.util.HashMap;
+
+public class StatePopulations {
+   public static void main (String[] args) {
+      HashMap<String, Integer> statePopulation = new HashMap();
+
+      // 2013 population data from census.gov
+      statePopulation.put("CA", 38332521);
+      statePopulation.put("AZ", 6626624);
+      statePopulation.put("MA", 6692824);
+
+      System.out.print("Population of Arizona in 2013 is ");
+      System.out.print(statePopulation.get("AZ"));
+      System.out.println(".");
+
+      // 2014 estimated population
+      statePopulation.put("AZ", 6871809);
+
+      System.out.print("Population of Arizona in 2014 is ");
+      System.out.print(statePopulation.get("AZ"));
+      System.out.println(".");
+   }
+}
+
+--------------------------------------------------------------------------------------------
+
+Examples on syntax
+
+HashMap<String, Integer> playerScores = new HashMap<String, Integer>();
+playerScores.put("Jake", 14);
+playerScores.put("Pat", 26);
+playerScores.put("Hachin", 60);
+playerScores.put("Michiko", 21);
+playerScores.put("Pat", 31);
+
+playerScores.put("Kira", 1);
+
+highScore = playerScores.get("Hachin");
+
+playerScores.put("Jake", 34);
+
+------------------------------------------------------------------------------------------
+
+There is no "update" or "set", it's just put() because it's at most 1 value per key.
+	So you can never have duplicates?
+
+---------------------------------------------------------------------------------------
+
+get() for a map returns null if it does not have a key.
+
+----------------------------------------------------------------------------------------
+
+constainsKey(<key>); checks if a key exists
+
+statePopulation.containsKey("NY");
+
+-------------------------------------------------------------------------------------------
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class RunDistTimeMap {
+   public static void main (String[] args) {
+      HashMap<Integer, Double> raceTimes = new HashMap<Integer, Double>();
+      Scanner scnr = new Scanner(System.in);
+      int userDistKm;
+      
+      raceTimes.put(5, 23.14);
+      raceTimes.put(15, 78.5);
+      raceTimes.put(25, 120.75);
+      
+      System.out.println("Enter race distance in km (0 to exit): ");
+      userDistKm = scnr.nextInt();
+
+      while(userDistKm != 0) {
+
+         System.out.print("Best time for " + userDistKm + " km race is: ");
+         System.out.print(raceTimes.get(userDistKm));
+         System.out.println(" minutes.");
+         System.out.println();
+         
+         System.out.println("Enter race distance in km (0 to exit): ");
+         userDistKm = scnr.nextInt();         
+      }      
+   }
+}
+
+----------------------------------------------------------------------------------------
+
+More example syntax
+
+HashMap<Integer, Double> raceTimes = new HashMap<Integer, Double>();
+      
+raceTimes.put(5, 23.14);
+raceTimes.put(15, 78.5);
+raceTimes.put(25, 120.75);
+
+raceTimes.containsKey(10);
+	//return false
+
+raceTimes.constainsKey(5);
+	//returns true
+
+raceTimes.get(7);
+	//returns null
+
+
+get() and containsKey()
+	get() returns the value associated with the key
+	containsKey() return true or false if the key exists
+
+
+-------------------------------------------------------------------------------
+
+Common HashMap methods.
+
+put()
+	put(key, value) 
+Associates key with specified value. If key already exists, replaces previous value with specified value.	
+// Map originally empty
+exMap.put("Tom", 14); 
+// Map now: Tom->14,  
+exMap.put("John", 86); 
+// Map now: Tom->14, John->86
+
+putIfAbsent()
+	putIfAbsent(key, value) 
+Associates key with specified value if the key does not already exist or is mapped to null.	
+// Assume Map is: Tom->14, John->86
+exMap.putIfAbsent("Tom", 20); 
+// Key "Tom" already exists. Map is unchanged.
+exMap.putIfAbsent("Mary", 13); 
+// Map is now: Tom->14, John->86, Mary->13
+
+get()
+	get(key)
+Returns the value associated with key. If key does not exist, return null.	
+// Assume Map is: Tom->14, John->86, Mary->13
+exMap.get("Tom")  // returns 14 
+exMap.get("Bob")  // returns null
+
+containsKey()
+	containsKey(key) 
+Returns true if key exists, otherwise returns false.	
+// Assume Map is: Tom->14, John->86, Mary->13
+exMap.containsKey("Tom")  // returns true 
+exMap.containsKey("Bob")  // returns false
+
+containsValue()
+	containsValue(value) 
+Returns true if at least one key is associated with the specified value, otherwise returns false.	
+// Assume Map is: Tom->14, John->86, Mary->13
+exMap.containsValue(86)  // returns true (key "John" associated with value 86)
+exMap.containsValue(17)  // returns false (no key associated with value 17)
+
+remove()
+	remove(key) 
+Removes the map entry for the specified key if the key exists.	
+// Assume Map is: Tom->14, John->86, Mary->13
+exMap.remove("John");  
+// Map is now: Tom->14, Mary->13
+
+clear()
+	clear() 
+Removes all map entries.	
+// Assume Map is: Tom->14, John->86, Mary->13
+exMap.clear();  
+// Map is now empty
+
+keySet()
+	keySet() 
+Returns a Set containing all keys within the map.	
+// Assume Map is: Tom->14, John->86, Mary->13
+keys = exMap.keySet();
+// keys contains: "Tom", "John", "Mary"
+
+values()
+	values() 
+Returns a Collection containing all values within the map.	
+// Assume Map is: Tom->14, John->86, Mary->13
+values = exMap.values();
+// values contains: 14, 86, 13
+
+----------------------------------------------------------------------------------------------
+
+import java.util.HashMap;
+
+public class AirportCodes {
+   public static void main (String[] args) {
+      HashMap<String, String> airportCode = new HashMap<String, String>();
+
+      airportCode.put("IWJ", "Iwami, Japan");
+      airportCode.put("ALB", "Albany, USA");
+      airportCode.put("GRX", "Granada, Spain");
+
+      System.out.print("IWJ: ");
+      System.out.println(airportCode.get("IWJ"));
+
+      airportCode.put("ALB", "Ambler, USA");
+
+      System.out.print("ALB: ");
+      System.out.println(airportCode.get("ALB"));
+   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
