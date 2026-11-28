@@ -1047,18 +1047,759 @@ public class AirportCodes {
    }
 }
 
+-------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashMap;
+
+public class Capitals {
+   public static void main (String[] args) {
+      HashMap<String, String> provinceCapital = new HashMap<String, String>();
+      Scanner scnr = new Scanner(System.in);
+      String provinceName;
+
+      provinceCapital.put("Nunavut", "Iqaluit");
+      provinceCapital.put("Ontario", "Toronto");
+      provinceCapital.put("Quebec", "Quebec City");
+      provinceCapital.put("Alberta", "Edmonton");
+
+      provinceName = scnr.next();
+      while (!provinceName.equals("exit")) {
+         if (provinceCapital.containsKey(provinceName)) {
+            System.out.print(provinceName + ": ");
+            System.out.println(provinceCapital.get(provinceName));
+         }
+         else {
+            System.out.println(provinceName + ": n/a");
+         }
+         provinceName = scnr.next();
+      }
+   }
+}
+
+------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashMap;
+
+public class Capitals {
+   public static void main (String[] args) {
+      HashMap<String, String> countryCapital = new HashMap<String, String>();
+      Scanner scnr = new Scanner(System.in);
+      String countryName;
+
+      countryCapital.put("Spain", "Madrid");
+      countryCapital.put("Italy", "Rome");
+      countryCapital.put("Peru", "Lima");
+      countryCapital.putIfAbsent("Peru", "Santiago");
+      countryCapital.putIfAbsent("Austria", "Vienna");
+
+      countryName = scnr.next();
+      while (!countryName.equals("exit")) {
+         System.out.print(countryName + ": ");
+         System.out.println(countryCapital.get(countryName));
+         countryName = scnr.next();
+      }
+   }
+}
+
+-------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashMap;
+
+public class GradingNotes {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      double examScore;
+      String remarksGiven;
+      int numToRead;
+      int i;
+      /* Any variable declarations go here */
+      HashMap<Double, String> scoreComments = new HashMap<Double, String>();
+
+      /* Your code goes here */
+      numToRead = scnr.nextInt();
+      
+      for (i = 0; i < numToRead; ++i) {
+         scoreComments.putIfAbsent(scnr.nextDouble(), scnr.next());
+      }
+
+      // For each key in the HashMap, retrieve the value associated with the key
+      for (Double key : scoreComments.keySet()) {
+         System.out.println("Key: " + key + ", Value: " + scoreComments.get(key));
+      }
+   }
+}
+
+Ex: If the input is:
+
+3
+64.0 fair 66.5 fair 66.5 acceptable
+then one possible output is:
+
+Key: 64.0, Value: fair
+Key: 66.5, Value: fair
+
+----------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashMap;
+
+public class RoomReservation {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashMap<String, Character> guestReservation = new HashMap<String, Character>();
+      String guestName;
+      char room;
+      int numToRead;
+      int i;
+
+      numToRead = scnr.nextInt();
+      for (i = 0; i < numToRead; ++i) {
+         guestName = scnr.next();
+         room = scnr.next().charAt(0);
+         guestReservation.put(guestName, room);
+      }
+
+      System.out.print("All keys found: ");
+
+      /* Your code goes here */
+      for (String key : guestReservation.keySet()) {
+         System.out.print(key + " ");
+      }
+
+		System.out.println();
+
+   }
+}
+
+------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashMap;
+
+public class CharityDonations {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashMap<String, Integer> charityDonations = new HashMap<String, Integer>();
+      String donorName;
+      int giftValue;
+      int numToRead;
+      int i;
+
+		numToRead = scnr.nextInt();
+		for (i = 0; i < numToRead; ++i) {
+			donorName = scnr.next();
+			giftValue = scnr.nextInt();
+			charityDonations.put(donorName, giftValue);
+		}
+
+		if( charityDonations.get("Ani") != null) {
+		   System.out.print("Ani's value: ");
+		   System.out.println(charityDonations.get("Ani"));
+		} else {
+		   System.out.println("Ani: not a key");
+		}
+
+   }
+}
+
+Ex: If the input is:
+
+4
+Pat 240 Ana 180 Tia 75 Ani 65
+then the output is:
+
+Ani's value: 65
+
+--------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashMap;
+
+public class Word2Num {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashMap<String, Integer> wordToInteger = new HashMap<String, Integer>();
+		int sum;
+		String firstDigit;
+		String secondDigit;
+      int dataCount;
+      int i;
+
+      dataCount = scnr.nextInt();
+      for (i = 0; i < dataCount; ++i) {
+         wordToInteger.put(scnr.next(), scnr.nextInt());
+      }
+		firstDigit = scnr.next();
+		secondDigit = scnr.next();
+
+      /* Your code goes here */
+      if (wordToInteger.containsKey(firstDigit) &&
+    wordToInteger.containsKey(secondDigit)) {
+
+    sum = wordToInteger.get(firstDigit) + wordToInteger.get(secondDigit);
+
+    System.out.println("The number is: " + sum);
+}
+else {
+    System.out.println("Conversion failed.");
+}
+
+   }
+}
+
+Ex: If the input is:
+
+10
+seventy 70 one 1 two 2 three 3 four 4 five 5 six 6 seven 7 eight 8 nine 9
+seventy four
+then the output is:
+
+The number is: 74
 
 
 
+Input
+10
+eighty 80 one 1 two 2 three 3 four 4 five 5 six 6 seven 7 eight 8 nine 9
+eighty one
+
+Your output
+The number is: 81
 
 
+Input
+10
+thirty 30 one 1 two 2 three 3 four 4 five 5 six 6 seven 7 eight 8 nine 9
+eighty two
+
+Your output
+Conversion failed.
+
+----------------------------------------------------------------------------------
+
+HashSet
+
+Set interface
+
+import java.util.HastSet;	//enables use of HashSet
+
+HastSet<T> hashSet = new HashSet<T>;
+	T represents the HashSet's type
+
+The Set interface supports methods for adding and removing elements,
+	as well as querying if a set contains an element.
+
+A programmer may use a set to store employee names and use that set
+	to determine which customers are eligible for employee discounts.
+
+Example:
+
+import java.util.HashSet;
+
+public class BookCollection {
+   public static void main(String[] args) {
+      HashSet<String> ownedBooks = new HashSet<String>();
+
+      ownedBooks.add("A Tale of Two Cities");
+      ownedBooks.add("The Lord of the Rings");
+
+      System.out.println("Contains \"A Tale of Two Cities\": " +
+                         ownedBooks.contains("A Tale of Two Cities"));
+
+      ownedBooks.remove("The Lord of the Rings");
+
+      System.out.println("Contains \"The Lord of the Rings\": " +
+                         ownedBooks.contains("The Lord of the Rings"));
+   }
+}
+
+Output:
+
+Contains "A Tale of Two Cities": true
+Contains "The Lord of the Rings": false
+
+---------------------------------------------------------------------
+
+Syntax examples:
+
+HashSet<Integer> employeeIDs = new HashSet<Integer>();
+employeeIDs.add(1001);
+employeeIDs.add(1002);
+employeeIDs.add(1003);
+
+employeeIDs.add(1337);
+
+employeeIDs.remove(1002);
+
+------------------------------------------------------------------------------------
+
+add()
+	does not duplicate elements to a set
+	if an attempt to add() a duplicate, the method return false;
+		Otherwise, it return true (meaning it was added)
+		
+remove()
 
 
+------------------------------------------------------------------------------------------
+
+Example:
+
+A set does not contain duplicate items. The add() method adds an item only if the item does not already exist. add() returns true if item added, else returns false.
+import java.util.HashSet;
+
+public class HashSetAddRemoveResult {
+   public static void main(String[] args) {
+      HashSet<String> ownedBooks = new HashSet<String>();
+      boolean addResult;
+      boolean removeResult;
+
+      ownedBooks.add("A Tale of Two Cities");
+      ownedBooks.add("The Lord of the Rings");
+      ownedBooks.add("Le Petit Prince");
+
+      addResult = ownedBooks.add("Le Petit Prince");
+      System.out.println("Added \"Le Petit Prince\" again: " + addResult);
+  
+      removeResult = ownedBooks.remove("The Hobbit");
+      System.out.println("Removed \"The Hobbit\": " + removeResult);
+   }
+}
+
+Output:
+
+Added "Le Petite Prince" again: false
+Removes "The Hobbit": false
+
+--------------------------------------------------------------------------------
+
+Use only remove() to check if the user's guess is in the set.
+
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class GuessTheNumbers {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashSet<Integer> numbersToGuess = new HashSet<Integer>();
+      int userGuess;
+      
+      numbersToGuess.add(3);
+      numbersToGuess.add(5);
+      numbersToGuess.add(1);
+      
+      System.out.print("Enter a number between 1 to 10 (0 to exit): ");
+      userGuess = scnr.nextInt();
+      
+      while (userGuess != 0) {
+         // Check user's guess
+         if (numbersToGuess.contains(userGuess)) {
+            numbersToGuess.remove(userGuess);
+            
+            System.out.println("Good guess! " + numbersToGuess.size() + 
+                               " number(s) remaining.");
+         }
+         else {
+            System.out.println("Incorrect guess. " + numbersToGuess.size() + 
+                               " number(s) remaining.");
+         }
+
+         System.out.println();
+         
+         // Exit if no numbers are left, otherwise ask again
+         if (numbersToGuess.size() == 0) {
+            break;
+         }
+         else {
+            System.out.print("Enter a number between 1 to 10 (0 to exit): ");
+            userGuess = scnr.nextInt();
+         }
+      }
+      
+      // Print victory/failure message
+      if (userGuess != 0) {
+         System.out.println("You won!");
+      }
+      else {
+         System.out.println("Quitters always lose!");
+      }
+   }
+}
+
+Output:
+
+Enter a number between 1 to 10 (0 to exit): Good guess! 2 number(s) remaining.
+
+Enter a number between 1 to 10 (0 to exit): Incorrect guess. 2 number(s) remaining.
+
+Enter a number between 1 to 10 (0 to exit): Good guess! 1 number(s) remaining.
+
+Enter a number between 1 to 10 (0 to exit): Good guess! 0 number(s) remaining.
+
+You won!
 
 
+----------------------------------------------------------------------------------------
 
+Common HashSet methods.
 
+add()
+	add(element) 
+If element does not exist, adds element to the set and returns true. If element already exists, returns false.	
+// Set originally empty
+exSet.add("Kasparov"); // returns true (element "Kasparov" does not exist)
+// Set is now: Kasparov  
+exSet.add("Kasparov"); // returns false (element "Kasparov" already exists)
+// Set is unchanged
 
+remove()
+	remove(element) 
+If element exists, removes element from the set and returns true. If the element does not exist, returns false.	
+// Assume Set is: Kasparov, Fisher
+exSet.remove("Fisher");  // returns true (element "Fisher" exists)
+// Set is now: Kasparov
+exSet.remove("Carlsen"); // returns false (element "Carlsen" does not exist)
+// Set is unchanged
+
+contains()
+	contains(element)
+Returns true if element exists, otherwise returns false.	
+// Assume Set is: Kasparov, Fisher, Carlsen
+exSet.contains("Carlsen")  // returns true 
+exSet.contains("Anand")  // returns false
+
+size()
+	size() 
+Returns the number of elements in the set.	
+// Set originally empty
+exSet.size(); // returns 0
+exSet.add("Nakamura"); 
+exSet.add("Carlsen");
+// Set is now: Nakamura, Carlsen
+exSet.size(); // returns 2
+
+--------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashSet;
+
+public class LanguagesSet {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashSet<String> languages = new HashSet<String>();
+      String userInput;
+
+      userInput = scnr.nextLine();
+      while (userInput.compareTo("done") != 0) {
+         if (languages.add(userInput)) {
+            System.out.println("a");
+         }
+         else {
+            System.out.println("n");
+         }
+         userInput = scnr.nextLine();
+      }
+
+      System.out.println("Size: " + languages.size());
+   }
+}
+
+Input:
+German
+Korean
+Korean
+Korean
+Hindi
+Bengali
+Russian
+done
+
+Output:
+a
+a
+n
+n
+a
+a
+a
+Size: 5
+
+------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashSet;
+
+public class LanguagesSet {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashSet<String> languages = new HashSet<String>();
+      String userInput;
+
+      userInput = scnr.nextLine();
+      while (userInput.compareTo("done") != 0) {
+         if (languages.add(userInput)) {
+            System.out.println("a");
+         }
+         else {
+            System.out.println("n");
+         }
+         userInput = scnr.nextLine();
+      }
+
+      System.out.println("Size: " + languages.size());
+   }
+}
+
+Input:
+Spanish
+English
+German
+Hindi
+German
+Bengali
+done
+
+Output:
+a
+a
+a
+a
+n
+a
+Size: 5
+
+-------------------------------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashSet;
+
+public class OfficeLocations {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashSet<String> offices = new HashSet<String>();
+      String userInput;
+
+      offices.add("Sydney");
+      offices.add("Vancouver");
+      offices.add("Atlanta");
+      offices.add("Mumbai");
+      offices.add("Moscow");
+
+      userInput = scnr.nextLine();
+      while (userInput.compareTo("done") != 0){
+         if (offices.contains(userInput)) {
+            System.out.println("c");
+         }
+        else {
+           System.out.println("n");
+         }
+         userInput = scnr.nextLine();
+      }
+
+      System.out.println("Size: " + offices.size());
+   }
+}
+
+Input:
+Atlanta
+Moscow
+Bangalore
+done
+
+Output:
+
+c
+c
+n
+Size: 5
+
+--------------------------------------------------------------------------------------
+
+import java.util.Scanner;
+import java.util.HashSet;
+
+public class GroceryList {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashSet<String> groceries = new HashSet<String>();
+      String userInput;
+
+      groceries.add("cereal");
+      groceries.add("soda");
+      groceries.add("eggs");
+      groceries.add("noodles");
+      groceries.add("ham");
+      groceries.add("milk");
+
+      userInput = scnr.nextLine();
+      while (userInput.compareTo("done") != 0){
+         if (groceries.remove(userInput)) {
+            System.out.println("r");
+         }
+         else {
+            System.out.println("n");
+         }
+         userInput = scnr.nextLine();
+      }
+
+      System.out.println("Size: " + groceries.size());
+   }
+}
+
+Input
+chips
+tomatoes
+bananas
+eggs
+done
+
+Output:
+n
+n
+n
+r
+Size: 5
+
+-------------------------------------------------------------------------------------
+
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Ages {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashSet<Integer> ageSet = new HashSet<Integer>();
+      int numElements;
+      int age;
+		boolean duplicateEntered;
+		int i;
+      
+      numElements = scnr.nextInt();
+		duplicateEntered = false;
+      
+      for (i = 0; i < numElements; ++i) {
+			if (!duplicateEntered) {
+         	age = scnr.nextInt();
+
+         	/* Your code goes here */
+         	if (ageSet.add(age)) {
+         	   System.out.println("Age entered: " + age);
+			   } else {
+			      System.out.println("Duplicate encountered: " + age);
+			      duplicateEntered = true;
+            }
+      	}
+		}
+   }
+}
+
+Ex: If the input is:
+
+3
+72 72 51
+then the output is:
+
+Age entered: 72
+Duplicate encountered: 72
+
+----------------------------------------------------------------------------------
+
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Weights {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashSet<Integer> uniqueWeights = new HashSet<Integer>();
+      int setSize;
+		int deleteWeight;
+		int withdrawn;
+      int i;
+
+      uniqueWeights.add(67);
+		uniqueWeights.add(13);
+		uniqueWeights.add(53);
+		
+		setSize = scnr.nextInt();
+		withdrawn = 0;
+
+      for (i = 0; i < setSize; ++i) {
+         deleteWeight = scnr.nextInt();
+
+      	/* Your code goes here */
+      	if(uniqueWeights.remove(deleteWeight)) {
+      	   System.out.println(deleteWeight + " is deleted");
+      	   withdrawn++;
+      	} else {
+      	   System.out.println(deleteWeight + " is not on the chart");
+      	}
+
+      }
+		System.out.println("Total withdrawn: " + withdrawn);
+   }
+}
+
+Ex: If the input is:
+
+5
+36 63 57 13 67
+then the output is:
+
+36 is not on the chart
+63 is not on the chart
+57 is not on the chart
+13 is deleted
+67 is deleted
+Total withdrawn: 2
+
+------------------------------------------------------------------------------------------------
+
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class Countries {
+   public static void main(String[] args) {
+      Scanner scnr = new Scanner(System.in);
+      HashSet<String> countriesToVisit = new HashSet<String>();
+      int setSize;
+      String country;
+		int i;
+      
+      countriesToVisit.add("France");
+		countriesToVisit.add("Malta");
+		countriesToVisit.add("Peru");
+		countriesToVisit.add("Yemen");
+		countriesToVisit.add("Egypt");
+		
+		setSize = scnr.nextInt();
+
+      /* Your code goes here */
+      for (i = 0; i < setSize; i++) {
+         country = scnr.next();
+         if(countriesToVisit.contains(country)) {
+            System.out.println(country + " is on the itinerary");
+         } else {
+            System.out.println(country + " is not on the itinerary");
+         }
+      }
+
+   }
+}
+
+Ex: If the input is:
+
+3
+Brazil France Spain
+then the output is:
+
+Brazil is not on the itinerary
+France is on the itinerary
+Spain is not on the itinerary
+
+---------------------------------------------------------------------------------
 
 
 

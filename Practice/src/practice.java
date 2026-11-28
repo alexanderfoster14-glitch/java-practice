@@ -1,53 +1,17 @@
-import java.util.Scanner;
+import java.util.HashMap;
 
 public class practice {
-   public static int binarySearch(int [] numbers, int key) {
-      int mid;
-      int low;
-      int high;
-      
-      low = 0;
-      high = numbers.length - 1;
+   public static void main (String[] args) {
+      HashMap<String, Integer> stateCountyCount = new HashMap();
 
-      while (high >= low) {
-         mid = (high + low) / 2;
-         if (numbers[mid] < key) {
-            low = mid + 1;
-         } 
-         else if (numbers[mid] > key) {
-            high = mid - 1;
-         } 
-         else {
-            return mid;
-         }
-      }
+      stateCountyCount.put("CO", 63);	//Incorrect according to Google
+      stateCountyCount.put("CO", 64);	//Corrected
+      stateCountyCount.put("LA", 64);	//Key is different from Colorado
+      stateCountyCount.put("MI", 83);
+      stateCountyCount.put("NY", 62);
 
-      return -1; // not found
-   }
-
-   public static void main(String [] args) {
-      Scanner scnr = new Scanner(System.in);
-      int [] numbers = {1, 2, 3, 5, 4};
-      int i;
-      int key;
-      int keyIndex;
-
-      System.out.print("NUMBERS: ");
-      for (i = 0; i < numbers.length; ++i) {
-         System.out.print(numbers[i] + " ");
-      }
-      System.out.println();
-
-      System.out.print("Enter a value: ");
-      key = scnr.nextInt();
-
-      keyIndex = binarySearch(numbers, key);
-
-      if (keyIndex == -1) {
-         System.out.println(key + " was not found.");
-      } 
-      else {
-         System.out.println("Found " + key + " at index " + keyIndex + ".");
-      }
+      System.out.print("The number of counties in Colorado is: ");
+      System.out.print(stateCountyCount.get("CO"));
+      System.out.println(".");
    }
 }
